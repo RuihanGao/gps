@@ -1024,3 +1024,26 @@ feel like the policy search is not working well, trying to dive into the GPS
 
 *Others*
 * [Tensorflow vs PyTorch](https://medium.com/@UdacityINDIA/tensorflow-or-pytorch-the-force-is-strong-with-which-one-68226bb7dab4)
+* Obtain a MuJoco trial license. One step is to run a downloaded program called `getid_linux` <br/>
+Initiallly, use `sudo getid_linux`, but since it is a program not a file, it doesn't work. <br/>
+Use `./getid_linux` instead and get error `bash: ./getid_linux: Permission denied` <br/>
+Soln: `chmod u+x program_name` or `sudo chmod +x program_name` followed by `./program_name` <br/>
+then successfully get the id required 
+* When I try to copy the `mujoco` folder to `gps`, it's locked and unable to directly change permission in `Properties` tab. <br/>
+To change folder permission
+```
+1 - Open the Terminal
+Enter the following command;
+2 - sudo -i
+You have now become Root
+Enter The following command;
+3 - gksudo nautilus
+The nautilus file manager will now open, go to the folder you wish to change permissions on.
+Right click on the folder and select Properties, click on the Permissions tab.
+In the Owner part, click on File Access and set it to Read & Write, then click on Apply Permissions To Enclosed Files.
+Close Terminal
+```
+* after copying, the mujoco simulation example can be run in its own folder (observe the directory hierachy and command to navigate to correct path) <br/>
+but `cmake` fails and running example fails in `gps`, get error `CMake Error at /usr/share/cmake-3.5/Modules/FindPythonLibs.cmake:64 (get_filename_component): get_filename_component called with incorrect number of arguments Call Stack (most recent call first): Boost.NumPy/CMakeLists.txt:14 (find_package)` <br/>
+`ubuntu LIB: /usr/lib/x86_64-linux-gnu/libboost_python.so -- Could NOT find osg (missing: OSG_LIBRARY OSG_INCLUDE_DIR) -- Could NOT find osgViewer (missing: OSGVIEWER_LIBRARY OSGVIEWER_INCLUDE_DIR) -- Could NOT find OpenThreads (missing: OPENTHREADS_LIBRARY OPENTHREADS_INCLUDE_DIR) -- Could NOT find osgGA (missing: OSGGA_LIBRARY OSGGA_INCLUDE_DIR) osg includes: OSG_INCLUDE_DIR-NOTFOUND CMake Error: The following variables are used in this project, but they are set to NOTFOUND.` <br/>
+[Related issue 1](https://github.com/cbfinn/gps/issues/28) [Possible soln 2](https://stackoverflow.com/questions/40460841/linking-of-openscenegraph-libraries-for-cmake)

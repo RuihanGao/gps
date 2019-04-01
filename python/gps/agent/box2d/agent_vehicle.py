@@ -1,47 +1,47 @@
-""" This file defines an agent for the Box2D simulator. """
+""" This file defines an agent for the vehicle simulator. """
 from copy import deepcopy
 import numpy as np
 from gps.agent.agent import Agent
 from gps.agent.agent_utils import generate_noise, setup
-from gps.agent.config import AGENT_BOX2D
-from gps.proto.gps_pb2 import ACTION
+from gps.agent.config import AGENT_VEH
+# from gps.proto.gps_pb2 import ACTION
 from gps.sample.sample import Sample
 
 
-
-class AgentBox2D(Agent):
-    """
-    All communication between the algorithms and Box2D is done through
+class AgentVeh(Agent):
+	"""
+    All communication between the algorithms and Vehicle is done through
     this class.
     """
     def __init__(self, hyperparams):
-        config = deepcopy(AGENT_BOX2D)
-        config.update(hyperparams)
-        Agent.__init__(self, config)
+	    config = deepcopy(AGENT_VEH)
+	    config.update(hyperparams)
+	    Agent.__init__(self, config)
 
-        self._setup_conditions()
-        self._setup_world(self._hyperparams["world"],
-                          self._hyperparams["target_state"],
-                          self._hyperparams["render"])
-
-    def _setup_conditions(self):
-        """
+	    self._setup_conditions()
+	    #TODO: customize world for veh
+	    self._setup_world(self._hyperparams["world"],
+	                      self._hyperparams["target_state"],
+	                      self._hyperparams["render"])
+	
+	def _setup_conditions(self):
+		"""
         Helper method for setting some hyperparameters that may vary by
         condition.
         """
-        conds = self._hyperparams['conditions']
-        for field in ('x0', 'x0var', 'pos_body_idx', 'pos_body_offset',
-                      'noisy_body_idx', 'noisy_body_var'):
-            self._hyperparams[field] = setup(self._hyperparams[field], conds)
+		# TODO: specify the fields
+		conds = self._hyperparams['conditions']
+        for field in ('xxxx'):
+        	self._hyperparams[field] = setup(self._hyperparams[field], conds)
 
-    def _setup_world(self, world, target, render):
-        """
+	def _setup_world(self):
+		"""
         Helper method for handling setup of the Box2D world.
         """
-        self.x0 = self._hyperparams["x0"]
+        self.x0 = self._hyperparams["x0"]  # initial state
         self._worlds = [world(self.x0[i], target, render)
                         for i in range(self._hyperparams['conditions'])]
-
+    
     def sample(self, policy, condition, verbose=False, save=True, noisy=True):
         """
         Runs a trial and constructs a new sample containing information
@@ -92,3 +92,4 @@ class AgentBox2D(Agent):
     def _set_sample(self, sample, b2d_X, t):
         for sensor in b2d_X.keys():
             sample.set(sensor, np.array(b2d_X[sensor]), t=t+1)
+            

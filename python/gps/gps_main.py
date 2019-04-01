@@ -63,6 +63,7 @@ class GPSMain(object):
             itr_start = self._initialize(itr_load)
 
             for itr in range(itr_start, self._hyperparams['iterations']):
+                print("iter_num", itr)
                 for cond in self._train_idx:
                     for i in range(self._hyperparams['num_samples']):
                         self._take_sample(itr, cond, i)
@@ -74,7 +75,7 @@ class GPSMain(object):
 
                 # Clear agent samples.
                 self.agent.clear_samples()
-
+                # The inner loop is done in _take_iteration (self.algorithm.iteration())
                 self._take_iteration(itr, traj_sample_lists)
                 pol_sample_lists = self._take_policy_samples()
                 self._log_data(itr, traj_sample_lists, pol_sample_lists)
@@ -93,17 +94,34 @@ class GPSMain(object):
             N: the number of policy samples to take
         Returns: None
         """
-        algorithm_file = self._data_files_dir + 'algorithm_itr_%02d.pkl' % itr
+        # modified by RH
+        # originally, algo_itr, traj_itr, policy_itr are all the same
+        algo_itr = itr
+        traj_itr = itr
+        polilcy_itr = itr
+
+        # algo_itr = 18
+        # traj_itr = 1
+        # polilcy_itr = 18
+        
+        # algorithm_file = self._data_files_dir + 'algorithm_itr_%02d.pkl' % itr
+        algorithm_file = self._data_files_dir + 'algorithm_itr_%02d.pkl' % algo_itr
         self.algorithm = self.data_logger.unpickle(algorithm_file)
         if self.algorithm is None:
             print("Error: cannot find '%s.'" % algorithm_file)
             os._exit(1) # called instead of sys.exit(), since t
+        # traj_sample_lists = self.data_logger.unpickle(self._data_files_dir +
+            # ('traj_sample_itr_%02d.pkl' % itr))
         traj_sample_lists = self.data_logger.unpickle(self._data_files_dir +
-            ('traj_sample_itr_%02d.pkl' % itr))
+            ('traj_sample_itr_%02d.pkl' % traj_itr))
 
         pol_sample_lists = self._take_policy_samples(N)
+        # self.data_logger.pickle(
+        #     self._data_files_dir + ('pol_sample_itr_%02d.pkl' % itr),
+        #     copy.copy(pol_sample_lists)
+        # )
         self.data_logger.pickle(
-            self._data_files_dir + ('pol_sample_itr_%02d.pkl' % itr),
+            self._data_files_dir + ('pol_sample_itr_%02d.pkl' % polilcy_itr),
             copy.copy(pol_sample_lists)
         )
 
@@ -112,7 +130,8 @@ class GPSMain(object):
                 traj_sample_lists, pol_sample_lists)
             self.gui.set_status_text(('Took %d policy sample(s) from ' +
                 'algorithm state at iteration %d.\n' +
-                'Saved to: data_files/pol_sample_itr_%02d.pkl.\n') % (N, itr, itr))
+                # 'Saved to: data_files/pol_sample_itr_%02d.pkl.\n') % (N, itr, itr))
+                'Saved to: data_files/pol_sample_itr_%02d.pkl.\n') % (N, algo_itr, polilcy_itr))
 
     def _initialize(self, itr_load):
         """
@@ -305,7 +324,7 @@ def main():
     gps_filepath = os.path.abspath(gps_filepath)
     gps_dir = '/'.join(str.split(gps_filepath, '/')[:-3]) + '/'
     exp_dir = gps_dir + 'experiments/' + exp_name + '/'
-    hyperparams_file = exp_dir + 'hyperparams.py'
+    hyperparams_file = exp_dir + 'hyperparams.py'  # connect with a specific experiment directory
 
     if args.silent:
         logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.INFO)
@@ -344,9 +363,11 @@ def main():
     if not os.path.exists(hyperparams_file):
         sys.exit("Experiment '%s' does not exist.\nDid you create '%s'?" %
                  (exp_name, hyperparams_file))
-
-    hyperparams = imp.load_source('hyperparams', hyperparams_file)
+    # Python 2.7
+    # load the hyperparams setting from source file to an accesible module object
+    hyperparams = imp.load_source('hyperparams', hyperparams_file)  # load new/existing file according to exp_name and then hyperparams_file
     if args.targetsetup:
+        # set up the ROS and the robot
         try:
             import matplotlib.pyplot as plt
             from gps.agent.ros.agent_ros import AgentROS
@@ -373,9 +394,10 @@ def main():
         algorithm_prefix = 'algorithm_itr_'
         algorithm_filenames = [f for f in data_filenames if f.startswith(algorithm_prefix)]
         current_algorithm = sorted(algorithm_filenames, reverse=True)[0]
-        current_itr = int(current_algorithm[len(algorithm_prefix):len(algorithm_prefix)+2])
+        current_itr = int(current_algorithm[len(algorithm_prefix):len(algorithm_prefix)+2]) # last two digits indicate the number of iterations
 
         gps = GPSMain(hyperparams.config)
+        print(hyperparams.config)
         if hyperparams.config['gui_on']:
             test_policy = threading.Thread(
                 target=lambda: gps.test_policy(itr=current_itr, N=test_policy_N)
@@ -388,15 +410,17 @@ def main():
         else:
             gps.test_policy(itr=current_itr, N=test_policy_N)
     else:
+        # single trail without ROS 
         import random
         import numpy as np
         import matplotlib.pyplot as plt
-
+       
         seed = hyperparams.config.get('random_seed', 0)
         random.seed(seed)
         np.random.seed(seed)
-
+        # core function
         gps = GPSMain(hyperparams.config, args.quit)
+        # print(hyperparams.config)
         if hyperparams.config['gui_on']:
             run_gps = threading.Thread(
                 target=lambda: gps.run(itr_load=resume_training_itr)

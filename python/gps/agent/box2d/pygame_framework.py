@@ -155,7 +155,7 @@ class PygameFramework(framework.FrameworkBase):
 
     def __reset(self):
         # Screen/rendering-related
-        self._viewZoom = 10.0
+        self._viewZoom = 1.0 # 10.0
         self._viewCenter = None
         self._viewOffset = None
         self.screenSize = None
@@ -178,7 +178,8 @@ class PygameFramework(framework.FrameworkBase):
         caption = "Python Box2D Testbed - " + self.name
         pygame.display.set_caption(caption)
 
-        self.screen = pygame.display.set_mode((640, 480))
+        # self.screen = pygame.display.set_mode((640, 480))
+        self.screen = pygame.display.set_mode((1280, 960))
         self.screenSize = b2.b2Vec2(*self.screen.get_size())
 
         self.renderer = PygameDraw(surface=self.screen, test=self)

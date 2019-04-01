@@ -21,15 +21,16 @@ class PointMassWorld(Framework):
         self.initial_linear_velocity = (x0[2], x0[3])
         self.initial_angular_velocity = 0
 
-        ground = self.world.CreateBody(position=(0, 20))
+        ground = self.world.CreateBody(position=(0, 0)) # set the initial position of the body
         ground.CreateEdgeChain(
-            [(-20, -20),
-             (-20, 20),
-             (20, 20),
-             (20, -20),
-             (-20, -20)]
-            )
+            [(-100, -100),
+             (-100, 100),
+             (100, 100),
+             (100, -100),
+             (-100, -100)]
+             )
 
+        # coordinates transform
         xf1 = b2.b2Transform()
         xf1.angle = 0.3524 * b2.b2_pi
         xf1.position = b2.b2Mul(xf1.R, (1.0, 0.0))

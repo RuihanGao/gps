@@ -22,7 +22,9 @@ PS3_BUTTON = {
     'action_square': 15,
     'pairing': 16,
 }
+
 INVERTED_PS3_BUTTON = {value: key for key, value in PS3_BUTTON.iteritems()}
+# INVERTED_PS3_BUTTON = {value: key for key, value in PS3_BUTTON.items()}
 
 # Mappings from PS3 axes to their corresponding array indices.
 PS3_AXIS = {

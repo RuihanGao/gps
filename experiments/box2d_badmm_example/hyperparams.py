@@ -38,7 +38,7 @@ common = {
     'experiment_dir': EXP_DIR,
     'data_files_dir': EXP_DIR + 'data_files/',
     'log_filename': EXP_DIR + 'log.txt',
-    'conditions': 4,
+    'conditions': 4,   # multiple conditions for multiple init position x0
 }
 
 if not os.path.exists(common['data_files_dir']):

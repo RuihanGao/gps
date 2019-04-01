@@ -49,7 +49,7 @@ agent = {
     'type': AgentBox2D,
     'target_state' : np.array([5, 20, 0]),
     "world" : PointMassWorld,
-    'render' : False,
+    'render' : True,
     'x0': [np.array([0, 5, 0, 0, 0, 0]),
            np.array([0, 10, 0, 0, 0, 0]),
            np.array([10, 5, 0, 0, 0, 0]),

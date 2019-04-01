@@ -1,0 +1,4 @@
+# ignore everything except the needed roads pickle
+*
+!.gitignore
+!roads.p

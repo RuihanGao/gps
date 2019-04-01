@@ -87,7 +87,7 @@ config = {
     'permuted_inverted_ps3_bindings': permuted_inverted_ps3_bindings,
 
     # Images
-    'image_on': True,
+    'image_on': False,  # previously True. Save the space since no image is on 
     'image_topic': '/camera/rgb/image_color',
     'image_size': (240, 240),
     'image_overlay_actuator': 'trial_arm',
@@ -95,12 +95,13 @@ config = {
 
     # Both GUIs
     'figsize': (12, 12),
+   
 
     # Target Setup
-    'num_targets': 10,
+    'num_targets': 50, # 10
     'actuator_types': [TRIAL_ARM, AUXILIARY_ARM],
     'actuator_names': ['trial_arm', 'auxiliary_arm'],
-    'target_output_fontsize': 10,
+    'target_output_fontsize': 10, 
 
     # GPS Training
     'initial_mode': 'run',
@@ -113,6 +114,7 @@ def generate_experiment_info(config):
     Generate experiment info, to be displayed by GPS Trainig GUI.
     Assumes config is the config created in hyperparams.py
     """
+    # unravel one level of dictionary
     common = config['common']
     algorithm = config['algorithm']
 

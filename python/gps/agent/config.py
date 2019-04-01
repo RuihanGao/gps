@@ -6,7 +6,9 @@ import numpy as np
 
 LOGGER = logging.getLogger(__name__)
 
-
+"""
+Initialize AGENT dictionary and that for ROS and MuJoCo
+"""
 # Agent
 AGENT = {
     'dH': 0,
@@ -73,5 +75,18 @@ AGENT_MUJOCO = {
 }
 
 AGENT_BOX2D = {
+    'render': True,
+}
+
+# modified by RH
+AGENT_VEH = {
+    'render': True,
+}
+
+AGENT_BUS = {
+    'render': True,
+}
+
+AGENT_GYM = {
     'render': True,
 }

@@ -26,8 +26,8 @@ class Plotter3D:
         self._gs_plot   = self._gs[1:8, 0]
 
         self._ax_legend = plt.subplot(self._gs_legend)
-        self._ax_legend.get_xaxis().set_visible(False)
-        self._ax_legend.get_yaxis().set_visible(False)
+        self._ax_legend.get_xaxis().set_visible(True)  # False
+        self._ax_legend.get_yaxis().set_visible(True)  # False
 
         self._gs_plots = gridspec.GridSpecFromSubplotSpec(rows, cols, subplot_spec=self._gs_plot)
         self._axarr = [plt.subplot(self._gs_plots[i], projection='3d') for i in range(num_plots)]

@@ -30,4 +30,5 @@ class CostAction(Cost):
         luu = np.tile(np.diag(self._hyperparams['wu']), [T, 1, 1])
         lxx = np.zeros((T, Dx, Dx))
         lux = np.zeros((T, Du, Dx))
+        # print("cost_action", l)
         return l, lx, lu, lxx, luu, lux

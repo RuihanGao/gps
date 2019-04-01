@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+ #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #!/usr/bin/python
 #
@@ -61,8 +61,8 @@ class FrameworkBase(b2.b2ContactListener):
     TEXTLINE_START = 30
     colors = {
         'joint_line' : b2.b2Color(0.8, 0.8, 0.8),
-        'contact_add' : b2.b2Color(0.3, 0.95, 0.3),
-        'contact_persist' : b2.b2Color(0.3, 0.3, 0.95),
+        'contact_add' : b2.b2Color(0.99, 0.05, 0.1),
+        'contact_persist' : b2.b2Color(0.9, 0.05, 0.95),
         'contact_normal' : b2.b2Color(0.4, 0.9, 0.4),
     }
 
@@ -72,12 +72,13 @@ class FrameworkBase(b2.b2ContactListener):
         # Box2D-related
         self.points = []
         self.settings = fwSettings
-        self.using_contacts = False
+        # self.using_contacts = False
+        self.using_contacts = True
         self.stepCount = 0
 
         # Box2D-callbacks
         self.destructionListener = None
-        self.renderer = None
+        self.renderer = True # None
 
     def __init__(self):
         super(FrameworkBase, self).__init__()
@@ -86,20 +87,25 @@ class FrameworkBase(b2.b2ContactListener):
 
         # Box2D Initialization
         self.world = b2.b2World(gravity=(0, -10), doSleep=True)
+        # Edited by RH
+        self.world.gravity = (0.0, 0.0)
 
         self.world.contactListener = self
         self.t_steps, self.t_draws = [], []
+        self.collision = False
+
 
     def __del__(self):
         pass
+
 
     def Step(self, settings, action=None):
         """
         The main physics step.
 
-        Takes care of physics drawing
-        (callbacks are executed after the world.Step() )
-        and drawing additional information.
+        Takes care ofd after the world.Step() )
+        and drawing additional physics drawing
+        (callbacks are execute information.
         """
         assert action is None,\
             'action should only be used in subclass'
@@ -146,10 +152,13 @@ class FrameworkBase(b2.b2ContactListener):
 
         if self.renderer:
 
-
             # Draw each of the contact points in different colors.
             if self.settings.drawContactPoints:
                 for point in self.points:
+                    # print(point, 'fixtureA', point['fixtureA'], 'fixtureB', point['fixtureB'])
+                    # print("point")
+                    # print(point)
+                    # print("in framework.step")
                     if point['state'] == b2.b2_addState:
                         self.renderer.DrawPoint(self.renderer.to_screen(
                             point['position']), settings.pointSize,
@@ -217,16 +226,30 @@ class FrameworkBase(b2.b2ContactListener):
         worldManifold = contact.worldManifold
 
         for i, _ in enumerate(state2):
+            point = worldManifold.points[0]
+            bodyA = contact.fixtureA.body
+            bodyB = contact.fixtureB.body
+            vA = bodyA.GetLinearVelocityFromWorldPoint(point)
+            vB = bodyB.GetLinearVelocityFromWorldPoint(point)
+            approachVelocity = b2.b2Dot(vB-vA, worldManifold.normal)
+            # print("approachVelocity", approachVelocity)
+            if abs(approachVelocity) > 1.0:
+                self.collision = True
+
             self.points.append(
                 {
                     'fixtureA' : contact.fixtureA,
-                    'fixtureB' : contact.fixtureB,
+                    'fixtureB' : contact.fixtureB, 
+                    'bodyA': bodyA,
+                    'bodyB': bodyB,   
                     'position' : worldManifold.points[i],
                     'normal' : worldManifold.normal,
                     'state' : state2[i]
                 })
 
+    
 
+# import pygame_framework
 framework_module = __import__('gps.agent.box2d.'+'%s_framework' %
                               (fwSettings.backend.lower()),
                               fromlist=['%sFramework'

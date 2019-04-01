@@ -42,7 +42,7 @@ class fwSettings(object):
     drawAABBs = False
     drawOBBs = False
     drawPairs = False
-    drawContactPoints = False
+    drawContactPoints = True  # False
     maxContactPoints = 100
     drawContactNormals = False
     drawFPS = True

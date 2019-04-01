@@ -11,12 +11,11 @@ import numpy as np
 import matplotlib.pylab as plt
 import matplotlib.gridspec as gridspec
 
-from gps.gui.util import buffered_axis_limits
-
+from gps.gui.util import buffered_axis_limits, DEFAULT_MIN_ITER_PLOT
 
 class MeanPlotter:
 
-    def __init__(self, fig, gs, label='mean', color='black', alpha=1.0, min_itr=10):
+    def __init__(self, fig, gs, label='mean', color='black', alpha=1.0, min_itr=DEFAULT_MIN_ITER_PLOT):
         self._fig = fig
         self._gs = gridspec.GridSpecFromSubplotSpec(1, 1, subplot_spec=gs)
         self._ax = plt.subplot(self._gs[0])

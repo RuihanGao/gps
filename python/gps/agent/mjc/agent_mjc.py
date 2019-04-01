@@ -16,6 +16,8 @@ from gps.proto.gps_pb2 import JOINT_ANGLES, JOINT_VELOCITIES, \
 
 from gps.sample.sample import Sample
 
+# note by RH
+# since MuJoCo has only one example, it combines the "general box2D" and specific agent like "pointmass" together
 
 class AgentMuJoCo(Agent):
     """

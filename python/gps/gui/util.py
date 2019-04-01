@@ -5,6 +5,8 @@ DEFAULT_JOINT_ANGLES = np.zeros(7)
 DEFAULT_END_EFFECTOR_POSITIONS = np.zeros(3)
 DEFAULT_END_EFFECTOR_ROTATIONS = np.zeros((3, 3))
 
+DEFAULT_MIN_ITER_PLOT = 50
+
 def buffered_axis_limits(amin, amax, buffer_factor=1.0):
     """
     Increases the range (amin, amax) by buffer_factor on each side

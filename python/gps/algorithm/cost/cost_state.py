@@ -36,6 +36,20 @@ class CostState(Cost):
             config = self._hyperparams['data_types'][data_type]
             wp = config['wp']
             tgt = config['target_state']
+            # print("tgt for cost_state evaluation", tgt)
+
+            # Modified by RH
+            map_size = config['map_size']
+           
+            
+            # TODO
+            # if agent is not bus, tgt = config['target_state']
+            # if agent is bus, update the target_state for each round of gpsMain.run()
+            if map_size:
+                # it's AgentBus
+                target_state = config['target_state']
+                tgt = [target_state[0]-map_size[1]/2, map_size[0]/2-target_state[1], target_state[2]]
+                
             x = sample.get(data_type)
             _, dim_sensor = x.shape
 
@@ -60,4 +74,6 @@ class CostState(Cost):
             sample.agent.pack_data_x(final_lx, ls, data_types=[data_type])
             sample.agent.pack_data_x(final_lxx, lss,
                                      data_types=[data_type, data_type])
+        # print("new tgt", tgt)
+        # print("cost_state", final_l)
         return final_l, final_lx, final_lu, final_lxx, final_luu, final_lux

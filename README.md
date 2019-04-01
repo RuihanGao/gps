@@ -1013,3 +1013,14 @@ simple but good for dealing with non-linearirty and corelation
 Submodule [explantation](https://gist.github.com/gitaarik/8735255)
 [Add a local project to github repo](https://help.github.com/en/articles/adding-an-existing-project-to-github-using-the-command-line)
 
+## 4.1
+*Debug*
+* Problem: the directions of waypoints are inaccurate. <br/>
+Soln: First notice that only step 33-44 (U-turn) has problem, then swap the `BUS_LENGTH` and `BUS_WIDTH` in `recall_map` to correct the logic. Then I thought it might be the problem of opencv coordinates, but [ref](https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_imgproc/py_geometric_transformations/py_geometric_transformations.html) and [documentation](https://docs.opencv.org/2.4/modules/imgproc/doc/geometric_transformations.html#getrotationmatrix2d) shows that the positive angle is indeed counter-clockwise, i.e. consistent with normal coordinates. Finally realize that in `draw_rot_rectangle` (previously copied from Emily's code), the line `theta = np.radians(theta)` should be deleted cuz I use radian directly so no need to convert. 
+* Problem: stuck at step 52, 53 <br/>
+feel like the policy search is not working well, trying to dive into the GPS
+
+*Modification*
+
+*Others*
+* [Tensorflow vs PyTorch](https://medium.com/@UdacityINDIA/tensorflow-or-pytorch-the-force-is-strong-with-which-one-68226bb7dab4)

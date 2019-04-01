@@ -1048,3 +1048,5 @@ but `cmake` fails and running example fails in `gps`, get error `CMake Error at 
 `ubuntu LIB: /usr/lib/x86_64-linux-gnu/libboost_python.so -- Could NOT find osg (missing: OSG_LIBRARY OSG_INCLUDE_DIR) -- Could NOT find osgViewer (missing: OSGVIEWER_LIBRARY OSGVIEWER_INCLUDE_DIR) -- Could NOT find OpenThreads (missing: OPENTHREADS_LIBRARY OPENTHREADS_INCLUDE_DIR) -- Could NOT find osgGA (missing: OSGGA_LIBRARY OSGGA_INCLUDE_DIR) osg includes: OSG_INCLUDE_DIR-NOTFOUND CMake Error: The following variables are used in this project, but they are set to NOTFOUND.` <br/>
 Tried to update cmake but it did not help <br/>
 [Related issue 1](https://github.com/cbfinn/gps/issues/28) [Possible soln 2](https://stackoverflow.com/questions/40460841/linking-of-openscenegraph-libraries-for-cmake)
+
+* [augmented Lagragian](https://en.wikipedia.org/wiki/Augmented_Lagrangian_method)

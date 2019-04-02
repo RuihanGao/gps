@@ -1052,7 +1052,7 @@ Tried to update cmake but it did not help <br/>
 * [augmented Lagragian](https://en.wikipedia.org/wiki/Augmented_Lagrangian_method)
 
 ## 4.2 
-* To fix broken packages and cmake, use some apt commands sucha s <br/>
+1. To fix broken packages and cmake, use some apt commands sucha s <br/>
 	* [How to use apt Package Manager on Ubuntu Command Line](https://vitux.com/how-to-use-apt-get-package-manager-on-ubuntu-command-line/)
 	* `apt-cache search x` will output all packages that in a way or another make a reference to x.
 	* `sudo dpkg -i <package>` for installation
@@ -1063,6 +1063,7 @@ Tried to update cmake but it did not help <br/>
 `sudo dpkg --remove mysql-common` <br/>
 From insomnia's comment: If you need to override the dependency system's decision you can (with great care and making sure you know what you are doing) use an additional --force-depends.
 `sudo dpkg --remove --force-depends mysql-common`
+2. To use Mujoco
 * `Cmake` debugging tricks
 	* To [display message in CMake list](https://cmake.org/cmake/help/v3.0/command/message.html), use `message([<mode>] "message to display" ...)` 
 	* To [get filename](https://cmake.org/cmake/help/v3.5/command/get_filename_component.html), use `get_filename_component(<VAR> <FileName> <COMP> [CACHE])`
@@ -1087,7 +1088,7 @@ ImportError: `/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/gps/src
 ImportError: `/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/gps/build/lib/mjcpy.so: undefined symbol: _ZN5boost5numpy6detail15get_float_dtypeILi320EEENS0_5dtypeEv`
 For my case, I only install mujoco200 at first and then find [soln](https://github.com/cbfinn/gps/issues/86) by searching "mjcpy.so: undefined symbol". Notice that "mujoco verisions newer than 131 are not compatible with python2.7" Re-downloading mujoco and copying the license file work. <br/>
 Till now `import mjcpy` passes
-* install plugins in gedit to use ["code comment" function](https://delightlylinux.wordpress.com/2015/05/22/code-comment-gedit-plugin/) <br/>
+3. install plugins in gedit to use ["code comment" function](https://delightlylinux.wordpress.com/2015/05/22/code-comment-gedit-plugin/) <br/>
 `sudo apt-get update
 sudo apt-get install gedit-plugins` <br/>
 Encounter error `E: Could not get lock /var/lib/dpkg/lock - open (11: Resource temporarily unavailable)` <br/>
@@ -1098,4 +1099,9 @@ sudo rm /var/cache/apt/archives/lock
 sudo rm /var/lib/dpkg/lock
 ```
 then repeat `sudo apt-get install gedit-plugins`
-
+4. For 2. Preload thing, somehow in Terminator rather than Terminal), `python` withoud `LD_PRELOAD` works fine.
+5. Run `gps_main.py mjc_example`, getting error `KeyError: 'body_pos'`, not solved yet. Find that the xml files in mjc_models are actually equivalent to world.py that contain world information. The error may be due to empty model, but `get_model` functions are written in c++. which fails me.
+6. Switch to my bus and emulate to create a `agent_bus_pol`, which is not used yet
+7. Modify the `hyperparams.py` for AgentBus, including `obs_include` for `algorithm` and `agent`
+8. Debug: `module object has not attribute batch_matmul tensorflow` <br/>
+Soln: The `tf.batch_matmul()` op was removed in 3a88ec0. You can now use `tf.matmul()` to perform batch matrix multiplications (i.e. for tensors with rank > 2).

@@ -1066,3 +1066,6 @@ From insomnia's comment: If you need to override the dependency system's decisio
 * Cmake debugging tricks
 	* To [display message in CMake list](https://cmake.org/cmake/help/v3.0/command/message.html), use `message([<mode>] "message to display" ...)` 
 	* To [get filename](https://cmake.org/cmake/help/v3.5/command/get_filename_component.html), use `get_filename_component(<VAR> <FileName> <COMP> [CACHE])`
+
+* Error at cmake "find_package( PythonLibs 2.7 REQUIRED ) get_filename_component called with incorrect number of arguments" <br/>
+`cmake ../src/3rdparty/ -DPYTHON_EXECUTABLE= 'which python2.7' `

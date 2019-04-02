@@ -1063,7 +1063,7 @@ Tried to update cmake but it did not help <br/>
 `sudo dpkg --remove mysql-common` <br/>
 From insomnia's comment: If you need to override the dependency system's decision you can (with great care and making sure you know what you are doing) use an additional --force-depends.
 `sudo dpkg --remove --force-depends mysql-common`
-* Cmake debugging tricks
+* `Cmake` debugging tricks
 	* To [display message in CMake list](https://cmake.org/cmake/help/v3.0/command/message.html), use `message([<mode>] "message to display" ...)` 
 	* To [get filename](https://cmake.org/cmake/help/v3.5/command/get_filename_component.html), use `get_filename_component(<VAR> <FileName> <COMP> [CACHE])`
 
@@ -1072,4 +1072,30 @@ Soln: `cmake ../src/3rdparty/ -DPYTHON_EXECUTABLE= 'which python2.7' ` add `-DPY
 Learn to find python path and python lib path, and configure them in CMakeLists.file like:
 `    set(PYTHON_LIBRARY /usr/lib/python2.7/config-x86_64-linux-gnu/libpython2.7.so)
     set(PYTHON_INCLUDE_DIR /usr/include/python2.7)`
+* `make` debugging <br/>
+`In file included from /media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/gps/src/3rdparty/mjcpy2/mjcpy2.cpp:287:0:
+/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/gps/src/3rdparty/mjcpy2/mjcpy2_getdata_autogen.i: In member function ‘boost::python::dict {anonymous}::PyMJCWorld2::GetData()’:
+/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/gps/src/3rdparty/mjcpy2/mjcpy2_getdata_autogen.i:4:35: error: ‘mjData {aka struct _mjData}’ has no member named ‘maxuse_stack’
+     out["maxuse_stack"] = m_data->maxuse_stack;
+.......` <br/>
+[Soln](https://github.com/cbfinn/gps/issues/83) follow acrosson <br/> run the autogen.py and toggle around the last few lines
+* after `make`, import error debugging <br/>
+	* error:     import mjcpy
+ImportError: `/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/gps/src/3rdparty/mjpro/bin/libmujoco200.so: undefined symbol: __glewBindBuffer` <br/>
+[Soln](https://github.com/deepmind/dm_control/issues/3) (with navigating in my own computer and modify the path a bit by looking for libGL.so): `sudo apt-get install libglew-dev libglfw3-dev` followed by `LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so:/usr/lib/libGL.so.1 python`
+	* error:     import mjcpy
+ImportError: `/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/gps/build/lib/mjcpy.so: undefined symbol: _ZN5boost5numpy6detail15get_float_dtypeILi320EEENS0_5dtypeEv`
+For my case, I only install mujoco200 at first and then find [soln](https://github.com/cbfinn/gps/issues/86) by searching "mjcpy.so: undefined symbol". Notice that "mujoco verisions newer than 131 are not compatible with python2.7" Re-downloading mujoco and copying the license file work. <br/>
+Till now `import mjcpy` passes
+* install plugins in gedit to use ["code comment" function](https://delightlylinux.wordpress.com/2015/05/22/code-comment-gedit-plugin/) <br/>
+`sudo apt-get update
+sudo apt-get install gedit-plugins` <br/>
+Encounter error `E: Could not get lock /var/lib/dpkg/lock - open (11: Resource temporarily unavailable)` <br/>
+[Soln](https://itsfoss.com/could-not-get-lock-error/):
+```
+sudo rm /var/lib/apt/lists/lock
+sudo rm /var/cache/apt/archives/lock
+sudo rm /var/lib/dpkg/lock
+```
+then repeat `sudo apt-get install gedit-plugins`
 

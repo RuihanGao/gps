@@ -1063,3 +1063,6 @@ Tried to update cmake but it did not help <br/>
 `sudo dpkg --remove mysql-common` <br/>
 From insomnia's comment: If you need to override the dependency system's decision you can (with great care and making sure you know what you are doing) use an additional --force-depends.
 `sudo dpkg --remove --force-depends mysql-common`
+* Cmake debugging tricks
+	* To [display message in CMake list](https://cmake.org/cmake/help/v3.0/command/message.html), use `message([<mode>] "message to display" ...)` 
+	* To [get filename](https://cmake.org/cmake/help/v3.5/command/get_filename_component.html), use `get_filename_component(<VAR> <FileName> <COMP> [CACHE])`

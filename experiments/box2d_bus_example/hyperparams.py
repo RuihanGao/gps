@@ -8,7 +8,8 @@ import numpy as np
 from gps import __file__ as gps_filepath
 from gps.agent.box2d.agent_bus import AgentBus
 from gps.agent.box2d.bus_world import BusWorld 
-from gps.algorithm.algorithm_traj_opt import AlgorithmTrajOpt 
+# from gps.algorithm.algorithm_traj_opt import AlgorithmTrajOpt 
+from gps.algorithm.algorithm_badmm import AlgorithmBADMM
 from gps.algorithm.cost.cost_state import CostState 
 from gps.algorithm.cost.cost_action import CostAction 
 from gps.algorithm.cost.cost_collision import CostCollision
@@ -17,12 +18,20 @@ from gps.algorithm.dynamics.dynamics_lr_prior import DynamicsLRPrior
 from gps.algorithm.dynamics.dynamics_prior_gmm import DynamicsPriorGMM 
 from gps.algorithm.traj_opt.traj_opt_lqr_python import TrajOptLQRPython 
 from gps.algorithm.policy.lin_gauss_init import init_lqr
+from gps.algorithm.policy.policy_prior_gmm import PolicyPriorGMM
 from gps.algorithm.policy_opt.policy_opt_tf import PolicyOptTf
 from gps.algorithm.policy_opt.tf_model_example import tf_network
+from gps.algorithm.policy_opt.tf_model_example import multi_modal_network
 from gps.gui.config import generate_experiment_info
-from gps.proto.gps_pb2 import END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, ACTION 
+from gps.proto.gps_pb2 import END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, ACTION, RGB_IMAGE, RGB_IMAGE_SIZE
 from gps.agent.box2d.traffic import Traffic 
 from gps.agent.box2d.map import *
+
+
+IMAGE_WIDTH = 48
+IMAGE_HEIGHT = 48
+IMAGE_CHANNELS = 1
+BUS_GAINS = np.array([1, 0.1])
 
 SENSOR_DIMS = {
 	END_EFFECTOR_POINTS: 3,
@@ -39,7 +48,11 @@ common = {
 	'experiment_dir': EXP_DIR,
 	'data_files_dir': EXP_DIR + 'map_13_/' + 'data_files/',
 	'log_filename': EXP_DIR + 'map_13_/' + 'log.txt',
-	'conditions': 1,  # number of different world setting
+	'conditions': 1,  # number of different world setting,
+	'iterations': 15,
+	'train_conditions': [0],
+    'test_conditions': [0],
+
 }
 
 if not os.path.exists(common['data_files_dir']):
@@ -57,30 +70,51 @@ agent = {
 	'rk': 0,
 	'dt': 0.05,
 	'substeps': 1,
-	'conditions': common['conditions'],
+    'conditions': common['conditions'],
+    'iterations': common['iterations'],
+	'train_conditions': common['train_conditions'],
+    'test_conditions': common['test_conditions'],
 	'pos_body_idx': np.array([]),
 	'pos_body_offset': np.array([]),
 	'T': 200,  # horizon
 	'sensor_dims': SENSOR_DIMS,
 	'state_include': [END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES],
-	'obs_include': [],
+	'obs_include': [END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES], # equivalent to self.obs_data_types which is used to match data_type in sample.get_obs()
 	'polygons': None,
 	'map_size': None,
 	'map_state': None,
 	'display_center': None,
 }
 
+# algorithm = {
+# 	'type': AlgorithmTrajOpt,  
+# 	'conditions': common['conditions'],
+# }
+
 algorithm = {
-	'type': AlgorithmTrajOpt,
-	'conditions': common['conditions'],
+    'type': AlgorithmBADMM,
+    'conditions': common['conditions'],
+    'iterations': common['iterations'],
+    'train_conditions': common['train_conditions'],
+    'test_conditions': common['test_conditions'],
+    'lg_step_schedule': np.array([1e-4, 1e-3, 1e-2, 1e-2]),
+    'policy_dual_rate': 0.2,
+    'ent_reg_schedule': np.array([1e-3, 1e-3, 1e-2, 1e-1]),
+    'fixed_lg_step': 3,
+    'kl_step': 5.0,
+    'min_step_mult': 0.01,
+    'max_step_mult': 1.0,
+    'sample_decrease_var': 0.05,
+    'sample_increase_var': 0.1,
 }
 
 algorithm['init_traj_distr'] = {
 	'type': init_lqr,
-	'init_gains': np.zeros(SENSOR_DIMS[ACTION]),
+	'init_gains': 1/BUS_GAINS,
 	'init_acc': np.zeros(SENSOR_DIMS[ACTION]),
 	'init_var': 0.1,
 	'stiffness': 0.01,
+	'stiffness_vel': 0.05,
 	'dt': agent['dt'],  # pass the param to keep consistency
 	'T': agent['T'],
 }
@@ -146,18 +180,33 @@ algorithm['traj_opt'] = {
 algorithm['policy_opt'] = {
 	'type':PolicyOptTf,
 	'network_params': {
+		'num_filters': [64, 32, 32],
+		# TODO: in proto, only have RGB_IMAGE, DEPTH_IMAGE, CONTEXT_IMAGE, need to make a better choice later
+		# use the image later, try to run the tf network first
+		# 'obs_include': [END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, RGB_IMAGE],
 		'obs_include': [END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES],
+		'obs_vector_data': [END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES],
+		# # 'obs_image_data': [RGB_IMAGE],
+        # 'image_width': IMAGE_WIDTH,
+        # 'image_height': IMAGE_HEIGHT,
+        # 'image_channels': IMAGE_CHANNELS,
 		'sensor_dims': SENSOR_DIMS,
-		'n_layers': 3,
-		'dim_hidden': [64, 32, 32],
 	},
+	# 'network_model': multi_modal_network,
 	'network_model': tf_network,
-	'iterations': 3000,
+	'iterations': 1000,
 	'weights_file_prefix': EXP_DIR + 'policy',
 }
 
+algorithm['policy_prior'] = {
+    'type': PolicyPriorGMM,
+    'max_clusters': 20,
+    'min_samples_per_cluster': 40,
+    'max_samples': 20,
+}
+
 config = {
-	'iterations': 15,
+    'iterations': algorithm['iterations'],
 	'num_samples': 10,
 	'verbose_trials': 5,
 	'verbose_policy_trials': 1,

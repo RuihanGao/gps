@@ -63,7 +63,7 @@ class PolicyPriorGMM(object):
         elif mode == 'add' and X.size > 0:
             self.X = np.concatenate([self.X, X], axis=0)
             self.obs = np.concatenate([self.obs, obs], axis=0)
-            # Trim extra samples
+            # Trim extra samples, keep from the end
             # TODO: how should this interact with replace_samples?
             N = self.X.shape[0]
             if N > self._max_samples:

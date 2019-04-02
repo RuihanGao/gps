@@ -7,7 +7,7 @@ from gps.agent.config import AGENT_BUS
 from gps.proto.gps_pb2 import ACTION
 from gps.sample.sample import Sample
 
-class AgentBus(Agent):
+class AgentBusPol(Agent):
 	"""
 	All communication between the algorithms and Vehicle is done through
 	this class.
@@ -69,18 +69,20 @@ class AgentBus(Agent):
 			save (boolean): Whether or not to store the trial into the samples.
 			noisy (boolean): Whether or not to use noise during sampling.
 		"""
-
+        # Modified on April 2, referring to agent_mjc
 		# reset the world and assign the initialized state to new_sample
-		self._worlds[condition].run()
-		self._worlds[condition].reset_world()
+		# self._worlds[condition].run()
+		# self._worlds[condition].reset_world()
+        feature_fn = None
+        if 'get_features' in dir(policy):
+            feature_fn = policy.get_features
 		b2d_X = self._worlds[condition].get_state()
 		new_sample = self._init_sample(b2d_X)
-		
-		self.reach_start = None
-		self.reach_end = None
-		
 		# initialize a dummy action sequence
-		U = np.zeros([self.T, self.dU])
+		U = np.zeros([self.T, self.dU])		
+		self.reach_start = None
+		self.reach_end = None	
+
 		if noisy:
 			noise = generate_noise(self.T, self.dU, self._hyperparams)
 		else:
@@ -141,4 +143,21 @@ class AgentBus(Agent):
 	def _set_sample(self, sample, b2d_X, t):
 		for sensor in b2d_X.keys():
 			sample.set(sensor, np.array(b2d_X[sensor]), t=t+1)
-			
+	
+    # def _get_image_from_obs(self, obs):
+    #     # used to capture and store iamges, not in use yet
+    #     imstart = 0
+    #     imend = 0
+    #     image_channels = self._hyperparams['image_channels']
+    #     image_width = self._hyperparams['image_width']
+    #     image_height = self._hyperparams['image_height']
+    #     for sensor in self._hyperparams['obs_include']:
+    #         # Assumes only one of RGB_IMAGE or CONTEXT_IMAGE is present
+    #         if sensor == RGB_IMAGE or sensor == CONTEXT_IMAGE:
+    #             imend = imstart + self._hyperparams['sensor_dims'][sensor]
+    #             break
+    #         else:
+    #             imstart += self._hyperparams['sensor_dims'][sensor]
+    #     img = obs[imstart:imend]
+    #     img = img.reshape((image_width, image_height, image_channels))
+    #     return img

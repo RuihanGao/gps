@@ -2,7 +2,7 @@ import re
 import os.path as osp
 
 # fname = "../mjpro/mjmodel.h"
-fname = "../mjpro/mjdata.h"
+fname = "../mjpro/include/mjdata.h"
 with open(fname,"r") as fh:
     all_lines = fh.readlines()
 
@@ -84,11 +84,11 @@ def process(in_lines,structname):
 
 
 
-# with open("mjcpy2_getmodel_autogen.i","w") as outfile:
-#     get_lines, set_lines = process(find_lines_between(all_lines, "_mjModel","}"),"m_model")
+#with open("mjcpy2_getmodel_autogen.i","w") as outfile:
+#     get_lines, set_lines = process(find_lines_between(all_lines, #"_mjModel","}"),"m_model")
 #     outfile.write("\n".join(get_lines))
-# with open("mjcpy2_setmodel_autogen.i","w") as outfile:
-#     get_lines, set_lines = process(find_lines_between(all_lines, "_mjModel","}"),"m_model")
+#with open("mjcpy2_setmodel_autogen.i","w") as outfile:
+#     get_lines, set_lines = process(find_lines_between(all_lines, #"_mjModel","}"),"m_model")
 #     outfile.write("\n".join(set_lines))
 with open("mjcpy2_getdata_autogen.i","w") as outfile:
     get_lines, set_lines = process(find_lines_between(all_lines, "_mjData","}"),"m_data")

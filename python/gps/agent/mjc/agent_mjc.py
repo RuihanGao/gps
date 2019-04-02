@@ -47,6 +47,7 @@ class AgentMuJoCo(Agent):
         Args:
             filename: Path to XML file containing the world information.
         """
+        print("setting up world with ", filename)
         self._world = []
         self._model = []
 
@@ -61,7 +62,8 @@ class AgentMuJoCo(Agent):
             for i in range(self._hyperparams['conditions']):
                 self._world.append(mjcpy.MJCWorld(self._hyperparams['filename'][i]))
                 self._model.append(self._world[i].get_model())
-
+        print(self._world)
+        print(self._model)
         for i in range(self._hyperparams['conditions']):
             for j in range(len(self._hyperparams['pos_body_idx'][i])):
                 idx = self._hyperparams['pos_body_idx'][i][j]

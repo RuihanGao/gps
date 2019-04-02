@@ -139,6 +139,8 @@ class PolicyOptTf(PolicyOpt):
             self.policy.x_idx = self.x_idx
             # 1e-3 to avoid infs if some state dimensions don't change in the
             # first batch of samples
+            print(self.x_idx)
+            print(obs)
             self.policy.scale = np.diag(
                 1.0 / np.maximum(np.std(obs[:, self.x_idx], axis=0), 1e-3))
             self.policy.bias = - np.mean(

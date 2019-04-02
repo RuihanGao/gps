@@ -17,7 +17,7 @@ class Traffic(object):
         self.ll2utm = pyproj.Proj(proj='utm', zone=48, ellps='WGS84')
 
         try:
-            with open('/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/PI_AV_BUS/gps/python/gps/maps/roads2.pkl', 'rb') as fp:
+            with open('/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/gps/python/gps/maps/roads2.pkl', 'rb') as fp:
                 self.roads = pickle.load(fp)
                 print("successfully load the road")
             # with open('maps/lanes.p', 'rb') as fp:

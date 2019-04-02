@@ -7,12 +7,14 @@
     out["nefc"] = m_data->nefc;
     out["ncon"] = m_data->ncon;
     out["nwarning"] = toNdarray1<int>(m_data->nwarning, mjNWARNING);
+    out["warning_info"] = toNdarray1<int>(m_data->warning_info, mjNWARNING);
     out["timer_duration"] = toNdarray1<mjtNum>(m_data->timer_duration, mjNTIMER);
     out["timer_ncall"] = toNdarray1<mjtNum>(m_data->timer_ncall, mjNTIMER);
     out["mocaptime"] = toNdarray1<mjtNum>(m_data->mocaptime, 3);
     out["time"] = m_data->time;
     out["energy"] = toNdarray1<mjtNum>(m_data->energy, 2);
     out["solverstat"] = toNdarray1<mjtNum>(m_data->solverstat, 4);
+    out["solvertrace"] = toNdarray1<mjtNum>(m_data->solvertrace, mjNTRACE);
     out["qpos"] = toNdarray2<mjtNum>(m_data->qpos, m_model->nq, 1);
     out["qvel"] = toNdarray2<mjtNum>(m_data->qvel, m_model->nv, 1);
     out["act"] = toNdarray2<mjtNum>(m_data->act, m_model->na, 1);
@@ -72,6 +74,7 @@
     out["efc_J"] = toNdarray2<mjtNum>(m_data->efc_J, m_model->njmax, m_model->nv);
     out["efc_J_T"] = toNdarray2<mjtNum>(m_data->efc_J_T, m_model->nv, m_model->njmax);
     out["efc_diagApprox"] = toNdarray2<mjtNum>(m_data->efc_diagApprox, m_model->njmax, 1);
+    out["efc_D"] = toNdarray2<mjtNum>(m_data->efc_D, m_model->njmax, 1);
     out["efc_R"] = toNdarray2<mjtNum>(m_data->efc_R, m_model->njmax, 1);
     out["efc_AR"] = toNdarray2<mjtNum>(m_data->efc_AR, m_model->njmax, m_model->njmax);
     out["e_ARchol"] = toNdarray2<mjtNum>(m_data->e_ARchol, m_model->nemax, m_model->nemax);

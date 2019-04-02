@@ -7,12 +7,14 @@
     _csdihk(d, "nefc", m_data->nefc);
     _csdihk(d, "ncon", m_data->ncon);
     _cadihk(d, "nwarning", m_data->nwarning);
+    _cadihk(d, "warning_info", m_data->warning_info);
     _cadihk(d, "timer_duration", m_data->timer_duration);
     _cadihk(d, "timer_ncall", m_data->timer_ncall);
     _cadihk(d, "mocaptime", m_data->mocaptime);
     _csdihk(d, "time", m_data->time);
     _cadihk(d, "energy", m_data->energy);
     _cadihk(d, "solverstat", m_data->solverstat);
+    _cadihk(d, "solvertrace", m_data->solvertrace);
     _cadihk(d, "qpos", m_data->qpos);
     _cadihk(d, "qvel", m_data->qvel);
     _cadihk(d, "act", m_data->act);
@@ -72,6 +74,7 @@
     _cadihk(d, "efc_J", m_data->efc_J);
     _cadihk(d, "efc_J_T", m_data->efc_J_T);
     _cadihk(d, "efc_diagApprox", m_data->efc_diagApprox);
+    _cadihk(d, "efc_D", m_data->efc_D);
     _cadihk(d, "efc_R", m_data->efc_R);
     _cadihk(d, "efc_AR", m_data->efc_AR);
     _cadihk(d, "e_ARchol", m_data->e_ARchol);

@@ -54,7 +54,7 @@ class AlgorithmBADMM(Algorithm):
 
         # Run inner loop to compute new policies.
         for inner_itr in range(self._hyperparams['inner_iterations']):
-            #TODO: Could start from init controller.
+            #TODO: Could start from init controlller.
             if self.iteration_count > 0 or inner_itr > 0:
                 # Update the policy.
                 self._update_policy(inner_itr)
@@ -114,6 +114,11 @@ class AlgorithmBADMM(Algorithm):
         for m in range(self.M):
             samples = self.cur[m].sample_list
             X = samples.get_X()
+            print("state?")
+            print(X)
+            O = samples.get_obs()
+            print("observations?")
+            print(O)
             N = len(samples)
             if inner_itr > 0:
                 traj, pol_info = self.new_traj_distr[m], self.cur[m].pol_info
@@ -139,6 +144,9 @@ class AlgorithmBADMM(Algorithm):
             tgt_mu = np.concatenate((tgt_mu, mu))
             tgt_prc = np.concatenate((tgt_prc, prc))
             tgt_wt = np.concatenate((tgt_wt, wt))
+            print("in update_policy")
+            print(samples)
+            print(samples.get_obs())
             obs_data = np.concatenate((obs_data, samples.get_obs()))
         self.policy_opt.update(obs_data, tgt_mu, tgt_prc, tgt_wt)
 

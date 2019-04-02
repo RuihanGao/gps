@@ -1050,3 +1050,16 @@ Tried to update cmake but it did not help <br/>
 [Related issue 1](https://github.com/cbfinn/gps/issues/28) [Possible soln 2](https://stackoverflow.com/questions/40460841/linking-of-openscenegraph-libraries-for-cmake)
 
 * [augmented Lagragian](https://en.wikipedia.org/wiki/Augmented_Lagrangian_method)
+
+## 4.2 
+* To fix broken packages and cmake, use some apt commands sucha s <br/>
+	* [How to use apt Package Manager on Ubuntu Command Line](https://vitux.com/how-to-use-apt-get-package-manager-on-ubuntu-command-line/)
+	* `apt-cache search x` will output all packages that in a way or another make a reference to x.
+	* `sudo dpkg -i <package>` for installation
+	* [select and pin a package from a repo](https://www.jaredlog.com/?p=1820)
+	* After you get that error, try `sudo apt-get -f install` to force an install of the files that didn't get loaded because of the error. Then try `sudo apt-get update` again, `sudo apt-get -f install` back and forth until only the package that has the error is left. `sudo dpkg --configure -a` and clean the cache `sudo apt-get clean`
+	* "How do I remove only one specific package with apt-get?" <br/>
+	apt-get won't let you do that, since it's a potentially dangerous step for a package management system to allow. As long as you are aware that there may be consequences, use dpkg with the --remove option to do it. For example:
+`sudo dpkg --remove mysql-common` <br/>
+From insomnia's comment: If you need to override the dependency system's decision you can (with great care and making sure you know what you are doing) use an additional --force-depends.
+`sudo dpkg --remove --force-depends mysql-common`

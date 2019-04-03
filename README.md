@@ -1111,3 +1111,6 @@ Soln: The `tf.batch_matmul()` op was removed in 3a88ec0. You can now use `tf.mat
 2. Try to run consecutive indexes with tf, but get problems for variable scope and reuse stuff. Modify in `algorithm_badmm.py`, `tf_network_example.py` (sovled), and `tf_utilus` (not solved)
 3. Switch to modify Emily's code
 4. [sys.path](http://python-notes.curiousefficiency.org/en/latest/python_concepts/import_traps.html)
+5. [post on DQN and prioritized experience replay](https://medium.freecodecamp.org/improvements-in-deep-q-learning-dueling-double-dqn-prioritized-experience-replay-and-fixed-58b130cc5682)
+6. [experience replay](https://arxiv.org/pdf/1712.01275.pdf) <br/>
+prioritized experience replay [paper](https://arxiv.org/pdf/1511.05952.pdf)

@@ -768,8 +768,8 @@ if __name__ == "__main__":
 	# Generte the map of the whole route, env.map
 	env = Environment()
 	start_idx = 52
-	final_idx = 53
-	# final_idx = len(env.map.route)-1
+	# final_idx = 53
+	final_idx = len(env.map.route)-1
 
 	img_name = env.img_name 
 

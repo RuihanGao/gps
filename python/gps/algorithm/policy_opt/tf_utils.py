@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import copy
 
 
 def check_list_and_convert(the_object):
@@ -100,18 +101,26 @@ class TfSolver:
             var_list = tf.trainable_variables()
         if loss is None:
             loss = self.loss_scalar
+        # new_var_list = []
+        # for var in var_list:
+        #     # print(var.name)
+        #     with tf.variable_scope(var.name, reuse=tf.AUTO_REUSE):
+        #         tf.get_variable_scope().reuse_variables()
+        #         new_var_list.append(var)
+        # var_list = copy.deepcopy(new_var_list)
+        # # still have error "ValueError: 'w_0/w_0:0' is not a valid scope name"
         if solver_string == 'adam':
             return tf.train.AdamOptimizer(learning_rate=self.base_lr,
-                                          beta1=self.momentum).minimize(loss, var_list=var_list)
+                                        beta1=self.momentum).minimize(loss, var_list=var_list)
         elif solver_string == 'rmsprop':
             return tf.train.RMSPropOptimizer(learning_rate=self.base_lr,
-                                             decay=self.momentum).minimize(loss, var_list=var_list)
+                                            decay=self.momentum).minimize(loss, var_list=var_list)
         elif solver_string == 'momentum':
             return tf.train.MomentumOptimizer(learning_rate=self.base_lr,
-                                              momentum=self.momentum).minimize(loss, var_list=var_list)
+                                            momentum=self.momentum).minimize(loss, var_list=var_list)
         elif solver_string == 'adagrad':
             return tf.train.AdagradOptimizer(learning_rate=self.base_lr,
-                                             initial_accumulator_value=self.momentum).minimize(loss, var_list=var_list)
+                                            initial_accumulator_value=self.momentum).minimize(loss, var_list=var_list)
         elif solver_string == 'sgd':
             return tf.train.GradientDescentOptimizer(learning_rate=self.base_lr).minimize(loss, var_list=var_list)
         else:

@@ -6,11 +6,16 @@ import numpy as np
 
 
 def init_weights(shape, name=None):
-    return tf.get_variable(name, initializer=tf.random_normal(shape, stddev=0.01))
+    # Modified to debug error `ValueError: Variable w_0 already exists, disallowed. Did you mean to set reuse=True or reuse=tf.AUTO_REUSE in VarScope? Originally defined at: ``
+    with tf.variable_scope(name, reuse=tf.AUTO_REUSE):
+        return tf.get_variable(name, initializer=tf.random_normal(shape, stddev=0.01))
+        # tf.get_variable_scope().reuse_variables()
+    
 
 
 def init_bias(shape, name=None):
-    return tf.get_variable(name, initializer=tf.zeros(shape, dtype='float'))
+    with tf.variable_scope(name, reuse=tf.AUTO_REUSE):
+        return tf.get_variable(name, initializer=tf.zeros(shape, dtype='float'))
 
 
 def batched_matrix_vector_multiply(vector, matrix):

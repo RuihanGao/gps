@@ -1119,3 +1119,8 @@ prioritized experience replay [paper](https://arxiv.org/pdf/1511.05952.pdf)
 7. To put the bus at the bottom, modify in `vehicle.py` <br/>
 Try several methods like `setScreenCenter` and others, finally modify in `getObvservation()`, ~L651, increase the padding size, follow the original steps to rotate, and then shift the bus to desired place at final cutting step. <br/>
 (Though not sure how the padding works and why crop_rad becomes the center)
+
+*Python*
+* Pad an array. [`numpy.pad(array, pad_width, mode, **kwargs)`](https://docs.scipy.org/doc/numpy/reference/generated/numpy.pad.html)
+
+* Interesting [WarpAffine proj](https://www.learnopencv.com/tag/warpaffine/)

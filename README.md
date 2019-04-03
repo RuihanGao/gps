@@ -1116,3 +1116,6 @@ Soln: The `tf.batch_matmul()` op was removed in 3a88ec0. You can now use `tf.mat
 5. [post on DQN and prioritized experience replay](https://medium.freecodecamp.org/improvements-in-deep-q-learning-dueling-double-dqn-prioritized-experience-replay-and-fixed-58b130cc5682)
 6. [experience replay](https://arxiv.org/pdf/1712.01275.pdf) <br/>
 prioritized experience replay [paper](https://arxiv.org/pdf/1511.05952.pdf)
+7. To put the bus at the bottom, modify in `vehicle.py` <br/>
+Try several methods like `setScreenCenter` and others, finally modify in `getObvservation()`, ~L651, increase the padding size, follow the original steps to rotate, and then shift the bus to desired place at final cutting step. <br/>
+(Though not sure how the padding works and why crop_rad becomes the center)

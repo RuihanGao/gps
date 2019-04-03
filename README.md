@@ -1105,3 +1105,8 @@ then repeat `sudo apt-get install gedit-plugins`
 7. Modify the `hyperparams.py` for AgentBus, including `obs_include` for `algorithm` and `agent`
 8. Debug: `module object has not attribute batch_matmul tensorflow` <br/>
 Soln: The `tf.batch_matmul()` op was removed in 3a88ec0. You can now use `tf.matmul()` to perform batch matrix multiplications (i.e. for tensors with rank > 2).
+
+## 4.3 
+1. Copy&paste stop working in Terminator. Restarting the program helps.
+2. Try to run consecutive indexes with tf, but get problems for variable scope and reuse stuff. Modify in `algorithm_badmm.py`, `tf_network_example.py` (sovled), and `tf_utilus` (not solved)
+3. Switch to modify Emily's code

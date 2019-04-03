@@ -1110,3 +1110,4 @@ Soln: The `tf.batch_matmul()` op was removed in 3a88ec0. You can now use `tf.mat
 1. Copy&paste stop working in Terminator. Restarting the program helps.
 2. Try to run consecutive indexes with tf, but get problems for variable scope and reuse stuff. Modify in `algorithm_badmm.py`, `tf_network_example.py` (sovled), and `tf_utilus` (not solved)
 3. Switch to modify Emily's code
+4. [sys.path](http://python-notes.curiousefficiency.org/en/latest/python_concepts/import_traps.html)

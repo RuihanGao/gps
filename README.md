@@ -152,7 +152,9 @@ Soln: print the `noise` and it is `['gaussian', 0.1]` so change the line to `if 
 2. Study Emily's code. Reinaldo helps to run it. In home/emily folder, there's a hidder file. Run `. .env` in termial of that folder will trigger an environment with installed packages, under which navigate to emily_backup folder and run the program wiht selected model `--model xxxx` <br/>
 e.g. `python3 main.py --model models/DQN.pt` <br/>
 If encounter error like "AttributeError: module 'enum' has no attribute 'IntFlag'"<br/>
-Soln: "Make sure that nowhere in your shell configuration files, `PYTHONPATH` is set to point to your Python 2.7 installation. You can fix it by running `unset PYTHONPATH` in terminal and then check its current value with `echo $PYTHONPATH` – for me it's now empty."
+Soln: "Make sure that nowhere in your shell configuration files, `PYTHONPATH` is set to point to your Python 2.7 installation. You can fix it by running `unset PYTHONPATH` in terminal and then check its current value with `echo $PYTHONPATH` – for me it's now empty." <br/>
+In case enconter Import Error like `ImportError: No module named 'gym.envs'`, which is because in `simulator/gym` the script for adding path in `setup.py` `sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'gym'))` was not run. <br/>
+Soln: run in terminal `sudo python3 setup.py install` to go through the path-adding step and to install the required packages
 
 *Python*
 1. `time.sleep(sec)`: hang on for how many seconds; `time.ctime()`: time stamp for current time

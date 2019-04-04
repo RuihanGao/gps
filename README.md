@@ -1122,5 +1122,12 @@ Try several methods like `setScreenCenter` and others, finally modify in `getObv
 
 *Python*
 * Pad an array. [`numpy.pad(array, pad_width, mode, **kwargs)`](https://docs.scipy.org/doc/numpy/reference/generated/numpy.pad.html)
-
 * Interesting [WarpAffine proj](https://www.learnopencv.com/tag/warpaffine/)
+
+## 4.4 
+1. Going out to help log data
+2. 
+
+*Others*
+* ddpg [paper](http://proceedings.mlr.press/v32/silver14.pdf) [github impl. with tf](https://github.com/cookbenjamin/DDPG) [continuous control with ddpg paper](https://arxiv.org/pdf/1509.02971v5.pdf)
+* [Segment tree for a faster implementation of prioritized replay buffer](https://www.hackerearth.com/zh/practice/data-structures/advanced-data-structures/segment-trees/tutorial/)

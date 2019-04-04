@@ -1126,7 +1126,19 @@ Try several methods like `setScreenCenter` and others, finally modify in `getObv
 
 ## 4.4 
 1. Going out to help log data
-2. 
+2. Study Emily's `ddpg.py` and `ReplayMemory` in `utils.py`
+3. Try to retrain ddpg model with the bus located at the bottom
+
+*Debug*
+* Error: `SyntaxError: Non-ASCII character '\xce' in file scripts/ddpg.py on line 215, but no encoding declared; see http://python.org/dev/peps/pep-0263/ for details` <br/>
+Soln: It's a file encoding problem. Try adding this at the beginning of the file: `#coding=utf-8` or `# -*- coding: utf-8 -*-`
+* Error `Invalid Syntax` for `model = DDPG(**model_arch, actor_lr=actor_lr, ...).to(device)`. <br/>
+Soln: Note that `model_arch` is a dictionary containg keywords and their values, and the syntax [`*tuple` and `**dictionary`](https://stackoverflow.com/questions/21809112/what-does-tuple-and-dict-means-in-python) are only valid for python3. so switch python version to 3.
+* Error: `ImportError: HDFStore requires PyTables, "No module named 'tables'" problem importing` for hdf data reading <br/>
+Soln: In terminal, run `sudo apt-get install python3-tables`
+* Error: `ValueError: cannot set WRITEABLE flag to True of this array Closing remaining open files:models/experiences/DDPG.h5...done` <br/>
+Soln: Downgrade numpy by running in terminal `sudo pip3 install numpy==1.15.4` <br/>
+To check numpy version, run in terminal `>> import numpy >> print numpy.__version__`
 
 *Others*
 * ddpg [paper](http://proceedings.mlr.press/v32/silver14.pdf) [github impl. with tf](https://github.com/cookbenjamin/DDPG) [continuous control with ddpg paper](https://arxiv.org/pdf/1509.02971v5.pdf)

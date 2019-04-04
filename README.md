@@ -1127,7 +1127,8 @@ Try several methods like `setScreenCenter` and others, finally modify in `getObv
 ## 4.4 
 1. Going out to help log data
 2. Study Emily's `ddpg.py` and `ReplayMemory` in `utils.py`
-3. Try to retrain ddpg model with the bus located at the bottom
+3. Try to retrain ddpg model with the bus located at the bottom <br/>
+However, the model is not trained properly in that the bus learns only to go backwards even if the reward is negative.
 
 *Debug*
 * Error: `SyntaxError: Non-ASCII character '\xce' in file scripts/ddpg.py on line 215, but no encoding declared; see http://python.org/dev/peps/pep-0263/ for details` <br/>
@@ -1139,6 +1140,7 @@ Soln: In terminal, run `sudo apt-get install python3-tables`
 * Error: `ValueError: cannot set WRITEABLE flag to True of this array Closing remaining open files:models/experiences/DDPG.h5...done` <br/>
 Soln: Downgrade numpy by running in terminal `sudo pip3 install numpy==1.15.4` <br/>
 To check numpy version, run in terminal `>> import numpy >> print numpy.__version__`
+* Try to run the trained model in a new terminal, and encounter `AttributeError: '_NamespacePath' object has no attribute 'sort'` and other consecutive errors. Try to debug by upgrade pip and install `setuptools`, finally realize that I need refo `unset PYTHONPATH` in new terminal even if I'm using `python3 main.py`
 
 *Others*
 * ddpg [paper](http://proceedings.mlr.press/v32/silver14.pdf) [github impl. with tf](https://github.com/cookbenjamin/DDPG) [continuous control with ddpg paper](https://arxiv.org/pdf/1509.02971v5.pdf)

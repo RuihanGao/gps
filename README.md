@@ -1145,3 +1145,15 @@ To check numpy version, run in terminal `>> import numpy >> print numpy.__versio
 *Others*
 * ddpg [paper](http://proceedings.mlr.press/v32/silver14.pdf) [github impl. with tf](https://github.com/cookbenjamin/DDPG) [continuous control with ddpg paper](https://arxiv.org/pdf/1509.02971v5.pdf)
 * [Segment tree for a faster implementation of prioritized replay buffer](https://www.hackerearth.com/zh/practice/data-structures/advanced-data-structures/segment-trees/tutorial/)
+
+## 4.5 
+1. Read Emily'code, esp. `ddpg.py` and `utils.py`, get the basic understanding.
+2. Training the ddpg with original map works, with the returns increase from -80 to -30 at 3xxxx steps. <br/>
+However, training with bus at the bottom doesn't work. Trying to look into feeding tiles, see whether it is because the feeding is too far away. <br/>
+Soln: Check the code and notice that in `simulation_env.py` L152 step() function, the `self.bus.update()` (where the uncovered tiles are fed) comes first, followed by `self.bus.getObservation()` (where the observation map is obtained). Therefore, changing observation is impertinent to tiles feeding. It finally turns out that it just takes more steps for the bus to learn to go forward; at around step 5xxxx, it proceeds in the correct direction.
+
+
+*Python*
+* use [`import signal`](https://docs.python.org/3/library/signal.html#module-signal) to implement interrupt handler and to deal with unsynchronized events
+*Others*
+* Ornstein–Uhlenbeck process: a stochastic process in continuous-time. "The process is a stationary Gauss–Markov process, which means that it is a Gaussian process, a Markov process, and is temporally homogeneous. The Ornstein–Uhlenbeck process is the only nontrivial process that satisfies these three conditions, up to allowing linear transformations of the space and time variables. Over time, the process tends to drift towards its long-term mean: such a process is called mean-reverting. The process can be considered to be a modification of the random walk in continuous time, or Wiener process, in which the properties of the process have been changed so that there is a tendency of the walk to move back towards a central location, with a greater attraction when the process is further away from the center.` [wiki](https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process)

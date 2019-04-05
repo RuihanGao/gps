@@ -1151,7 +1151,8 @@ To check numpy version, run in terminal `>> import numpy >> print numpy.__versio
 2. Training the ddpg with original map works, with the returns increase from -80 to -30 at 3xxxx steps. <br/>
 However, training with bus at the bottom doesn't work. Trying to look into feeding tiles, see whether it is because the feeding is too far away. <br/>
 Soln: Check the code and notice that in `simulation_env.py` L152 step() function, the `self.bus.update()` (where the uncovered tiles are fed) comes first, followed by `self.bus.getObservation()` (where the observation map is obtained). Therefore, changing observation is impertinent to tiles feeding. It finally turns out that it just takes more steps for the bus to learn to go forward; at around step 5xxxx, it proceeds in the correct direction.
-
+3. Priority Exp Replay is implemented in `utils.py -> updatePriors()` with priority set according to td_error.
+4. After understanding the replay buffer implemented by Emily, should proceed to generate GPS "expert data"
 
 *Python*
 * use [`import signal`](https://docs.python.org/3/library/signal.html#module-signal) to implement interrupt handler and to deal with unsynchronized events

@@ -62,6 +62,7 @@ class PolicyOptTf(PolicyOpt):
                 self.x_idx = self.x_idx + list(range(i, i+dim))
             i += dim
         init_op = tf.initialize_all_variables()
+        tf.reset_default_graph()
         self.sess.run(init_op)
 
     def init_network(self):
@@ -77,7 +78,6 @@ class PolicyOptTf(PolicyOpt):
         self.loss_scalar = tf_map.get_loss_op()
         self.fc_vars = fc_vars
         self.last_conv_vars = last_conv_vars
-
         # Setup the gradients
         self.grads = [tf.gradients(self.act_op[:,u], self.obs_tensor)[0]
                 for u in range(self._dU)]

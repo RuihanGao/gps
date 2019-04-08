@@ -8,7 +8,7 @@ import numpy as np
 from gps import __file__ as gps_filepath
 from gps.agent.box2d.agent_bus import AgentBus
 from gps.agent.box2d.bus_world import BusWorld 
-# from gps.algorithm.algorithm_traj_opt import AlgorithmTrajOpt 
+from gps.algorithm.algorithm_traj_opt import AlgorithmTrajOpt 
 from gps.algorithm.algorithm_badmm import AlgorithmBADMM
 from gps.algorithm.cost.cost_state import CostState 
 from gps.algorithm.cost.cost_action import CostAction 
@@ -86,27 +86,60 @@ agent = {
 	'display_center': None,
 }
 
-# algorithm = {
-# 	'type': AlgorithmTrajOpt,  
-# 	'conditions': common['conditions'],
-# }
+
 
 algorithm = {
-    'type': AlgorithmBADMM,
-    'conditions': common['conditions'],
+	'type': AlgorithmTrajOpt,  
+	'conditions': common['conditions'],
     'iterations': common['iterations'],
     'train_conditions': common['train_conditions'],
     'test_conditions': common['test_conditions'],
-    'lg_step_schedule': np.array([1e-4, 1e-3, 1e-2, 1e-2]),
-    'policy_dual_rate': 0.2,
-    'ent_reg_schedule': np.array([1e-3, 1e-3, 1e-2, 1e-1]),
-    'fixed_lg_step': 3,
-    'kl_step': 5.0,
-    'min_step_mult': 0.01,
-    'max_step_mult': 1.0,
-    'sample_decrease_var': 0.05,
-    'sample_increase_var': 0.1,
 }
+
+# algorithm = {
+#     'type': AlgorithmBADMM,
+#     'conditions': common['conditions'],
+#     'iterations': common['iterations'],
+#     'train_conditions': common['train_conditions'],
+#     'test_conditions': common['test_conditions'],
+#     'lg_step_schedule': np.array([1e-4, 1e-3, 1e-2, 1e-2]),
+#     'policy_dual_rate': 0.2,
+#     'ent_reg_schedule': np.array([1e-3, 1e-3, 1e-2, 1e-1]),
+#     'fixed_lg_step': 3,
+#     'kl_step': 5.0,
+#     'min_step_mult': 0.01,
+#     'max_step_mult': 1.0,
+#     'sample_decrease_var': 0.05,
+#     'sample_increase_var': 0.1,
+# }
+# algorithm['policy_opt'] = {
+# 	'type':PolicyOptTf,
+# 	'network_params': {
+# 		'num_filters': [64, 32, 32],
+# 		# TODO: in proto, only have RGB_IMAGE, DEPTH_IMAGE, CONTEXT_IMAGE, need to make a better choice later
+# 		# use the image later, try to run the tf network first
+# 		# 'obs_include': [END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, RGB_IMAGE],
+# 		'obs_include': [END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES],
+# 		'obs_vector_data': [END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES],
+# 		# # 'obs_image_data': [RGB_IMAGE],
+#         # 'image_width': IMAGE_WIDTH,
+#         # 'image_height': IMAGE_HEIGHT,
+#         # 'image_channels': IMAGE_CHANNELS,
+# 		'sensor_dims': SENSOR_DIMS,
+# 	},
+# 	# 'network_model': multi_modal_network,
+# 	'network_model': tf_network,
+# 	'iterations': 1000,
+# 	'weights_file_prefix': EXP_DIR + 'policy',
+# }
+
+# algorithm['policy_prior'] = {
+#     'type': PolicyPriorGMM,
+#     'max_clusters': 20,
+#     'min_samples_per_cluster': 40,
+#     'max_samples': 20,
+# }
+
 
 algorithm['init_traj_distr'] = {
 	'type': init_lqr,
@@ -118,7 +151,6 @@ algorithm['init_traj_distr'] = {
 	'dt': agent['dt'],  # pass the param to keep consistency
 	'T': agent['T'],
 }
-
 action_cost = {
 	'type': CostAction,
 	'wu': np.array([1, 1]), # torque penalty, in cost.config
@@ -177,47 +209,18 @@ algorithm['traj_opt'] = {
 	# 'type': TrajOptPILQR, # not working due to data type
 }
 
-algorithm['policy_opt'] = {
-	'type':PolicyOptTf,
-	'network_params': {
-		'num_filters': [64, 32, 32],
-		# TODO: in proto, only have RGB_IMAGE, DEPTH_IMAGE, CONTEXT_IMAGE, need to make a better choice later
-		# use the image later, try to run the tf network first
-		# 'obs_include': [END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES, RGB_IMAGE],
-		'obs_include': [END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES],
-		'obs_vector_data': [END_EFFECTOR_POINTS, END_EFFECTOR_POINT_VELOCITIES],
-		# # 'obs_image_data': [RGB_IMAGE],
-        # 'image_width': IMAGE_WIDTH,
-        # 'image_height': IMAGE_HEIGHT,
-        # 'image_channels': IMAGE_CHANNELS,
-		'sensor_dims': SENSOR_DIMS,
-	},
-	# 'network_model': multi_modal_network,
-	'network_model': tf_network,
-	'iterations': 1000,
-	'weights_file_prefix': EXP_DIR + 'policy',
-}
-
-algorithm['policy_prior'] = {
-    'type': PolicyPriorGMM,
-    'max_clusters': 20,
-    'min_samples_per_cluster': 40,
-    'max_samples': 20,
-}
-
 config = {
     'iterations': algorithm['iterations'],
 	'num_samples': 10,
 	'verbose_trials': 5,
-	'verbose_policy_trials': 1,
+	# comment the below to use TrajOpt only, uncomment for PolicyOpt
+	# 'verbose_policy_trials': 1,
 	'common': common,
 	'agent': agent,
-	# 'gui_on': False,
-	'gui_on': True,
-	'algorithm': algorithm,
-	
+	'gui_on': False,
+	# 'gui_on': True,
+	'algorithm': algorithm,	
 }
-
 
 #TODO: check why modify after config{}
 common['info'] = generate_experiment_info(config)	

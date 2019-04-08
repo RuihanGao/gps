@@ -26,9 +26,10 @@ from gps.agent.box2d.bus_world import BusWorld
 
 from gps.agent.box2d.bus_world import BUS_LENGTH, BUS_WIDTH
 
-LANE_WIDTH = 20  #8           # width of lane in meters
+LANE_WIDTH = 8           # width of lane in meters
+TILE_LENGTH = 20
 INIT_VEL = 1.
-CUT_MAP_SIZE = (48, 48)
+CUT_MAP_SIZE = (48, 48) 
 
 class GPSMain(object):
 	""" Main class to run algorithms and experiments. """
@@ -308,7 +309,7 @@ class GPSMain(object):
 		"""
 		if 'verbose_policy_trials' not in self._hyperparams:
 			# AlgorithmTrajOpt
-			raise ValueError("Verbose absent")
+			# raise ValueError("Verbose absent")
 			return None
 		verbose = self._hyperparams['verbose_policy_trials']
 		if self.gui:
@@ -575,6 +576,10 @@ def collect_action(action_file, start_idx, final_idx, env, loop):
 			target = [target[0] - display_center[0], display_center[1] - target[1], target[2]]
 			local_map_state = env.map.map_state[int(display_center[1]-CUT_MAP_SIZE[1]/2):int(display_center[1]+CUT_MAP_SIZE[1]/2), 
 								int(display_center[0]-CUT_MAP_SIZE[0]/2):int(display_center[0]+CUT_MAP_SIZE[0]/2)].copy()
+			# Modified in April 5, try to generate local map that conforms to emily's observation
+			# try to pass a local map with obstacle information and enlarge the target as a short tile
+			#  
+			
 			# run gps and save img, save action
 			# try to cut the map and place the bus based on its yaw angle
 			finishing_time, U, final_pos, X, data_files_dir = get_policy(idx, CUT_MAP_SIZE, x0, target, map_state=local_map_state, polygons=None, display_center=display_center)
@@ -623,6 +628,7 @@ def collect_action(action_file, start_idx, final_idx, env, loop):
 			target = [org_target[0] - display_center[0], display_center[1] - org_target[1], org_target[2]]
 			local_map_state = env.map.map_state[int(display_center[1]-CUT_MAP_SIZE[1]/2):int(display_center[1]+CUT_MAP_SIZE[1]/2), 
 								int(display_center[0]-CUT_MAP_SIZE[0]/2):int(display_center[0]+CUT_MAP_SIZE[0]/2)].copy()
+	
 			# run gps and save img, save action
 			finishing_time, U, final_pos, X = get_policy(idx, CUT_MAP_SIZE, x0, target, map_state=local_map_state, polygons=None, display_center=display_center)
 			if final_pos is None or (not final_pos.any()):
@@ -731,8 +737,13 @@ def recall_map(data_files_dir, idx, map_size, map_state, target, U, X, action_fi
 			img_x0 = (x0[0]+map_size[1]/2, map_size[1]/2-x0[1])
 			img_target = (target[0]+map_size[1]/2, map_size[1]/2-target[1])
 			# print("img_x0, img_target", img_x0, img_target)
-			img = draw_rot_rectangle(map_state, img_x0, x0[2], BUS_LENGTH, BUS_WIDTH, pixel=BUS)
-			img = draw_rot_rectangle(map_state, img_target, target[2], BUS_LENGTH, BUS_WIDTH, pixel=TARGET)
+			# Modify on April 5, to draw map consistent with Emily's 
+			# img = draw_rot_rectangle(map_state, img_x0, x0[2], BUS_LENGTH, BUS_WIDTH, pixel=BUS)
+			# img = draw_rot_rectangle(map_state, img_target, target[2], BUS_LENGTH, BUS_WIDTH, pixel=TARGET)
+			# To enlarge the target into a tile
+			img = draw_rot_fill_polygon(map_state, img_x0, x0[2], BUS_LENGTH, BUS_WIDTH, pixel=BUS)
+			img = draw_rot_fill_polygon(map_state, img_target, target[2], BUS_LENGTH*2, LANE_WIDTH, pixel=TARGET )
+			
 			height, width = map_state.shape
 			cv2.imwrite(img_name, img)
 			# cv2.imshow("map with bus", img)
@@ -767,7 +778,7 @@ if __name__ == "__main__":
 	img_list = []
 	# Generte the map of the whole route, env.map
 	env = Environment()
-	start_idx = 52
+	start_idx = 0
 	# final_idx = 53
 	final_idx = len(env.map.route)-1
 

@@ -16,10 +16,12 @@ COVER_TILE = 20 #10          # distance per tile of road to cover
 TASK_DIST = 1000         # meters from starting point to goal
 TARGET_IDX = 5
 # state values
-ROAD = 50 # 150
-OUT = 150 # 50
-BUS = 0
-TARGET = 100
+# keep consistent with emily's one 
+ROAD = 150
+OUT = 50
+OBSTACLE = 0
+BUS = 255
+TARGET = 200  # same as UNCOVERED in emily's
 
 SUB_MAP_SIZE = 200
 SUB_MAP_CLEARANCE = 20
@@ -405,9 +407,13 @@ def approx_polygon(img_in, img_out):
     imgray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # cv2.imshow('gray map in approx_polygon', imgray)
     # cv2.waitKey(3000)
-    # ret, thresh = cv2.threshold(imgray, 127, 255, cv2.THRESH_BINARY_INV) # for ROAD 150, OUT 50, use inverse so that it draws obstacle polygon
-    ret, thresh = cv2.threshold(imgray, 127, 255, cv2.THRESH_BINARY) # for ROAD 50, OUT 150
-    contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    ret, thresh = cv2.threshold(imgray, 127, 255, cv2.THRESH_BINARY_INV) # for ROAD 150, OUT 50, use inverse so that it draws obstacle polygon
+    # ret, thresh = cv2.threshold(imgray, 127, 255, cv2.THRESH_BINARY) # for ROAD 50, OUT 150
+    print("thresh", thresh)
+    # # Opencv2 returns 2 objects
+    # contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+    # Opencv3 returns 3 objects
+    im, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     num_contour = len(contours)
     # print("num", num_contour)
@@ -447,4 +453,27 @@ def draw_rot_rectangle(image, centre, theta, width, height, pixel=BUS, line_widt
     cv2.line(image, (int(p3_new[0, 0]), int(p3_new[0, 1])), (int(p4_new[0, 0]), int(p4_new[0, 1])), pixel, line_width)
     cv2.line(image, (int(p4_new[0, 0]), int(p4_new[0, 1])), (int(p1_new[0, 0]), int(p1_new[0, 1])), pixel, line_width)
 
+    return image
+
+def draw_rot_fill_polygon(image, centre, theta, width, height, pixel=BUS, line_width=1):
+    # theta = np.radians(theta)
+    c, s = np.cos(theta), np.sin(theta)
+    R = np.matrix('{} {}; {} {}'.format(c, -s, s, c))
+    # print(R)
+    # print ("center of rotated rect", centre)
+    p1 = [ + width / 2,  + height / 2]
+    p2 = [ - width / 2,  + height / 2]
+    p3 = [ - width / 2,  - height / 2]
+    p4 = [ + width / 2,  - height / 2]
+    p1_new = np.dot(p1, R)+ centre
+    p2_new = np.dot(p2, R)+ centre
+    p3_new = np.dot(p3, R)+ centre
+    p4_new = np.dot(p4, R)+ centre
+    p1 = np.add(p1, centre)
+    # print("p1", p1_new)
+    poly = np.array( [ [ p1_new[0, 0], p1_new[0, 1] ], \
+                       [ p2_new[0, 0] ,p2_new[0, 1] ], \
+                       [ p3_new[0, 0] ,p3_new[0, 1] ], \
+                       [ p4_new[0, 0] ,p4_new[0, 1] ], ] , np.int32)
+    cv2.fillConvexPoly(image,poly,pixel)
     return image

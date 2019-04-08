@@ -28,7 +28,10 @@ class AgentBus(Agent):
 						  self._hyperparams["map_size"],
 						  self._hyperparams["map_state"],
 						  self._hyperparams["display_center"],)
-		
+		# print("map_size in AgentBus")
+		# print(self._hyperparams["map_size"])  # (48, 48)
+		# print("map_state in AgentBus")
+		# print(self._hyperparams["map_state"])
 
 	def _setup_conditions(self):
 		"""

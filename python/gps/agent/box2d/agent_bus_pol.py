@@ -50,13 +50,6 @@ class AgentBusPol(Agent):
 		self._worlds = [world(self.x0[i], target_state, render, map_size, polygons=polygons, map_state=map_state, display_center=display_center)
 						for i in range(self._hyperparams['conditions'])]
 		
-		
-		# # edited by Ruihan to include multiple tiles
-        # self.x0 = self._hyperparams["x0"]
-        # self.target = self._hyperparams["target_state"]  # or just "target" in input variable
-        # self._worlds = [world(self.x0[i], self.target[i], render)
-        #                 for i in range(self._hyperparams['conditions'])]
-	
 	def sample(self, policy, condition, verbose=False, save=True, noisy=True):
 		"""
 		Runs a trial and constructs a new sample containing information
@@ -144,11 +137,13 @@ class AgentBusPol(Agent):
 		for sensor in b2d_X.keys():
 			sample.set(sensor, np.array(b2d_X[sensor]), t=t+1)
 	
+	def get_image_from obs_(self):
+
     # def _get_image_from_obs(self, obs):
     #     # used to capture and store iamges, not in use yet
     #     imstart = 0
     #     imend = 0
-    #     image_channels = self._hyperparams['image_channels']
+    #     image_channels = self._hyp  erparams['image_channels']
     #     image_width = self._hyperparams['image_width']
     #     image_height = self._hyperparams['image_height']
     #     for sensor in self._hyperparams['obs_include']:
@@ -161,3 +156,110 @@ class AgentBusPol(Agent):
     #     img = obs[imstart:imend]
     #     img = img.reshape((image_width, image_height, image_channels))
     #     return img
+
+
+	def update(self):
+        # update route if another tile covered
+        cover = self._checkOccupancy(self.pos, self.env.map_state_shared, [UNCOVERED])
+        while cover != 0:
+            self.dist_count += 1
+            self.last_move = 0
+            idxs = [ self.env._coordsToIdx( self.route[0] ) , self.env._coordsToIdx( self.route[0+1] ) ]
+            poly = np.array( [ [ idxs[0][1] ,idxs[0][0] ], \
+                               [ idxs[0][1]+LANE_WIDTH*self.env.map_scale*np.cos(self.route[0][2]+np.pi/2),idxs[0][0]-LANE_WIDTH*self.env.map_scale*np.sin(self.route[0][2]+np.pi/2)], \
+                               [ idxs[1][1]+LANE_WIDTH*self.env.map_scale*np.cos(self.route[0][2]+np.pi/2),idxs[1][0]-LANE_WIDTH*self.env.map_scale*np.sin(self.route[0][2]+np.pi/2)], \
+                               [ idxs[1][1] ,idxs[1][0] ]  ] , np.int32)
+            self.env.map_state_shared = cv2.fillConvexPoly(self.env.map_state_shared,poly,ROAD)
+            cover = self._checkOccupancy(self.pos, self.env.map_state_shared, [UNCOVERED])
+            self.route.pop(0)
+        if len(self.route) <= 1: self.reach_goal = True
+
+        # renew shared map, remove other cars
+        self.env.map_state_shared = self.env.map_state.copy()
+
+        # add uncovered tiles
+        for i in range(min(SHOW_TILES,len(self.route)-1)):
+            idxs = [ self.env._coordsToIdx( self.route[i] ) , self.env._coordsToIdx( self.route[i+1] ) ]
+            poly = np.array( [ [ idxs[0][1] ,idxs[0][0] ], \
+                               [ idxs[0][1]+LANE_WIDTH*self.env.map_scale*np.cos(self.route[i][2]+np.pi/2),idxs[0][0]-LANE_WIDTH*self.env.map_scale*np.sin(self.route[i][2]+np.pi/2)], \
+                               [ idxs[1][1]+LANE_WIDTH*self.env.map_scale*np.cos(self.route[i][2]+np.pi/2),idxs[1][0]-LANE_WIDTH*self.env.map_scale*np.sin(self.route[i][2]+np.pi/2)], \
+                               [ idxs[1][1] ,idxs[1][0] ]  ] , np.int32)
+            self.env.map_state_shared = cv2.fillConvexPoly(self.env.map_state_shared,poly,UNCOVERED)
+            self.env.map_disp_shared = cv2.fillConvexPoly(self.env.map_disp_shared,poly,(UNCOVERED, UNCOVERED, UNCOVERED))
+            
+        # add self, draw rectangle, meanning the pos is updated 
+        c = np.cos(self.pos[2])
+        s = np.sin(self.pos[2])
+        coords = []
+        for i in np.arange(0,self.wheelbase/2,0.8/self.env.map_scale):
+            for j in np.arange(0,self.trackwidth/2,0.8/self.env.map_scale):
+                coords.append( (self.pos[0] + i*c - j*s, self.pos[1] + i*s + j*c ) )
+                coords.append( (self.pos[0] - i*c - j*s, self.pos[1] - i*s + j*c) )
+                coords.append( (self.pos[0] + i*c + j*s, self.pos[1] + i*s - j*c) )
+                coords.append( (self.pos[0] - i*c + j*s, self.pos[1] - i*s - j*c) )
+        for coord in coords:
+            idx = self.env._coordsToIdx(coord)
+            self.env.map_state_shared[idx[0]][idx[1]] = SELF
+        self.env.map_disp_shared = self.env.map_disp.copy()
+        idx = self.env._coordsToIdx(self.pos)
+        # rot_mat = cv2.getRotationMatrix2D( (self.img_overlay.shape[0]//2,self.img_overlay.shape[1]//2), self.pos[2]*180/np.pi, 1)
+        rot_mat = cv2.getRotationMatrix2D( (self.img_overlay.shape[0]//2,self.img_overlay.shape[1]//2), 0, 1)
+        overlay = cv2.warpAffine(self.img_overlay, rot_mat, (self.img_overlay.shape[0],self.img_overlay.shape[1]), borderMode=cv2.BORDER_CONSTANT, borderValue=[255,255,255] )
+        for i in range(overlay.shape[0]):
+            for j in range(overlay.shape[1]):
+                if not np.all(np.greater(overlay[i,j,:],[150,150,150])):
+                    self.env.map_disp_shared[int(idx[0]-overlay.shape[0]/2)+i,int(idx[1]-overlay.shape[1]/2)+j,:] = overlay[i,j,:]
+
+        # update timer
+        if self.env.tstep is not None:
+            self.last_move += 1
+            self.elapsed_time += 1
+            self.no_move = self.last_move > WAIT_TIME/self.env.tstep
+            self.episode_terminate = self.elapsed_time > MAX_EP_TIME/self.env.tstep
+        else:
+            tick = self.step_timer.tick()
+            self.last_move += tick
+            self.elapsed_time += tick
+            self.no_move = self.last_move > WAIT_TIME * 1000
+            self.episode_terminate = self.elapsed_time > MAX_EP_TIME * 1000
+
+        # update screen center to ensure ego vehicle within border
+        if self.env.render: self.env._updateScreenCenter(self.pos)
+    
+	def _checkOccupancy(self, pos, occ_grid, occ_state, rad=None):
+        coords = []
+
+        if rad is None:
+            l = self.wheelbase // 2
+            w = self.trackwidth // 2
+            c = np.cos(pos[2])
+            s = np.sin(pos[2])
+            for i in np.arange(-w,w,0.8*self.env.map_scale):
+                coords.append( (pos[0] + l*c - i*s, pos[1] + l*s + i*c) )
+                coords.append( (pos[0] - l*c - i*s, pos[1] - l*s + i*c) )
+            for i in np.arange(-l,l,0.8*self.env.map_scale):
+                coords.append( (pos[0] + i*c - w*s, pos[1] + i*s + w*c) )
+                coords.append( (pos[0] + i*c + w*s, pos[1] + i*s - w*c) )
+        elif type(rad) == int or type(rad) == float:
+            for i in np.arange(-rad,rad,0.8*self.env.map_scale):
+                for j in np.arange(-rad,rad,0.8*self.env.map_scale):
+                    coords.append( (pos[0]+i, pos[1]+j) )
+        elif type(rad) == list or type(rad) == tuple:
+            w = rad[0]/2
+            h = rad[1]/2
+            c = np.cos(pos[2])
+            s = np.sin(pos[2])
+            for i in np.arange(-h,h,0.8*self.env.map_scale):
+                coords.append( (pos[0] + w*c - i*s, pos[1] + w*s + i*c) )
+                coords.append( (pos[0] - w*c - i*s, pos[1] - w*s + i*c) )
+            for i in np.arange(-w,w,0.8*self.env.map_scale):
+                coords.append( (pos[0] + i*c - h*s, pos[1] + i*s + h*c) )
+                coords.append( (pos[0] + i*c + h*s, pos[1] + i*s - h*c) )
+        else:
+            print('Unrecognized rad type:',str(type(rad)))
+            return
+
+        for coord in coords:
+            idx = self.env._coordsToIdx(coord)
+            if occ_grid[idx[0]][idx[1]] in occ_state: return idx
+        return 0

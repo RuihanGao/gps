@@ -1189,3 +1189,30 @@ Soln: `set_axis_bgcolor` -> `set_facecolor`, `get_axis_bgcolor` -> `get_facecolo
 
 `filepath = os.path.abspath(__file__)` to get absolutu path of the current file <br/>
 effective way to navigate around the directory `gps_dir = '/'.join(str.split(gps_filepath, '/')[:-2]) + '/gps/'`
+
+2. Current problem <br/>
+	* box2d polygon, vertices >=3
+	* once not hit, the program stops
+
+*Python*
+1. [numpy.where](https://docs.scipy.org/doc/numpy/reference/generated/numpy.where.html): used to check conditions and filter an array or matrix <br/>
+[multiple conditions](https://stackoverflow.com/questions/16343752/numpy-where-function-multiple-conditions): e.g.  `dists[(np.where((dists >= r) & (dists <= r + dr)))]`
+
+*Debug*
+* `cv2.error: /io/opencv/modules/imgproc/src/contours.cpp:199: error: (-210) [Start]FindContours supports only CV_8UC1 images when mode != CV_RETR_FLOODFILL otherwise supports CV_32SC1 images only in function cvStartFindContours_Impl` <br/>
+`cv2.error: /io/opencv/modules/imgproc/src/thresh.cpp:1505: error: (-210) in function threshold` <br/>
+`cv2.error: /io/opencv/modules/imgproc/src/color.cpp:11048: error: (-215) scn == 3 || scn == 4 in function cvtColor` <br/>
+Soln: `afterFourier = afterFourier.astype(np.uint8)`
+`cv2.cvtColor(X, cv2.COLOR_RGB2HSV) ⇒ cv2.cvtColor(X.astype(np.uint8), cv2.COLOR_RGB2HSV)` <br/>
+if `gray = cv2.imread('C:/Python34/images/2015-05-27-191152.jpg',0)` (load with `0` parameter) or already in binary format, no need to do cvtColor
+* to smooth the edge and eliminate tiny narrow lines, dilate and erode <br/>
+```
+import cv2
+import numpy as np
+blur=((3,3),1)
+erode_=(5,5)
+dilate_=(3, 3)
+cv2.imwrite('imgBool_erode_dilated_blured.png',cv2.dilate(cv2.erode(cv2.GaussianBlur(cv2.imread('so-br-in.png',0)/255, blur[0], blur[1]), np.ones(erode_)), np.ones(dilate_))*255)  
+```
+
+

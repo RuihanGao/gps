@@ -1159,3 +1159,33 @@ Solve the problem by inserting `tf.reset_default_graph()` in `__init__` of Polic
 * use [`import signal`](https://docs.python.org/3/library/signal.html#module-signal) to implement interrupt handler and to deal with unsynchronized events
 *Others*
 * Ornstein–Uhlenbeck process: a stochastic process in continuous-time. "The process is a stationary Gauss–Markov process, which means that it is a Gaussian process, a Markov process, and is temporally homogeneous. The Ornstein–Uhlenbeck process is the only nontrivial process that satisfies these three conditions, up to allowing linear transformations of the space and time variables. Over time, the process tends to drift towards its long-term mean: such a process is called mean-reverting. The process can be considered to be a modification of the random walk in continuous time, or Wiener process, in which the properties of the process have been changed so that there is a tendency of the walk to move back towards a central location, with a greater attraction when the process is further away from the center.` [wiki](https://en.wikipedia.org/wiki/Ornstein%E2%80%93Uhlenbeck_process)
+
+## 4.8
+1. Try to combine GPS and emily's simulator. <br/>
+Initially try create gym agent for GPS, then hard to consider the collision, and the way of running gym (by reward) and GPS are a bit conflicting. Finally choose to use gym as overall env adn at each step, create corerspondent box2d agent for GPS to obtain action. Modify the `guidedPS.py`, `agent_bus.py`, and `bus_world.py`. 
+*Debug*
+* `ImportError: No module named '[]; [] is not a package` <br/>
+either the problem of path or there are a file and a folder (package) that have the same name. e.g. `gps.py` and `gps` folder
+* ValueError: too many values to unpack when running `findContours` <br/>
+Soln: OpenCV version 3. cv2.findContours does return 3 objects `img, contours, hierarchy`, while version 2 returns only 2 objects `contours, hierarchy`
+
+## 4.9 
+1. Run the program and debug. <br/>
+change part of python2 syntax to python3 <br/>
+e.g. `import cPickle` -> `import pickle` <br/>
+` dict.iteritems(), dict.iterkeys(), and dict.itervalues()` -> `dict.items(), dict.keys(), and dict.values()` respectively. <br/>
+e.g. iterate over a dictionary: 
+```
+for key in d:
+For Python 2.x:
+for key, value in d.iteritems():
+For Python 3.x:
+for key, value in d.items():
+```
+
+solve the matplot deprecated syntax for new version <br/>
+e.g. `'AxesSubplot' object has no attribute 'set_axis_bgcolor'`<br/>
+Soln: `set_axis_bgcolor` -> `set_facecolor`, `get_axis_bgcolor` -> `get_facecolor`, `canvas.update()` -> `canvas.draw)idle()` <br/>
+
+`filepath = os.path.abspath(__file__)` to get absolutu path of the current file <br/>
+effective way to navigate around the directory `gps_dir = '/'.join(str.split(gps_filepath, '/')[:-2]) + '/gps/'`

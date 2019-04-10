@@ -1215,4 +1215,7 @@ dilate_=(3, 3)
 cv2.imwrite('imgBool_erode_dilated_blured.png',cv2.dilate(cv2.erode(cv2.GaussianBlur(cv2.imread('so-br-in.png',0)/255, blur[0], blur[1]), np.ones(erode_)), np.ones(dilate_))*255)  
 ```
 
+## 4.10
+1. Revise [Policy Search](https://icml.cc/2015/tutorials/PolicySearch.pdf)
+
 

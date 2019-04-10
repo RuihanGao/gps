@@ -1217,5 +1217,5 @@ cv2.imwrite('imgBool_erode_dilated_blured.png',cv2.dilate(cv2.erode(cv2.Gaussian
 
 ## 4.10
 1. Revise [Policy Search](https://icml.cc/2015/tutorials/PolicySearch.pdf)
-
+2. Find the inconsistency between emily's action setting and box2d setting. Tried to delve into how the policy (trajectory samples) are set. However, actually only `agent_bus` and `bus_world` matter, so adding some processing before `get_policy` returns gps.U is fine.
 

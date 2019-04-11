@@ -1219,3 +1219,7 @@ cv2.imwrite('imgBool_erode_dilated_blured.png',cv2.dilate(cv2.erode(cv2.Gaussian
 1. Revise [Policy Search](https://icml.cc/2015/tutorials/PolicySearch.pdf)
 2. Find the inconsistency between emily's action setting and box2d setting. Tried to delve into how the policy (trajectory samples) are set. However, actually only `agent_bus` and `bus_world` matter, so adding some processing before `get_policy` returns gps.U is fine.
 
+## 4.11
+1. Stuck when the bus keeps turning. Find that the coordinate are inconsistent with the dynamics, for example, the bus should go up but the action is dragging it down. <br/>
+Soln: change the [x, y] to `[x-display_center[0], display_center[1]-y]` before passing to `get_policy`
+

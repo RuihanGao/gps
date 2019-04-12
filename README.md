@@ -1225,5 +1225,8 @@ Soln: change the [x, y] to `[x-display_center[0], display_center[1]-y]` before p
 2. Stuck again when the bus travels a short distance. Firstly searching for "why box2d keeps flickering", notice it is wrong focus and begin to debug myself, printing out action and state at each step. Notice it is the problem of sign of y-speed, that shouldn't be negated between return from get_policy and iteration for next index.
 3. Bug: The bus appears behind the target and route in box2d. <br/>
 Soln: fail by searching "layers of rendering in box2d", but find that swap the change in `box_world init` helps. The earlier the body is created, nearer to the top it appears to be.
-3. After it runs, tune the params a bit until box2d works fine. but it doesn't when replicating actions to gym. Try to see whether it is the problem of `getObservation`
+4. After it runs, tune the params a bit until box2d works fine. but it doesn't when replicating actions to gym. Try to see whether it is the problem of `getObservation`
+5. git [delete local repo](https://superuser.com/questions/599289/github-completely-messed-up-the-local-files-of-github-in-my-computer) navigate to the directory, do `rm -rf .git`
+6. [Show hidder files in Ubuntu](https://www.ubuntudoc.com/show-hidden-files-folders-ubuntu/)
+7. opencv, `getRotationMatrix2D` only returns the matrix, while `warpAffine` performs the actual rotation action.
 

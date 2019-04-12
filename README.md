@@ -1230,3 +1230,13 @@ Soln: fail by searching "layers of rendering in box2d", but find that swap the c
 6. [Show hidder files in Ubuntu](https://www.ubuntudoc.com/show-hidden-files-folders-ubuntu/)
 7. opencv, `getRotationMatrix2D` only returns the matrix, while `warpAffine` performs the actual rotation action.
 
+## 4.12
+1. supplementary notes: [Image Warping and Morphing](https://www.comp.nus.edu.sg/~cs4340/lecture/imorph.pdf)
+2. Understand emily's `	getObservation`. It crops centering `crop_rad[1], crop_rad[0]` because that is the actual pos of the bus after padding with crop_rad at each side. <br/>
+Figure it out by trying my naive idea and ending up with column & row number < 0 if crop cetering `idx` <br/>
+Enlarge the crop_rad and modify the y-coordinates of second cropping from previous `crop_rad[1]-obs_size-BOTTOM_OFFSET: crop_rad[1]+obs_size-BOTTOM_OFFSET` to `crop_rad[1]-obs_size: crop_rad[1]+obs_size-2*BOTTOM_OFFSET`
+3. Problem: box2d uses acceleration as action\[0], while gym uses speed as action\[0], which doesn't work in box2d world (don't know why) <br/>
+Soln: after returning from `get_policy`, concatenate speed and action\[1] (steering) and save as actions for gym. It works better. **Note**: in box2d, it may recover after collision, but not in gym
+4. 
+
+

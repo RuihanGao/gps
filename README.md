@@ -1243,7 +1243,13 @@ Debug: Previously, the road banana keeps turning to the right when running `ddpg
 Soln: print out the actions taken by ddpg and find it is always \[-1.0, -1.0], even after long-time training. Then trace the `ddpg.py` and save the state and next_state in batch samples by `imwrite`. Find that though next_state is with bus at the bottom since it is obtained from `getObservation`, the state image coming from original memory is still with bus at the center. Start a new memory `DDPG_bottom.h5` and run `ddpg.py`, which add memory to the repo first and then finetune the `DDPG_finetune.pt` 
 6. [Transfer Learning with Convolutional Neural Networks in PyTorch](https://towardsdatascience.com/transfer-learning-with-convolutional-neural-networks-in-pytorch-dd09190245ce)
 7. Check [if a file or directory exists](https://stackabuse.com/python-check-if-a-file-or-directory-exists/) `isfile(filename)`, `isdir(dirname)`, `os.path.exists()`
-8. 
+8. Debug: `QObject::moveToThread: Current thread (0x39d2190) is not the object's thread (0x26ab880). Cannot move to target thread (0x39d2190)` <br/>
+Check Qt version by `qmake --version`, which returns `QMake version 2.01a
+Using Qt version 4.8.7 in /home/sunardi/anaconda3/envs/emily_env/lib` seeming not to have conflict versions.
+Check installation history by `gedit /var/log/apt/history.log` in terminal and find that two commands  ` /usr/bin/unattended-upgrade` and `apt install cmake-qt-gui` contain qt. <br/>
+Look at posts [github](https://github.com/skvark/opencv-python/issues/46) and [stackflow](https://stackoverflow.com/questions/46449850/how-to-fix-the-error-qobjectmovetothread-in-opencv-in-python), but still not solved yet. <br/>
+[Threads and Qobjects explained](https://doc.qt.io/archives/qt-5.7/threads-qobject.html)
+
 
 
 *Python*

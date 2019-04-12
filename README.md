@@ -1237,6 +1237,9 @@ Figure it out by trying my naive idea and ending up with column & row number < 0
 Enlarge the crop_rad and modify the y-coordinates of second cropping from previous `crop_rad[1]-obs_size-BOTTOM_OFFSET: crop_rad[1]+obs_size-BOTTOM_OFFSET` to `crop_rad[1]-obs_size: crop_rad[1]+obs_size-2*BOTTOM_OFFSET`
 3. Problem: box2d uses acceleration as action\[0], while gym uses speed as action\[0], which doesn't work in box2d world (don't know why) <br/>
 Soln: after returning from `get_policy`, concatenate speed and action\[1] (steering) and save as actions for gym. It works better. **Note**: in box2d, it may recover after collision, but not in gym
-4. 
+4. [Transfer Learning with Convolutional Neural Networks in PyTorch](https://towardsdatascience.com/transfer-learning-with-convolutional-neural-networks-in-pytorch-dd09190245ce)
+
+*Python*
+* The @ (at) operator is intended to be used for matrix multiplication. No builtin Python types implement this operator.New in version 3.5.
 
 

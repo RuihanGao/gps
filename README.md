@@ -1222,4 +1222,8 @@ cv2.imwrite('imgBool_erode_dilated_blured.png',cv2.dilate(cv2.erode(cv2.Gaussian
 ## 4.11
 1. Stuck when the bus keeps turning. Find that the coordinate are inconsistent with the dynamics, for example, the bus should go up but the action is dragging it down. <br/>
 Soln: change the [x, y] to `[x-display_center[0], display_center[1]-y]` before passing to `get_policy`
+2. Stuck again when the bus travels a short distance. Firstly searching for "why box2d keeps flickering", notice it is wrong focus and begin to debug myself, printing out action and state at each step. Notice it is the problem of sign of y-speed, that shouldn't be negated between return from get_policy and iteration for next index.
+3. Bug: The bus appears behind the target and route in box2d. <br/>
+Soln: fail by searching "layers of rendering in box2d", but find that swap the change in `box_world init` helps. The earlier the body is created, nearer to the top it appears to be.
+3. After it runs, tune the params a bit until box2d works fine. but it doesn't when replicating actions to gym. Try to see whether it is the problem of `getObservation`
 

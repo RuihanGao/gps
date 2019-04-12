@@ -1237,9 +1237,17 @@ Figure it out by trying my naive idea and ending up with column & row number < 0
 Enlarge the crop_rad and modify the y-coordinates of second cropping from previous `crop_rad[1]-obs_size-BOTTOM_OFFSET: crop_rad[1]+obs_size-BOTTOM_OFFSET` to `crop_rad[1]-obs_size: crop_rad[1]+obs_size-2*BOTTOM_OFFSET`
 3. Problem: box2d uses acceleration as action\[0], while gym uses speed as action\[0], which doesn't work in box2d world (don't know why) <br/>
 Soln: after returning from `get_policy`, concatenate speed and action\[1] (steering) and save as actions for gym. It works better. **Note**: in box2d, it may recover after collision, but not in gym
-4. [Transfer Learning with Convolutional Neural Networks in PyTorch](https://towardsdatascience.com/transfer-learning-with-convolutional-neural-networks-in-pytorch-dd09190245ce)
+4. Learn [rectangle-fitting in PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics#rectangle-fitting), understand that it projects all ponts got from LidarSimulator to different angles with `c1` representing dot product, `c2` representing cross product, but sill not too clear about how the cost functions are set.
+5.Try to finetune the ddpg network since state images are ready now. <br/>
+Debug: Previously, the road banana keeps turning to the right when running `ddpg.py` and the bus goes backwards with rightmost steering when running `main.py` with gym rendering. <br/>
+Soln: print out the actions taken by ddpg and find it is always \[-1.0, -1.0], even after long-time training. Then trace the `ddpg.py` and save the state and next_state in batch samples by `imwrite`. Find that though next_state is with bus at the bottom since it is obtained from `getObservation`, the state image coming from original memory is still with bus at the center. Start a new memory `DDPG_bottom.h5` and run `ddpg.py`, which add memory to the repo first and then finetune the `DDPG_finetune.pt` 
+6. [Transfer Learning with Convolutional Neural Networks in PyTorch](https://towardsdatascience.com/transfer-learning-with-convolutional-neural-networks-in-pytorch-dd09190245ce)
+7. Check [if a file or directory exists](https://stackabuse.com/python-check-if-a-file-or-directory-exists/) `isfile(filename)`, `isdir(dirname)`, `os.path.exists()`
+8. 
+
 
 *Python*
 * The @ (at) operator is intended to be used for matrix multiplication. No builtin Python types implement this operator.New in version 3.5.
+* Python [create `hdf5` file](http://docs.h5py.org/en/stable/quick.html)
 
 

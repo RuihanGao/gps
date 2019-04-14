@@ -1248,12 +1248,14 @@ Check Qt version by `qmake --version`, which returns `QMake version 2.01a
 Using Qt version 4.8.7 in /home/sunardi/anaconda3/envs/emily_env/lib` seeming not to have conflict versions.
 Check installation history by `gedit /var/log/apt/history.log` in terminal and find that two commands  ` /usr/bin/unattended-upgrade` and `apt install cmake-qt-gui` contain qt. <br/>
 Look at posts [github](https://github.com/skvark/opencv-python/issues/46) and [stackflow](https://stackoverflow.com/questions/46449850/how-to-fix-the-error-qobjectmovetothread-in-opencv-in-python), but still not solved yet. <br/>
-[Threads and Qobjects explained](https://doc.qt.io/archives/qt-5.7/threads-qobject.html)
-
-
+[Threads and Qobjects explained](https://doc.qt.io/archives/qt-5.7/threads-qobject.html)9. 
+9. Finally can connect gym and GPS, with the bus running from GPS's action. The next is to improve GPS to give more reliable action.
+10. Save new memory `DDPG_bottom.h5` and retrain the model `DDPG_fineture.pt`
 
 *Python*
 * The @ (at) operator is intended to be used for matrix multiplication. No builtin Python types implement this operator.New in version 3.5.
 * Python [create `hdf5` file](http://docs.h5py.org/en/stable/quick.html)
 
-
+## 4.14 
+!. check the training. find that the DDPG_bottom.pt memory is 1.7T, hard to delete, either. `No such file or directory`. Restart the computer helps, maybe because the file systems lags and stucks a bit.
+2. Find that the probles is that I shouldn't add `memory.add(memory_path)` when iteratively collecting the memory, new memory will be created by ReplayMemory and will be saved. Learn [hdf store with pandas](https://riptutorial.com/pandas/example/9812/using-hdfstore)  [panda cookbook](https://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html)

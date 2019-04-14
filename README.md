@@ -1251,6 +1251,7 @@ Look at posts [github](https://github.com/skvark/opencv-python/issues/46) and [s
 [Threads and Qobjects explained](https://doc.qt.io/archives/qt-5.7/threads-qobject.html)9. 
 9. Finally can connect gym and GPS, with the bus running from GPS's action. The next is to improve GPS to give more reliable action.
 10. Save new memory `DDPG_bottom.h5` and retrain the model `DDPG_fineture.pt`
+11. *To Do* Try to run MUJOCO to see how to use images as input. (visualmotor), but none of the model can be loaded.  
 
 *Python*
 * The @ (at) operator is intended to be used for matrix multiplication. No builtin Python types implement this operator.New in version 3.5.

@@ -1260,3 +1260,9 @@ Look at posts [github](https://github.com/skvark/opencv-python/issues/46) and [s
 ## 4.14 
 !. check the training. find that the DDPG_bottom.pt memory is 1.7T, hard to delete, either. `No such file or directory`. Restart the computer helps, maybe because the file systems lags and stucks a bit.
 2. Find that the probles is that I shouldn't add `memory.add(memory_path)` when iteratively collecting the memory, new memory will be created by ReplayMemory and will be saved. Learn [hdf store with pandas](https://riptutorial.com/pandas/example/9812/using-hdfstore)  [panda cookbook](https://pandas.pydata.org/pandas-docs/stable/user_guide/cookbook.html)
+
+## 4.15
+1. [ROS cheatsheet](https://mirror.umd.edu/roswiki/attachments/de/ROScheatsheet.pdf)
+*Python*
+* [Python Interrupt](http://effbot.org/zone/stupid-exceptions-keyboardinterrupt.html): works for `ctrl+C`, so please wait `ddpg.py` to save models before after delayedInterrupt. Use `ctrl+X/Z` will stop it fast but will not trigger `KeyboardInterrupt` and save the model!
+* commit and [rollback](https://www.youtube.com/watch?v=WJLIekhNwcg) The changes can be rolled back or "reverted" by calling `rollback()` after `try`, while `commit()` finalized the changes so that they cannot be changed back.

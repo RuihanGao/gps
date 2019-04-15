@@ -1263,6 +1263,10 @@ Look at posts [github](https://github.com/skvark/opencv-python/issues/46) and [s
 
 ## 4.15
 1. [ROS cheatsheet](https://mirror.umd.edu/roswiki/attachments/de/ROScheatsheet.pdf)
+
+*Debug*
+* The top toolbar is missing for every program. To recover it, in terminal do `sudo service lightdm restart`. Note: that will stop currently active processes. Save necessary things before executing the command.
 *Python*
 * [Python Interrupt](http://effbot.org/zone/stupid-exceptions-keyboardinterrupt.html): works for `ctrl+C`, so please wait `ddpg.py` to save models before after delayedInterrupt. Use `ctrl+X/Z` will stop it fast but will not trigger `KeyboardInterrupt` and save the model!
 * commit and [rollback](https://www.youtube.com/watch?v=WJLIekhNwcg) The changes can be rolled back or "reverted" by calling `rollback()` after `try`, while `commit()` finalized the changes so that they cannot be changed back.
+

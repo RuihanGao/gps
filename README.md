@@ -1263,6 +1263,9 @@ Look at posts [github](https://github.com/skvark/opencv-python/issues/46) and [s
 
 ## 4.15
 1. [ROS cheatsheet](https://mirror.umd.edu/roswiki/attachments/de/ROScheatsheet.pdf)
+2. Try to plot the training curve. <br/>
+[Insert chart in LibreOffice Calc](https://help.libreoffice.org/Common/Inserting_Charts): select the data -> Toolbar Insert -> Charts -> select the setting and choose "first column as label" to plot the rewards (second column) w.r.t to the NO. of iterations. <br/>
+To [save the chart as image](https://ask.libreoffice.org/en/question/2142/save-a-chartgraph-as-image-in-calc/), I copy and paste the chart to LibreOffice Draw and save.
 
 *Debug*
 * The top toolbar is missing for every program. To recover it, in terminal do `sudo service lightdm restart`. Note: that will stop currently active processes. Save necessary things before executing the command.

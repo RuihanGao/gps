@@ -1273,3 +1273,11 @@ To [save the chart as image](https://ask.libreoffice.org/en/question/2142/save-a
 * [Python Interrupt](http://effbot.org/zone/stupid-exceptions-keyboardinterrupt.html): works for `ctrl+C`, so please wait `ddpg.py` to save models before after delayedInterrupt. Use `ctrl+X/Z` will stop it fast but will not trigger `KeyboardInterrupt` and save the model!
 * commit and [rollback](https://www.youtube.com/watch?v=WJLIekhNwcg) The changes can be rolled back or "reverted" by calling `rollback()` after `try`, while `commit()` finalized the changes so that they cannot be changed back.
 
+## 4.16
+Idea 1: given a start state, use GPS to get a short series of action to replace `action = model.get_action(stacked_state)` and then step in gym and add to memory 
+```
+next_state, reward, done, info = env.step(action)
+env.render(wait=False)
+memory.add(state, action, reward, done)
+```
+Idea 2: pass the global map to GPS, run in box2d and create images just as `get_Observation` does in gym. use image as supplementary input to the policy optimization algo.

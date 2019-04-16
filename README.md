@@ -1285,4 +1285,4 @@ Idea 2: pass the global map to GPS, run in box2d and create images just as `get_
 1. [Create virtualenv and install specified packges with pip](https://packaging.python.org/guides/installing-using-pip-and-virtualenv/) I create an virtualenv called `env2` for python3.5 under `ruihan` but haven't installed anything, can be used later if needed.
 
 *Debug*
-* Modify `get_target_from_banana` with `x_temp = np.median(np.where(banana[i,:]==255))` and check `np.isnan(x_temp)` before appending new target. Pay attention to the order!!
+* Modify `get_target_from_banana` with `x_temp = np.median(np.where(banana[i,:]==255))` and check `np.isnan(x_temp)` before appending new target. Pay attention to the order!! Previously used `np.where(banana==255)`, which gave an invalid constant.

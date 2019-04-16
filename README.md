@@ -1281,3 +1281,5 @@ env.render(wait=False)
 memory.add(state, action, reward, done)
 ```
 Idea 2: pass the global map to GPS, run in box2d and create images just as `get_Observation` does in gym. use image as supplementary input to the policy optimization algo.
+
+1. [Create virtualenv and install specified packges with pip](https://packaging.python.org/guides/installing-using-pip-and-virtualenv/) I create an virtualenv called `env2` for python3.5 under `ruihan` but haven't installed anything, can be used later if needed.

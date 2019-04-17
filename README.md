@@ -1293,8 +1293,10 @@ The other is use something similar to `cv2.fillConvexPoly` in `update()` in `veh
 * Modify `get_target_from_banana` with `x_temp = np.median(np.where(banana[i,:]==255))` and check `np.isnan(x_temp)` before appending new target. Pay attention to the order!! Previously used `np.where(banana==255)`, which gave an invalid constant.
 
 ## 4.17
-1. Run GPS
-2. [Introduction to Regression Analysis](https://www.youtube.com/watch?v=TU2t1HDwVuA&gl=SG&hl=en-GB)
+1. Run GPS, tune the `init_var` params for traj_opt and it to some extent works. e.g. init_var=0.1: can only reach index 5, init_var-0.5, can reach index 57, init_var=1.0, can reach till the end. But current problem is that when I convert and copy the actions to gym, the bus still hits the wall. I guess it is because no road curb information is included in GPS, so it may hit while exploring. Sidenote, save two sets of actions per run of GPS, one for box2d replay, one for checking in gym.
+2. Study GPS code to see what else params can be tuned. <br/>
+	* [Introduction to Regression Analysis](https://www.youtube.com/watch?v=TU2t1HDwVuA&gl=SG&hl=en-GB). Read wiki about linear regression and least square. "linear" refers to fitting the data with a line, while "least square" refers to choosing the best params for fitting by minimizing the square error.
+
 *Python*
 * [del keyword](https://www.w3schools.com/python/ref_keyword_del.asp): The del keyword is used to delete objects. In Python everything is an object, so the del keyword can also be used to delete variables, lists, or parts of a list etc.
 * [slice](https://www.programiz.com/python-programming/methods/built-in/slice): The slice() constructor creates a slice object representing the set of indices specified by range(start, stop, step)

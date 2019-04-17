@@ -1291,3 +1291,11 @@ The other is use something similar to `cv2.fillConvexPoly` in `update()` in `veh
 
 *Debug*
 * Modify `get_target_from_banana` with `x_temp = np.median(np.where(banana[i,:]==255))` and check `np.isnan(x_temp)` before appending new target. Pay attention to the order!! Previously used `np.where(banana==255)`, which gave an invalid constant.
+
+## 4.17
+1. Run GPS
+2. [Introduction to Regression Analysis](https://www.youtube.com/watch?v=TU2t1HDwVuA&gl=SG&hl=en-GB)
+*Python*
+* [del keyword](https://www.w3schools.com/python/ref_keyword_del.asp): The del keyword is used to delete objects. In Python everything is an object, so the del keyword can also be used to delete variables, lists, or parts of a list etc.
+* [slice](https://www.programiz.com/python-programming/methods/built-in/slice): The slice() constructor creates a slice object representing the set of indices specified by range(start, stop, step)
+* [\_setattr\_](https://python-reference.readthedocs.io/en/latest/docs/dunderattr/setattr.html): e.g. `object.__setattr__(self, key, value)`

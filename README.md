@@ -1296,8 +1296,19 @@ The other is use something similar to `cv2.fillConvexPoly` in `update()` in `veh
 1. Run GPS, tune the `init_var` params for traj_opt and it to some extent works. e.g. init_var=0.1: can only reach index 5, init_var-0.5, can reach index 57, init_var=1.0, can reach till the end. But current problem is that when I convert and copy the actions to gym, the bus still hits the wall. I guess it is because no road curb information is included in GPS, so it may hit while exploring. Sidenote, save two sets of actions per run of GPS, one for box2d replay, one for checking in gym.
 2. Study GPS code to see what else params can be tuned. <br/>
 	* [Introduction to Regression Analysis](https://www.youtube.com/watch?v=TU2t1HDwVuA&gl=SG&hl=en-GB). Read wiki about linear regression and least square. "linear" refers to fitting the data with a line, while "least square" refers to choosing the best params for fitting by minimizing the square error.
+	* how to fit a Gaussian linear model [notes 1](http://www.math.univ-toulouse.fr/~agarivie/Telecom/centrale/modlin.pdf) [notes 2](https://ocw.mit.edu/courses/mathematics/18-655-mathematical-statistics-spring-2016/lecture-notes/MIT18_655S16_LecNote19.pdf)
+	* may also look at [Sampling Distribution of the Sample Proportion, p-hat](https://bolt.mph.ufl.edu/6050-6052/module-9/sampling-distribution-of-p-hat/)
 
 *Python*
 * [del keyword](https://www.w3schools.com/python/ref_keyword_del.asp): The del keyword is used to delete objects. In Python everything is an object, so the del keyword can also be used to delete variables, lists, or parts of a list etc.
 * [slice](https://www.programiz.com/python-programming/methods/built-in/slice): The slice() constructor creates a slice object representing the set of indices specified by range(start, stop, step)
 * [\_setattr\_](https://python-reference.readthedocs.io/en/latest/docs/dunderattr/setattr.html): e.g. `object.__setattr__(self, key, value)`
+* [numpy.c_](https://docs.scipy.org/doc/numpy/reference/generated/numpy.c_.html): column stack vectors into 2D array
+
+*Math*
+* • If you add a matrix and its transpose the result is symmetric. You can only do the addition
+if the matrix and its transpose are the same shape; so we need a square matrix for this. <br/>
+• If you subtract the transpose from the matrix the result is antisymmetric. <br/>
+[sum of a matrix and its transpose](https://mathoverflow.net/questions/52578/eigenvalues-of-sum-of-a-non-symmetric-matrix-and-its-transpose-aat)
+
+

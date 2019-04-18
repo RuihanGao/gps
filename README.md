@@ -1319,6 +1319,6 @@ notice that the approx_poly function always return the outer layer (which we don
 try to tune [`cv2.line`](https://docs.opencv.org/2.4/modules/core/doc/drawing_functions.html#void line(Mat& img, Point pt1, Point pt2, const Scalar& color, int thickness, int lineType, int shift)) function such as lineType and shift, not the way. Supplementary: [anti-aliasing line](https://en.wikipedia.org/wiki/Xiaolin_Wu%27s_line_algorithm) [pixel connectivity](https://en.wikipedia.org/wiki/Pixel_connectivity)
 comment the `add_border` part (which changes the pixel value at the border) in `map.py` helps <br/>
 Supplementary: cv2 [superpixel](https://docs.opencv.org/3.4/df/d6c/group__ximgproc__superpixel.html), which is color-based and not necessarily return convex shapes.
-2. 
+2. There is still discrepancy between dynamics of box2d and gym. esp for collision. Temporarily set coll_sped = 0 in gym and reduce the LAENE_WIDTH for box2d.
 
 

@@ -1294,11 +1294,7 @@ The other is use something similar to `cv2.fillConvexPoly` in `update()` in `veh
 
 ## 4.17
 1. Run GPS, tune the `init_var` params for traj_opt and it to some extent works. e.g. init_var=0.1: can only reach index 5, init_var-0.5, can reach index 57, init_var=1.0, can reach till the end. But current problem is that when I convert and copy the actions to gym, the bus still hits the wall. I guess it is because no road curb information is included in GPS, so it may hit while exploring. Sidenote, save two sets of actions per run of GPS, one for box2d replay, one for checking in gym.
-2. Study GPS code to see what else params can be tuned. <br/>
-	* [Introduction to Regression Analysis](https://www.youtube.com/watch?v=TU2t1HDwVuA&gl=SG&hl=en-GB). Read wiki about linear regression and least square. "linear" refers to fitting the data with a line, while "least square" refers to choosing the best params for fitting by minimizing the square error.
-	* how to fit a Gaussian linear model [notes 1](http://www.math.univ-toulouse.fr/~agarivie/Telecom/centrale/modlin.pdf) [notes 2](https://ocw.mit.edu/courses/mathematics/18-655-mathematical-statistics-spring-2016/lecture-notes/MIT18_655S16_LecNote19.pdf)
-	* may also look at [Sampling Distribution of the Sample Proportion, p-hat](https://bolt.mph.ufl.edu/6050-6052/module-9/sampling-distribution-of-p-hat/)
-
+	
 *Python*
 * [del keyword](https://www.w3schools.com/python/ref_keyword_del.asp): The del keyword is used to delete objects. In Python everything is an object, so the del keyword can also be used to delete variables, lists, or parts of a list etc.
 * [slice](https://www.programiz.com/python-programming/methods/built-in/slice): The slice() constructor creates a slice object representing the set of indices specified by range(start, stop, step)
@@ -1310,5 +1306,19 @@ The other is use something similar to `cv2.fillConvexPoly` in `update()` in `veh
 if the matrix and its transpose are the same shape; so we need a square matrix for this. <br/>
 • If you subtract the transpose from the matrix the result is antisymmetric. <br/>
 [sum of a matrix and its transpose](https://mathoverflow.net/questions/52578/eigenvalues-of-sum-of-a-non-symmetric-matrix-and-its-transpose-aat)
+* [Introduction to Regression Analysis](https://www.youtube.com/watch?v=TU2t1HDwVuA&gl=SG&hl=en-GB). Read wiki about linear regression and least square. "linear" refers to fitting the data with a line, while "least square" refers to choosing the best params for fitting by minimizing the square error.
+* how to fit a Gaussian linear model [notes 1](http://www.math.univ-toulouse.fr/~agarivie/Telecom/centrale/modlin.pdf) [notes 2](https://ocw.mit.edu/courses/mathematics/18-655-mathematical-statistics-spring-2016/lecture-notes/MIT18_655S16_LecNote19.pdf)
+* [Sampling Distribution of the Sample Proportion, p-hat](https://bolt.mph.ufl.edu/6050-6052/module-9/sampling-distribution-of-p-hat/)
+
+
+## 4.18
+1. To draw the map appropriately on box2D environment: <br/>
+change the `LANE_WIDTH` to 8 to be consistent <br/>
+use valid algorithm ["ear clipping"](https://github.com/linuxlewis/tripy) for [polygon triangulation](https://en.wikipedia.org/wiki/Polygon_triangulation) <br/>
+notice that the approx_poly function always return the outer layer (which we don't want) <br/>
+try to tune [`cv2.line`](https://docs.opencv.org/2.4/modules/core/doc/drawing_functions.html#void line(Mat& img, Point pt1, Point pt2, const Scalar& color, int thickness, int lineType, int shift)) function such as lineType and shift, not the way. Supplementary: [anti-aliasing line](https://en.wikipedia.org/wiki/Xiaolin_Wu%27s_line_algorithm) [pixel connectivity](https://en.wikipedia.org/wiki/Pixel_connectivity)
+comment the `add_border` part (which changes the pixel value at the border) in `map.py` helps <br/>
+Supplementary: cv2 [superpixel](https://docs.opencv.org/3.4/df/d6c/group__ximgproc__superpixel.html), which is color-based and not necessarily return convex shapes.
+2. 
 
 

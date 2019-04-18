@@ -1320,5 +1320,10 @@ try to tune [`cv2.line`](https://docs.opencv.org/2.4/modules/core/doc/drawing_fu
 comment the `add_border` part (which changes the pixel value at the border) in `map.py` helps <br/>
 Supplementary: cv2 [superpixel](https://docs.opencv.org/3.4/df/d6c/group__ximgproc__superpixel.html), which is color-based and not necessarily return convex shapes.
 2. There is still discrepancy between dynamics of box2d and gym. esp for collision. Temporarily set coll_sped = 0 in gym and reduce the LAENE_WIDTH for box2d.
+3. Adjust box2d environment params like `friction` and `restitution` in bus_world, but it doesn't help much. And when the LANE_WIDTH is reduced, the bus tends to collide, rub, rub and go, which is not practical. It also fails to reach the final target, around index 53 for map 13.
 
+*To Do*
+* Look into statistics and understand how to fit linear Gaussian model with prior
+* check why the cost is so high
+* check how dynamic programming works, e.g. in `traj_opt_lqr_python` Line 309
 

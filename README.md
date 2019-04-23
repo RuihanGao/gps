@@ -1333,5 +1333,44 @@ Supplementary: cv2 [superpixel](https://docs.opencv.org/3.4/df/d6c/group__ximgpr
 when u set `memory_size = 1e6`, its default type is float and conflicts with later funtions, use` int(1e6)` instead )
 
 ## 4.22
+1. Try [GAIL](https://hollygrimm.com/rl_gail) [paper](https://arxiv.org/pdf/1606.03476.pdf) [github fork](https://github.com/havefun28/baselines) (run by `python3 ...`) <br/>
+To install `baselines` packages, debug: <br/>
+* run `pip3 install -U mujoco-py`, get ` File "/usr/share/python-wheels/pkg_resources-0.0.0-py2.py3-none-any.whl/pkg_resources/__init__.py", line 2066, in _rebuild_mod_path`
+`AttributeError: '_NamespacePath' object has no attribute 'sort'` <br/>
+Soln: `unset PYTHONPATH` to solve `py2.py3-` followed by `pip3 install -U mujoco-py --user`
+* run `sudo pip install xxx` get `ImportError: cannot import name 'main'` <br/>
+Soln: run `pip install xxx --user` instead
+* Re-download the correct mujoco200 folder for Linux (MacOS has separate folders, pay attention!) <br/> 
+find out that in addition to download mujoco200 from website (whihc can be tested by running `./simulate` in folder `mujoco200/bin`, or `python3 >> import mujoco`), need to install `mujoco-py` as a separate library 
+`git clone https://github.com/openai/mujoco-py.git` <br/>
+add the line to `request` as specified in README <br/>
+`sudo python3 setup.py install` need to run the `setup.py` since it is there!! <br/>
+* still get building error 
+```
+/usr/bin/ld: cannot find -lmujoco200
+/usr/bin/ld: cannot find -lglewegl
+collect2: error: ld returned 1 exit status
+error: command 'x86_64-linux-gnu-gcc' failed with exit status 1
+```
+Soln: `locate libmujoco200.so` (filename = `lib` + \[lib-name] + `.so`) <br/>
+output: `/home/sunardi/Downloads/mujoco200_linux/bin/libmujoco200.so` <br/>
+`sudo cp /home/sunardi/Downloads/mujoco200_linux/bin/libmujoco200.so /usr/lib` (copy the `.so` file to `/usr/lib`) <br/>
+do the same for `libglewegl.so` <br/>
+add `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/` to `~/.bashrc` and `source ~/.bashrc` <br/>
+run `pip3 install mujoco-py --user` again and get new error `running build_ext  error: [Errno 2] No such file or directory: 'patchelf'`<br/>
+Soln: ` pip3 install -e . --user` then install patchelf 
+```
+sudo add-apt-repository ppa:jamesh/snap-support
+sudo apt-get update
+sudo apt install patchelf
+```
+Run `pip3 install mujoco-py --user` again and finally succeed `Successfully installed mujoco-py-2.0.2.2`
+
+    
+
+
+
+
+
 
 

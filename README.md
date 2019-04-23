@@ -1327,3 +1327,8 @@ Supplementary: cv2 [superpixel](https://docs.opencv.org/3.4/df/d6c/group__ximgpr
 * check why the cost is so high
 * check how dynamic programming works, e.g. in `traj_opt_lqr_python` Line 309
 
+## 4.21
+*Debug*
+* `TypeError: list indices must be integers or slices, not float` <br/>
+when u set `memory_size = 1e6`, its default type is float and conflicts with later funtions, use` int(1e6)` instead )
+

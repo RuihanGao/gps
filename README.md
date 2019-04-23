@@ -1356,7 +1356,8 @@ Soln: `locate libmujoco200.so` (filename = `lib` + \[lib-name] + `.so`) <br/>
 output: `/home/sunardi/Downloads/mujoco200_linux/bin/libmujoco200.so` <br/>
 `sudo cp /home/sunardi/Downloads/mujoco200_linux/bin/libmujoco200.so /usr/lib` (copy the `.so` file to `/usr/lib`) <br/>
 do the same for `libglewegl.so` <br/>
-add `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/` to `~/.bashrc` and `source ~/.bashrc` <br/>
+add `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu/` to `~/.bashrc` and `source ~/.bashrc` followed by `sudo ldconfig` (Possible [alterntive](https://askubuntu.com/questions/1007591/usr-bin-ld-cannot-find-lopencl) "The solution there was to make a link for the library to a known lib location:"
+`sudo ln -s /usr/lib/x86_64-linux-gnu/libOpenCL.so.1 /usr/lib/libOpenCL.so`)<br/>
 run `pip3 install mujoco-py --user` again and get new error `running build_ext  error: [Errno 2] No such file or directory: 'patchelf'`<br/>
 Soln: ` pip3 install -e . --user` then install patchelf 
 ```
@@ -1365,6 +1366,10 @@ sudo apt-get update
 sudo apt install patchelf
 ```
 Run `pip3 install mujoco-py --user` again and finally succeed `Successfully installed mujoco-py-2.0.2.2`
+Side-linnks: [usr/bin/ld: cannot find \<nameOfTheLibrary>](https://stackoverflow.com/questions/16710047/usr-bin-ld-cannot-find-lnameofthelibrary) <br/>
+[What does “collect2: error: ld returned 1 exit status” mean?](https://stackoverflow.com/questions/27272525/what-does-collect2-error-ld-returned-1-exit-status-mean/27272651) <br/>
+`arch` command in terminal to return the computer's architecture e.g. `x86_64`
+
 
     
 

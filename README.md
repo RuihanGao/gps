@@ -1332,3 +1332,6 @@ Supplementary: cv2 [superpixel](https://docs.opencv.org/3.4/df/d6c/group__ximgpr
 * `TypeError: list indices must be integers or slices, not float` <br/>
 when u set `memory_size = 1e6`, its default type is float and conflicts with later funtions, use` int(1e6)` instead )
 
+## 4.22
+
+

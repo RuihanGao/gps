@@ -1327,7 +1327,8 @@ Supplementary: cv2 [superpixel](https://docs.opencv.org/3.4/df/d6c/group__ximgpr
 * check why the cost is so high
 * check how dynamic programming works, e.g. in `traj_opt_lqr_python` Line 309
 
-## 4.21
+## 4.22
+1. The ddpg model finishes training at a return of about 2 and does not learn to turn. Thanks to Rei's advice, check the memory. write `check_mmemory.py` and `convert_memory.py` to look into the format of hdf and convert it to make them consistent. It's possible since Emily may adjust the code after training. After comparing, notice that DDPG_bottom.h5 contains mostly map13, adjust and retrain. (waste so much time!!!!)
 *Debug*
 * `TypeError: list indices must be integers or slices, not float` <br/>
 when u set `memory_size = 1e6`, its default type is float and conflicts with later funtions, use` int(1e6)` instead )
@@ -1365,14 +1366,24 @@ sudo add-apt-repository ppa:jamesh/snap-support
 sudo apt-get update
 sudo apt install patchelf
 ```
-Run `pip3 install mujoco-py --user` again and finally succeed `Successfully installed mujoco-py-2.0.2.2`
+Run `pip3 install mujoco-py --user` again and finally succeed `Successfully installed mujoco-py-2.0.2.2`. Now can run the command to train the model as specified in Github.
 Side-linnks: [usr/bin/ld: cannot find \<nameOfTheLibrary>](https://stackoverflow.com/questions/16710047/usr-bin-ld-cannot-find-lnameofthelibrary) <br/>
 [What does “collect2: error: ld returned 1 exit status” mean?](https://stackoverflow.com/questions/27272525/what-does-collect2-error-ld-returned-1-exit-status-mean/27272651) <br/>
 `arch` command in terminal to return the computer's architecture e.g. `x86_64`
 
+2. Implement image-based GPS <br/>
+write `new_gps_pol.py`. try to generate an init map, run 5 trials, then draw local map again. <br/>
+Notice that for 5 steps, it is still loop one by one, without global information. and hard to get the target info from global state_map due to the image transformation matrix <br/>
+write `new_gps_pol2.py` and `agent_bus_pol.py`. mainly modify the `init_sample` and `set_sample` part to include the image information.
 
-    
+3. Ask about Rei's traffic lights. quite a lot situation, self-adjusting camera, try to use homographical info (height of traffic lights) to get depth prediction.
 
+
+*Debug*
+* `pygame.py has no attribute 'PygameFramework'` <br/>
+It is because of mutual import. Try to delink them (I delete the line of `from framework import *` in  `map.py` since it is not usefuly for now)
+
+## 4.23
 
 
 

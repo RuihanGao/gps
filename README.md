@@ -1384,8 +1384,25 @@ write `new_gps_pol2.py` and `agent_bus_pol.py`. mainly modify the `init_sample` 
 It is because of mutual import. Try to delink them (I delete the line of `from framework import *` in  `map.py` since it is not usefuly for now)
 
 ## 4.23
+1. Conitnue to implement image-based GPS. Try to see how mjcpy works but fails.
+*Debug*
+* `ValueError: all the input arrays must have same number of dimensions` <br/>
+algorithm_badmm takes `x0` as a vector, so need to convert the format
 
 
+*Debug*
+* Solve an "enduring" bug: [`QObject::moveToThread: Current thread (0x4b33490) is not the object's thread (0x2ca6db0). Cannot move to target thread (0x4b33490)`](https://stackoverflow.com/questions/46449850/how-to-fix-the-error-qobjectmovetothread-in-opencv-in-python) (multiple lines, quite frustrating) <br/>
+Soln: First, uninstall any versions of OpenCV you may have installed. If you installed using pip:
+`sudo pip uninstall opencv-python`
+Next, try installing OpenCV using your Linux distro's package manager. For Ubuntu/Debian, this is:
+`sudo apt-get install libopencv-dev python-opencv`
+For python3, install opencv-python in your machine using:
+`unset PYTHONPATH` for me followed by `sudo pip3 install opencv-python` To specify the version, use `sudo pip3 install opencv-python==3.3.0.10` <br/>
+NO! IT DOESN'T HELP see [here](https://www.bountysource.com/issues/49237490-opencv-gui-does-not-work) cannot solve.
+* pip ImportError: cannot import name 'main' after update <br/>
+soln: `sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall`
+* To check module version, e.g. `pkg-config --modversion opencv`
+* [Install opencv for python](https://medium.com/@debugvn/installing-opencv-3-3-0-on-ubuntu-16-04-lts-7db376f93961) `pip install opencv-contrib-python`
 
 
 

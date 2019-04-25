@@ -1185,7 +1185,7 @@ for key, value in d.items():
 
 solve the matplot deprecated syntax for new version <br/>
 e.g. `'AxesSubplot' object has no attribute 'set_axis_bgcolor'`<br/>
-Soln: `set_axis_bgcolor` -> `set_facecolor`, `get_axis_bgcolor` -> `get_facecolor`, `canvas.update()` -> `canvas.draw)idle()` <br/>
+Soln: `set_axis_bgcolor` -> `set_facecolor`, `get_axis_bgcolor` -> `get_facecolor`, `canvas.update()` -> `canvas.draw_idle()` <br/>
 
 `filepath = os.path.abspath(__file__)` to get absolutu path of the current file <br/>
 effective way to navigate around the directory `gps_dir = '/'.join(str.split(gps_filepath, '/')[:-2]) + '/gps/'`
@@ -1333,7 +1333,7 @@ Supplementary: cv2 [superpixel](https://docs.opencv.org/3.4/df/d6c/group__ximgpr
 * `TypeError: list indices must be integers or slices, not float` <br/>
 when u set `memory_size = 1e6`, its default type is float and conflicts with later funtions, use` int(1e6)` instead )
 
-## 4.22
+## 4.23
 1. Try [GAIL](https://hollygrimm.com/rl_gail) [paper](https://arxiv.org/pdf/1606.03476.pdf) [github fork](https://github.com/havefun28/baselines) (run by `python3 ...`) <br/>
 To install `baselines` packages, debug: <br/>
 * run `pip3 install -U mujoco-py`, get ` File "/usr/share/python-wheels/pkg_resources-0.0.0-py2.py3-none-any.whl/pkg_resources/__init__.py", line 2066, in _rebuild_mod_path`
@@ -1377,7 +1377,6 @@ Notice that for 5 steps, it is still loop one by one, without global information
 write `new_gps_pol2.py` and `agent_bus_pol.py`. mainly modify the `init_sample` and `set_sample` part to include the image information.
 
 3. Ask about Rei's traffic lights. quite a lot situation, self-adjusting camera, try to use homographical info (height of traffic lights) to get depth prediction.
-
 
 *Debug*
 * `pygame.py has no attribute 'PygameFramework'` <br/>

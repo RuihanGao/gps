@@ -1403,6 +1403,11 @@ soln: `sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reins
 * [Install opencv for python](https://medium.com/@debugvn/installing-opencv-3-3-0-on-ubuntu-16-04-lts-7db376f93961) `pip install opencv-contrib-python`
 
 ## 4.25
+1.  Continue to implement GPS with images, mainly debugging for TF policy, such as the tensor dimension (e.g. get_shape), syntax discrepancy (e.g. concat), and gui functions
+2. Go through the process, can draw graphs and iterate over `iter_num`. But the loss is huge and policy is not working well. Work to be done.
+* In `policy_opt_tf.py`, comment Line 176,177; 194,195 for simplicity. Search `LOGGER.info` to find them and uncomment
+3. Following Emily's advice, retrain the ddpg model from scratch, calling it `DDPG_bottom3`
+
 *Python*
 * [numpy.empty(shape, dtype=float, order='C')](https://docs.scipy.org/doc/numpy/reference/generated/numpy.empty.html) Return a new array of given shape and type, without initializing entries.
 * numpy.random.shuffle(x) Modify a sequence in-place by shuffling its contents.
@@ -1422,5 +1427,10 @@ num_rows = int(layer_shape[1])
 num_cols = int(layer_shape[2])
 ```
 use `   num_rows, num_cols, num_fp = [int(x) for x in [conv_layer_2.get_shape()[1], conv_layer_2.get_shape()[2], conv_layer_2.get_shape()[3]]]`
+* in `gps_training_gui.py` get `TypeError: 'float' object cannot be interpreted as an integer` <br/>
+`print(ee_pt.shape) # (150,3)` use `for i in range(ee_pt.shape[1]//3):` instead of `for i in range(ee_pt.shape[1]/3):` <br/>
+maybe because of difference between python 2&3
 
+
+                
 

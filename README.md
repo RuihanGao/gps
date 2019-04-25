@@ -1382,12 +1382,11 @@ write `new_gps_pol2.py` and `agent_bus_pol.py`. mainly modify the `init_sample` 
 * `pygame.py has no attribute 'PygameFramework'` <br/>
 It is because of mutual import. Try to delink them (I delete the line of `from framework import *` in  `map.py` since it is not usefuly for now)
 
-## 4.23
+## 4.24
 1. Conitnue to implement image-based GPS. Try to see how mjcpy works but fails.
 *Debug*
 * `ValueError: all the input arrays must have same number of dimensions` <br/>
 algorithm_badmm takes `x0` as a vector, so need to convert the format
-
 
 *Debug*
 * Solve an "enduring" bug: [`QObject::moveToThread: Current thread (0x4b33490) is not the object's thread (0x2ca6db0). Cannot move to target thread (0x4b33490)`](https://stackoverflow.com/questions/46449850/how-to-fix-the-error-qobjectmovetothread-in-opencv-in-python) (multiple lines, quite frustrating) <br/>
@@ -1403,6 +1402,25 @@ soln: `sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reins
 * To check module version, e.g. `pkg-config --modversion opencv`
 * [Install opencv for python](https://medium.com/@debugvn/installing-opencv-3-3-0-on-ubuntu-16-04-lts-7db376f93961) `pip install opencv-contrib-python`
 
+## 4.25
+*Python*
+* [numpy.empty(shape, dtype=float, order='C')](https://docs.scipy.org/doc/numpy/reference/generated/numpy.empty.html) Return a new array of given shape and type, without initializing entries.
+* numpy.random.shuffle(x) Modify a sequence in-place by shuffling its contents.
+* [tf.nn.relu](https://www.tensorflow.org/api_docs/python/tf/nn/relu)
+* [tf.tensor](https://www.tensorflow.org/api_docs/python/tf/Tensor#get_shape)
 
+*Debug*
+* `TypeError: Fetch argument None has invalid type <class 'NoneType'> ` for `self.feat_op` in tf_policy.py -> get_feature() <br/>
+Whether flatten the image, use `tf.shape` instead of `shape` <br/>
+For me, it turns out that I should use `multi_modal_network_fp` to return network with feature points `fp` <br/>
+also find dicrepancy in function definition of `tf.concat`. For my version 1.12.0, use `tf.concat(values, axis, name='concat')`, e.g. `concat = tf.concat([x, h], 1)` instead of `concat = tf.concat(1, [x, h])`
+* `TypeError: int() argument must be a string, a bytes-like object or a number, not 'Tensor'` <br/>
+Soln: instead of using, 
+```
+layer_shape = tf.shape(conv_layer_2)
+num_rows = int(layer_shape[1])
+num_cols = int(layer_shape[2])
+```
+use `   num_rows, num_cols, num_fp = [int(x) for x in [conv_layer_2.get_shape()[1], conv_layer_2.get_shape()[2], conv_layer_2.get_shape()[3]]]`
 
 

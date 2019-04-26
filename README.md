@@ -1431,6 +1431,21 @@ use `   num_rows, num_cols, num_fp = [int(x) for x in [conv_layer_2.get_shape()[
 `print(ee_pt.shape) # (150,3)` use `for i in range(ee_pt.shape[1]//3):` instead of `for i in range(ee_pt.shape[1]/3):` <br/>
 maybe because of difference between python 2&3
 
+## 4.26
+*Debug*
+* With `render=True`, get error
+ ```
+ File "python/gps/agent/box2d/bus_world.py", line 287, in run_next
+    super().run_next(action)
+  File "python/gps/agent/box2d/pygame_framework.py", line 254, in run_next
+    self.clock.tick(self.settings.hz)
+AttributeError: 'BusWorld' object has no attribute 'clock'
+```
+Soln: Python2&3 syntax difference for `super()` function. Change `super(Childclass, self).__init__(student_name, student_age)` to `super().__init__()` and same for other inherited methods; <br/>
+also uncomment `self._worlds[condition].run()` and `self._worlds[condition].reset_world()` in `agent_bus_pol.py` -> `sample()` method to reset the world and initialize `clock` in Pygamework.py
 
+*Notes*
+* To follow up: [https://www.youtube.com/watch?v=zE5z-KZGRw](https://www.youtube.com/watch?v=_zE5z-KZGRw)
+* Watched: [Hamilton Jacobi Bellman equation](https://www.youtube.com/watch?v=YpSmbH3H890)
                 
 

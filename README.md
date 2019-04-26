@@ -1445,7 +1445,21 @@ Soln: Python2&3 syntax difference for `super()` function. Change `super(Childcla
 also uncomment `self._worlds[condition].run()` and `self._worlds[condition].reset_world()` in `agent_bus_pol.py` -> `sample()` method to reset the world and initialize `clock` in Pygamework.py
 
 *Notes*
-* To follow up: [https://www.youtube.com/watch?v=zE5z-KZGRw](https://www.youtube.com/watch?v=_zE5z-KZGRw)
+* To follow up: [youtube video](https://www.youtube.com/watch?v=_zE5z-KZGRw)  [lec notes](http://www.princeton.edu/~moll/ECO521Web/Lecture4_ECO521_web.pdf)
 * Watched: [Hamilton Jacobi Bellman equation](https://www.youtube.com/watch?v=YpSmbH3H890)
                 
-
+*Python*
+* make directory for file
+```
+import os
+import errno
+filename = "/foo/bar/baz.txt"
+if not os.path.exists(os.path.dirname(filename)):
+    try:
+        os.makedirs(os.path.dirname(filename))
+    except OSError as exc: # Guard against race condition
+        if exc.errno != errno.EEXIST:
+            raise
+with open(filename, "w") as f:
+    f.write("FOOBAR")
+```

@@ -1432,6 +1432,12 @@ use `   num_rows, num_cols, num_fp = [int(x) for x in [conv_layer_2.get_shape()[
 maybe because of difference between python 2&3
 
 ## 4.26
+1. Continue to implement and try out the GPD with badmm algorithm and image input. It runs smoothly (can reach the end without walls), but still hit the wall and be stuck with obstacles. <br/>
+Discuss with Rei: <br/>
+	* Try reduce the COVER_TILE and pave denser for GPS. (the point of using GPS instead of normal controller is that, normal controller using pre-defined path and control output and cannot deal with environment noise well, while GPS is real-time exploring. See how to add environment noise e.g. obstacle in simulator and observe its performance) <br/>
+	* Alternatively, after saving all actions, run in gym, if stuck, jump to the next waypoint, and only collect valid partition as replay memory.
+2. Modify `data_files_dir` in get_policy, so that include map seed info in the filename
+
 *Debug*
 * With `render=True`, get error
  ```

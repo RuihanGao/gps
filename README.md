@@ -1455,11 +1455,18 @@ Soln: Python2&3 syntax difference for `super()` function. Change `super(Childcla
 also uncomment `self._worlds[condition].run()` and `self._worlds[condition].reset_world()` in `agent_bus_pol.py` -> `sample()` method to reset the world and initialize `clock` in Pygamework.py
 
 *Notes*
-* To follow up: [youtube video](https://www.youtube.com/watch?v=_zE5z-KZGRw)  [lec notes](http://www.princeton.edu/~moll/ECO521Web/Lecture4_ECO521_web.pdf)
+* To follow up: Hamilon Jacobi Bellman equation [video](https://www.youtube.com/watch?v=_zE5z-KZGRw)  [lec notes](http://www.princeton.edu/~moll/ECO521Web/Lecture4_ECO521_web.pdf)
+[stochastic differential equation video][https://www.youtube.com/watch?v=qdbkvD4N-us]
 * Watched: [Hamilton Jacobi Bellman equation](https://www.youtube.com/watch?v=YpSmbH3H890)
 * [Passive dynamics](https://en.wikipedia.org/wiki/Passive_dynamics) Passive dynamics refers to the dynamical behavior of actuators, robots, or organisms when not drawing energy from a supply (e.g., batteries, fuel, ATP).
 * Read PI2 control [paper 1](http://www.jmlr.org/papers/volume11/theodorou10a/theodorou10a.pdf)
-                
+* [Matirx differentiation](https://www.comp.nus.edu.sg/~cs5240/lecture/matrix-differentiation.pdf)
+* [race of a matrix](http://mathworld.wolfram.com/MatrixTrace.html): suum of elements on principal diagonal
+
+*Books to read*
+* [Reinforcement learning: An introduction](http://incompleteideas.net/book/bookdraft2017nov5.pdf)
+* [Convex optimization](https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf)
+
 *Python*
 * make directory for file
 ```

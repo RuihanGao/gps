@@ -1453,6 +1453,7 @@ also uncomment `self._worlds[condition].run()` and `self._worlds[condition].rese
 *Notes*
 * To follow up: [youtube video](https://www.youtube.com/watch?v=_zE5z-KZGRw)  [lec notes](http://www.princeton.edu/~moll/ECO521Web/Lecture4_ECO521_web.pdf)
 * Watched: [Hamilton Jacobi Bellman equation](https://www.youtube.com/watch?v=YpSmbH3H890)
+* [Passive dynamics](https://en.wikipedia.org/wiki/Passive_dynamics) Passive dynamics refers to the dynamical behavior of actuators, robots, or organisms when not drawing energy from a supply (e.g., batteries, fuel, ATP).
                 
 *Python*
 * make directory for file

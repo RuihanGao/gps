@@ -1436,7 +1436,11 @@ maybe because of difference between python 2&3
 Discuss with Rei: <br/>
 	* Try reduce the COVER_TILE and pave denser for GPS. (the point of using GPS instead of normal controller is that, normal controller using pre-defined path and control output and cannot deal with environment noise well, while GPS is real-time exploring. See how to add environment noise e.g. obstacle in simulator and observe its performance) <br/>
 	* Alternatively, after saving all actions, run in gym, if stuck, jump to the next waypoint, and only collect valid partition as replay memory.
-2. Modify `data_files_dir` in get_policy, so that include map seed info in the filename
+2. Modify `data_files_dir` in get_policy, so that include map seed info in the filename. <br/>
+Like in hyperparams.py add `if not os.path.exists(data_files_dir):
+	os.makedirs(data_files_dir)`
+after `	data_files_dir = exp_dir + 'map_{}/'.format(mapseed) + 'data_files/'`
+because of error `FileNotFoundError: [Errno 2] No such file or directory: '/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/gps/experiments/box2d_bus_badmm_example/map_13/data_files/figure_itr_00.png'`.
 
 *Debug*
 * With `render=True`, get error
@@ -1454,6 +1458,7 @@ also uncomment `self._worlds[condition].run()` and `self._worlds[condition].rese
 * To follow up: [youtube video](https://www.youtube.com/watch?v=_zE5z-KZGRw)  [lec notes](http://www.princeton.edu/~moll/ECO521Web/Lecture4_ECO521_web.pdf)
 * Watched: [Hamilton Jacobi Bellman equation](https://www.youtube.com/watch?v=YpSmbH3H890)
 * [Passive dynamics](https://en.wikipedia.org/wiki/Passive_dynamics) Passive dynamics refers to the dynamical behavior of actuators, robots, or organisms when not drawing energy from a supply (e.g., batteries, fuel, ATP).
+* Read PI2 control [paper 1](http://www.jmlr.org/papers/volume11/theodorou10a/theodorou10a.pdf)
                 
 *Python*
 * make directory for file

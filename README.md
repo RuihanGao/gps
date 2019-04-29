@@ -1488,3 +1488,8 @@ with open(filename, "w") as f:
 	* Try pure traj_opt with denser targets (COVER_TILE=10)
 	* Check whether images are accurate
 	* add obstacle when exploring policy
+2. Adjust the `gps._log_data()` in `new_gps_pol2`, save both `idx` and `itr` information
+3. Change in get_observation. Create a map for each sample and add `map_state_shared = map.map_state.copy()` in order to clear prev cars. **every sentence in emily's code counts!**
+4. To debug, write in `set_sample` `cv2.imwrite`, use `if t%10 == 0` to reduce memory required.
+5. In hyperparams, change BUS_GAIN from `[1, 1]` to `[1, 1e-3]`
+6. agent.sample(), adjust the if else sentences to debug `    period = self.reach_end - self.reach_start TypeError: unsupported operand type(s) for -: 'NoneType' and 'int'`

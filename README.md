@@ -1328,7 +1328,7 @@ Supplementary: cv2 [superpixel](https://docs.opencv.org/3.4/df/d6c/group__ximgpr
 * check how dynamic programming works, e.g. in `traj_opt_lqr_python` Line 309
 
 ## 4.22
-1. The ddpg model finishes training at a return of about 2 and does not learn to turn. Thanks to Rei's advice, check the memory. write `check_mmemory.py` and `convert_memory.py` to look into the format of hdf and convert it to make them consistent. It's possible since Emily may adjust the code after training. After comparing, notice that DDPG_bottom.h5 contains mostly map13, adjust and retrain. (waste so much time!!!!)
+1. The ddpg model finishes training at a return of about 2 and does not learn to turn. Thanks to Rei's advice, check the memory. write `check_memory.py` and `convert_memory.py` to look into the format of hdf and convert it to make them consistent. It's possible since Emily may adjust the code after training. After comparing, notice that DDPG_bottom.h5 contains mostly map13, adjust and retrain. (waste so much time!!!!)
 *Debug*
 * `TypeError: list indices must be integers or slices, not float` <br/>
 when u set `memory_size = 1e6`, its default type is float and conflicts with later funtions, use` int(1e6)` instead )
@@ -1482,3 +1482,9 @@ if not os.path.exists(os.path.dirname(filename)):
 with open(filename, "w") as f:
     f.write("FOOBAR")
 ```
+
+## 4.29
+1. Test the gps trained with tf policy, not good at all.  <br/>
+	* Try pure traj_opt with denser targets (COVER_TILE=10)
+	* Check whether images are accurate
+	* add obstacle when exploring policy

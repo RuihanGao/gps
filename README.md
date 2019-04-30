@@ -1493,3 +1493,4 @@ with open(filename, "w") as f:
 4. To debug, write in `set_sample` `cv2.imwrite`, use `if t%10 == 0` to reduce memory required.
 5. In hyperparams, change BUS_GAIN from `[1, 1]` to `[1, 1e-3]`
 6. agent.sample(), adjust the if else sentences to debug `    period = self.reach_end - self.reach_start TypeError: unsupported operand type(s) for -: 'NoneType' and 'int'`
+7. save map_state_shared as `CONTEXT_IAMGE` in `init_sample` and can retrieve it by `sample._data[CONTEXT_IMAGE]`

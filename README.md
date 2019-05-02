@@ -1501,4 +1501,8 @@ with open(filename, "w") as f:
 3. Problem: though copying the route for each sample, it only works for idx 0.
 
 ## 5.2
+1. Debug for images in GPS, find two stupid mistakes. <br/>
+For incredibly high cost, find out that in `cost_state.py`, you once change the target by `tgt = [target_state[0]-map_size[1]/2, map_size[0]/2-target_state[1], target_state[2]]`, which is implemented later in `new_gps_pol` before passsing `hyperparams.config`, i.e. redundant chane results in wrong calculation of cost ` dist = x - tgt`. (that may also explain why the bus always tends to collide with the wall) <br/>
+For the problem in 4.30, it turns out that the part for rendering new `TARGET` pixels in get_observation are wrong, having a yaw angle difference of pi/2 compared to the part of restoring `ROAD`. Debug by writing a small program to draw the polygons and the vehicle position on empty canvas with opencv and compare two polygons removed and added due to the same COVER pixel. 
+
 

@@ -1494,3 +1494,11 @@ with open(filename, "w") as f:
 5. In hyperparams, change BUS_GAIN from `[1, 1]` to `[1, 1e-3]`
 6. agent.sample(), adjust the if else sentences to debug `    period = self.reach_end - self.reach_start TypeError: unsupported operand type(s) for -: 'NoneType' and 'int'`
 7. save map_state_shared as `CONTEXT_IAMGE` in `init_sample` and can retrieve it by `sample._data[CONTEXT_IMAGE]`
+
+## 4.30
+1. Debug the images generated for gps, use different map and find that should swap IMAGE_WIDTH and IMAGE_HEIGHT
+2. Help with calibration, driving the robot
+3. Problem: though copying the route for each sample, it only works for idx 0.
+
+## 5.2
+

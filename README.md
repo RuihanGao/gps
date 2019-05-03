@@ -1515,3 +1515,4 @@ Tick most of conect in `cost` folder, except for `evall1l2term`  ` evallogl2term
 [L1/l2 loss function and regularization](http://www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/)
 3. Find that the problem is still in `cost_state`, modify in GPSMain to pass the global map_size instead of box2d map_size (48, 48) to `tgt` in cost_state
 4. Find that, with images and tf policy, the trajectories are different for each run, bearing some randomness.
+5. Play with nano-degree. [Install Jupyter on Ubuntu](https://www.rosehosting.com/blog/how-to-install-jupyter-on-an-ubuntu-16-04-vps/)

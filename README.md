@@ -1507,4 +1507,8 @@ For the problem in 4.30, it turns out that the part for rendering new `TARGET` p
 
 ## 5.3 
 1. Misc: [Bash functions](https://linuxize.com/post/bash-functions/)
+2. Check and learn the plot for Linear Gaussian Controller, roughly understand `gps_training_gui.py`  <br/>
+where it draws ellipses to represent the mean and covariance of end-effector positions. <br/>
+Related: [how to draw a covariance error ellipse](http://www.visiondummy.com/2014/04/draw-error-ellipse-representing-covariance-matrix/) <br/>
+[sigular value decomposition](https://www.youtube.com/watch?v=mBcLRGuAFUk)
 

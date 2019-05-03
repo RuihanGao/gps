@@ -1511,4 +1511,7 @@ For the problem in 4.30, it turns out that the part for rendering new `TARGET` p
 where it draws ellipses to represent the mean and covariance of end-effector positions. <br/>
 Related: [how to draw a covariance error ellipse](http://www.visiondummy.com/2014/04/draw-error-ellipse-representing-covariance-matrix/) <br/>
 [sigular value decomposition](https://www.youtube.com/watch?v=mBcLRGuAFUk) <br/>
-Tick most of conect in `cost` folder, except for `evall1l2term`  ` evallogl2term` in cost_utils
+Tick most of conect in `cost` folder, except for `evall1l2term`  ` evallogl2term` in cost_utils <br/>
+[L1/l2 loss function and regularization](http://www.chioka.in/differences-between-l1-and-l2-as-loss-function-and-regularization/)
+3. Find that the problem is still in `cost_state`, modify in GPSMain to pass the global map_size instead of box2d map_size (48, 48) to `tgt` in cost_state
+4. Find that, with images and tf policy, the trajectories are different for each run, bearing some randomness.

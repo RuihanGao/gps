@@ -1525,4 +1525,12 @@ map_X = b2d_X[END_EFFECTOR_POINTS]
 map_X = [map_X[0]- self.env_map.map_size[1]/2, map_X[1]- self.env_map.map_size[0]/2, map_X[2]]
 ```
 so that `x0` and `obs_route` in `get_observation` are consistent with each other
+2. TODO: currently, for each idx, the GPS restart learn from scratch  <br/>
+want to do: save the policy/algorithm of last index and use `resume` function to make use of prior experience.
+3. Rei: use vgg-ssd. mapping camera and all lidars using transformation matrices. pos/neg z value, need to set constraint or adjust cost for optimization
+
+
+*Python*
+* numpy.argmax(a, axis=None, out=None): Returns the indices of the maximum values along an axis.
+* [enumerate()](https://www.geeksforgeeks.org/enumerate-in-python/)
 

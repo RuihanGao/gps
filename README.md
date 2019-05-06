@@ -1517,3 +1517,12 @@ Tick most of conect in `cost` folder, except for `evall1l2term`  ` evallogl2term
 4. Find that, with images and tf policy, the trajectories are different for each run, bearing some randomness.
 5. Play with nano-degree. [Install Jupyter on Ubuntu](https://www.rosehosting.com/blog/how-to-install-jupyter-on-an-ubuntu-16-04-vps/) If encounter error `Jupyter command not found`, may need to install Anaconda, see below.
 6. Install Anaconda at `/media/ml2/Storage` on `sky` computer. NO space in `~` directory
+
+## 5.6
+1. The policy was not working well. Debug and find that changing coordinates for box2d rendering affect the images generated in get_observation, thus the image features does not help. Modify in `init_sample` and `set_sample` in `agent_bus_pol`: <br/>
+```
+map_X = b2d_X[END_EFFECTOR_POINTS]
+map_X = [map_X[0]- self.env_map.map_size[1]/2, map_X[1]- self.env_map.map_size[0]/2, map_X[2]]
+```
+so that `x0` and `obs_route` in `get_observation` are consistent with each other
+

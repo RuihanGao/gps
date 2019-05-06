@@ -1533,4 +1533,8 @@ want to do: save the policy/algorithm of last index and use `resume` function to
 *Python*
 * numpy.argmax(a, axis=None, out=None): Returns the indices of the maximum values along an axis.
 * [enumerate()](https://www.geeksforgeeks.org/enumerate-in-python/)
+* [`=` operation, shallowcopy and deepcopy](https://www.programiz.com/python-programming/shallow-deep-copy)
 
+*Notes*
+* [clustering](https://people.eecs.berkeley.edu/~jordan/courses/294-fall09/lectures/clustering/slides.pdf) 
+* [cross entropy method(cem) video](https://www.youtube.com/watch?v=tRsSi_sqXjI)

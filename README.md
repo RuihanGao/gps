@@ -1314,7 +1314,7 @@ if the matrix and its transpose are the same shape; so we need a square matrix f
 ## 4.18
 1. To draw the map appropriately on box2D environment: <br/>
 change the `LANE_WIDTH` to 8 to be consistent <br/>
-use valid algorithm ["ear clipping"](https://github.com/linuxlewis/tripy) for [polygon triangulation](https://en.wikipedia.org/wiki/Polygon_triangulation) <br/>
+use valid algorithm "ear clipping" [code](https://github.com/linuxlewis/tripy) [note](https://www.geometrictools.com/Documentation/TriangulationByEarClipping.pdf) for [polygon triangulation](https://en.wikipedia.org/wiki/Polygon_triangulation) <br/>
 notice that the approx_poly function always return the outer layer (which we don't want) <br/>
 try to tune [`cv2.line`](https://docs.opencv.org/2.4/modules/core/doc/drawing_functions.html#void line(Mat& img, Point pt1, Point pt2, const Scalar& color, int thickness, int lineType, int shift)) function such as lineType and shift, not the way. Supplementary: [anti-aliasing line](https://en.wikipedia.org/wiki/Xiaolin_Wu%27s_line_algorithm) [pixel connectivity](https://en.wikipedia.org/wiki/Pixel_connectivity)
 comment the `add_border` part (which changes the pixel value at the border) in `map.py` helps <br/>
@@ -1538,3 +1538,10 @@ want to do: save the policy/algorithm of last index and use `resume` function to
 *Notes*
 * [clustering](https://people.eecs.berkeley.edu/~jordan/courses/294-fall09/lectures/clustering/slides.pdf) 
 * [cross entropy method(cem) video](https://www.youtube.com/watch?v=tRsSi_sqXjI)
+
+## 5.7
+1. Logbook, wk11-12, 13-14
+2. 
+
+*Notes*
+* [Experience replay](https://medium.freecodecamp.org/improvements-in-deep-q-learning-dueling-double-dqn-prioritized-experience-replay-and-fixed-58b130cc5682)

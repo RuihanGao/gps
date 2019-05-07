@@ -1540,8 +1540,10 @@ want to do: save the policy/algorithm of last index and use `resume` function to
 * [cross entropy method(cem) video](https://www.youtube.com/watch?v=tRsSi_sqXjI)
 
 ## 5.7
-1. Logbook, wk11-12, 13-14
-2. 
+1. Logbook, wk11-12, 13-14. 15-16
+2. Modify `new_gps.py` especially in and `get_policy` and `test_action`, where `map_state` is added as parameters passed to BusWorld.
+3. Problem of image-based GPS, even if I set only one target, it still keeps turning and turning. TODO: try to debug.
+
 
 *Notes*
 * [Experience replay](https://medium.freecodecamp.org/improvements-in-deep-q-learning-dueling-double-dqn-prioritized-experience-replay-and-fixed-58b130cc5682)

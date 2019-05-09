@@ -1553,4 +1553,8 @@ Try a host of ways, including checking the access date of files, moving around t
 Ask Rei for help. It was because when I create mujoco200 in home folder,it did not match with the path. <br/>
 In the path, the dot `.` in `~/.mujoco` means hidden file, which can be created in terminal by `mkdir .mujoco`, while `create new folder` in GUI only create non-hidder folder `~/mujoco`. So should either mkdir in terminal or modify the path to `~/mujoco`. <br/>
 Sidenote: for permission issue, can try `chmod +x filename` or `chmod -R 777 ./`, where `-R` or `--recursive` loop through the directory, `./` means giving same permission to all files in current directory, `777` means `all permission`.
+2. Ask Rei about vision part, try to do semantic segmentation based on [kitti dataset](http://www.cvlibs.net/datasets/kitti/eval_semseg.php?benchmark=semantics2015)
 
+*To follow up*
+* Read about [PPO](https://medium.com/@jonathan_hui/rl-proximal-policy-optimization-ppo-explained-77f014ec3f12)
+* Read about [Python egg](https://setuptools.readthedocs.io/en/latest/formats.html)

@@ -1565,6 +1565,9 @@ Use[pykitti tools](https://github.com/utiasSTARS/pykitti)
 * [`glob` module](https://docs.python.org/2/library/glob.html)
 
 ## 5.9
+1. Write the script to read the kitti dataset and label the points
+2. [kitti 3D object dataset explained](https://medium.com/test-ttile/kitti-3d-object-detection-dataset-d78a762b5a4)
+
 *Python*
 * Efficient way of writing
 my efficient way:
@@ -1592,5 +1595,10 @@ Efficient way:
                 data[key] = np.array([float(x) for x in value.split()])
             except ValueError:
                 pass
+	
 ```
+
+* [split](https://www.geeksforgeeks.org/python-string-split/)
+
+
 

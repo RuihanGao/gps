@@ -1544,6 +1544,13 @@ want to do: save the policy/algorithm of last index and use `resume` function to
 2. Modify `new_gps.py` especially in and `get_policy` and `test_action`, where `map_state` is added as parameters passed to BusWorld.
 3. Problem of image-based GPS, even if I set only one target, it still keeps turning and turning. TODO: try to debug.
 
-
 *Notes*
 * [Experience replay](https://medium.freecodecamp.org/improvements-in-deep-q-learning-dueling-double-dqn-prioritized-experience-replay-and-fixed-58b130cc5682)
+
+## 5.8
+1. Try to run GAIL, stuck at `Expired activation key...` after obtaining a new key <br/>
+Try a host of ways, including checking the access date of files, moving around the activtion key text file, and copy the mujoco200 folder to home directory. <br/>
+Ask Rei for help. It was because when I create mujoco200 in home folder,it did not match with the path. <br/>
+In the path, the dot `.` in `~/.mujoco` means hidden file, which can be created in terminal by `mkdir .mujoco`, while `create new folder` in GUI only create non-hidder folder `~/mujoco`. So should either mkdir in terminal or modify the path to `~/mujoco`. <br/>
+Sidenote: for permission issue, can try `chmod +x filename` or `chmod -R 777 ./`, where `-R` or `--recursive` loop through the directory, `./` means giving same permission to all files in current directory, `777` means `all permission`.
+

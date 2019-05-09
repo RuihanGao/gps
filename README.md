@@ -1563,3 +1563,34 @@ Use[pykitti tools](https://github.com/utiasSTARS/pykitti)
 *Python*
 * `replace`
 * [`glob` module](https://docs.python.org/2/library/glob.html)
+
+## 5.9
+*Python*
+* Efficient way of writing
+my efficient way:
+```
+    f = open(fcalib, 'r')
+    for line in f.readlines():
+      line = line.split()
+      if line:
+          print(line[0])
+          line_key = line[0][:-1]
+          data[line_key] = []
+          line.pop(0)
+          while len(line):
+              data[line_key].append(float(line.pop()))
+    print(data)
+```
+Efficient way:
+```
+    with open(filepath, 'r') as f:
+        for line in f.readlines():
+            if len(line) < 2:
+                continue
+            key, value = line.split(':', 1)
+            try:
+                data[key] = np.array([float(x) for x in value.split()])
+            except ValueError:
+                pass
+```
+

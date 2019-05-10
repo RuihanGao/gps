@@ -1619,8 +1619,9 @@ use opencv draw line and draw point(small circle) functions to help debug
 * [sorting](https://wiki.python.org/moin/HowTo/Sorting#Sortingbykeys)
 ```
 # To sort the list in place...
-ut.sort(key=lambda x: x.count, reverse=True)
-
+cars.sort(key=lambda car: car.max_area, reverse=True)
+or
+sorted(cars, key=lambda car: car.max_area) 
 # To return a new list, use the sorted() built-in function...
-newlist = sorted(ut, key=lambda x: x.count, reverse=True)
+newlist = sorted(cars, key=lambda car: car.max_area) 
 ```

@@ -1603,7 +1603,8 @@ Efficient way:
 * [np.fromfile](https://docs.scipy.org/doc/numpy/reference/generated/numpy.fromfile.html) TODO
 * matplot rendering: [path](https://matplotlib.org/api/path_api.html): MOVETO: moving the "brush" to the starting point; LINETO: draw a line to that point. [pathpatch example](https://www.programcreek.com/python/example/67942/matplotlib.patches.PathPatch). In correspondence, can use [polyline in opencv](https://docs.opencv.org/2.4/modules/core/doc/drawing_functions.html#polylines) `cv2.polylines(img, pts, isClosed, color[, thickness[, lineType[, shift]]]) → None`
 
-
+## 5.10
+1. 
 
 
 

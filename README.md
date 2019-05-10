@@ -1565,7 +1565,8 @@ Use[pykitti tools](https://github.com/utiasSTARS/pykitti)
 * [`glob` module](https://docs.python.org/2/library/glob.html)
 
 ## 5.9
-1. Write the script to read the kitti dataset and label the points
+1. Write the script to read the kitti dataset and label the points. <br/>
+load the file, parse into dictionary, calculate 3D bounding box, render for display (convert from matplot to opencv).
 2. [kitti 3D object dataset explained](https://medium.com/test-ttile/kitti-3d-object-detection-dataset-d78a762b5a4)
 
 *Python*
@@ -1600,6 +1601,10 @@ Efficient way:
 
 * [split](https://www.geeksforgeeks.org/python-string-split/)
 * [np.fromfile](https://docs.scipy.org/doc/numpy/reference/generated/numpy.fromfile.html) TODO
+* matplot rendering: [path](https://matplotlib.org/api/path_api.html): MOVETO: moving the "brush" to the starting point; LINETO: draw a line to that point. [pathpatch example](https://www.programcreek.com/python/example/67942/matplotlib.patches.PathPatch). In correspondence, can use [polyline in opencv](https://docs.opencv.org/2.4/modules/core/doc/drawing_functions.html#polylines) `cv2.polylines(img, pts, isClosed, color[, thickness[, lineType[, shift]]]) → None`
+
+
+
 
 
 

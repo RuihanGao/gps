@@ -1599,6 +1599,7 @@ Efficient way:
 ```
 
 * [split](https://www.geeksforgeeks.org/python-string-split/)
+* [np.fromfile](https://docs.scipy.org/doc/numpy/reference/generated/numpy.fromfile.html) TODO
 
 
 

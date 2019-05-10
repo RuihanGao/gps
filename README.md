@@ -1604,8 +1604,23 @@ Efficient way:
 * matplot rendering: [path](https://matplotlib.org/api/path_api.html): MOVETO: moving the "brush" to the starting point; LINETO: draw a line to that point. [pathpatch example](https://www.programcreek.com/python/example/67942/matplotlib.patches.PathPatch). In correspondence, can use [polyline in opencv](https://docs.opencv.org/2.4/modules/core/doc/drawing_functions.html#polylines) `cv2.polylines(img, pts, isClosed, color[, thickness[, lineType[, shift]]]) → None`
 
 ## 5.10
-1. 
+1. Implement the kitti vision to find the visible surfaces. <br/>
+Try a few methods, such as
+	* lowest top point (highest y pixel value)
+	* compare the distance (to middle center and to bottom center)
+	* working one: find the quadrant where the observation point is located in w.r.t. the car center location
+	try to set the observation at different position. if bottom middle, some cases don't work. finalize it to be \[car_center_2D_x, img_height], i.e. moving along the bottom line with the x-coords of car object
+Spent some time on coords transformation. <br/>
+use opencv draw line and draw point(small circle) functions to help debug
+2. 
 
+*Python*
+* [inverse of matrix](https://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.inv.html) ainv = np.linalg.inv(a)
+* [sorting](https://wiki.python.org/moin/HowTo/Sorting#Sortingbykeys)
+```
+# To sort the list in place...
+ut.sort(key=lambda x: x.count, reverse=True)
 
-
-
+# To return a new list, use the sorted() built-in function...
+newlist = sorted(ut, key=lambda x: x.count, reverse=True)
+```

@@ -1629,8 +1629,17 @@ newlist = sorted(cars, key=lambda car: car.max_area)
 ## 5.13
 1. Decode the velodyne data. Try to use it to draw car shape, but it does not help much if converted to image without depth info.
 
+2. final report
+* policy gradient <br/>
+[pong game for policy gradient: HIGH-DIMENSIONAL CONTINUOUS CONTROL USING
+GENERALIZED ADVANTAGE ESTIMATION](https://arxiv.org/pdf/1506.02438.pdf) <br/>
+https://medium.com/deep-math-machine-learning-ai/ch-13-deep-reinforcement-learning-deep-q-learning-and-policy-gradients-towards-agi-a2a0b611617e <br/>
+https://medium.com/@jonathan_hui/rl-policy-gradients-explained-9b13b688b146 <br/>
+http://karpathy.github.io/2016/05/31/rl/ <br/>
+
+
+
 *Python*
 * Opencv, use line width of `-1` to fill the polygon shape
 * [`pointPolygonTest`](https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html?highlight=pointpolygontest#pointpolygontest) returns 1 if point is inside, 0 if on the edge of, -1 if outside the polygon shape.
-
 

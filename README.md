@@ -1629,3 +1629,8 @@ newlist = sorted(cars, key=lambda car: car.max_area)
 ## 5.13
 1. Decode the velodyne data. Try to use it to draw car shape, but it does not help much if converted to image without depth info.
 
+*Python*
+* Opencv, use line width of `-1` to fill the polygon shape
+* [`pointPolygonTest`](https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html?highlight=pointpolygontest#pointpolygontest) returns 1 if point is inside, 0 if on the edge of, -1 if outside the polygon shape.
+
+

@@ -1625,3 +1625,7 @@ sorted(cars, key=lambda car: car.max_area)
 # To return a new list, use the sorted() built-in function...
 newlist = sorted(cars, key=lambda car: car.max_area) 
 ```
+
+## 5.13
+1. Decode the velodyne data. Try to use it to draw car shape, but it does not help much if converted to image without depth info.
+

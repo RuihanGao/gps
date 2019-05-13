@@ -1636,8 +1636,12 @@ GENERALIZED ADVANTAGE ESTIMATION](https://arxiv.org/pdf/1506.02438.pdf) <br/>
 https://medium.com/deep-math-machine-learning-ai/ch-13-deep-reinforcement-learning-deep-q-learning-and-policy-gradients-towards-agi-a2a0b611617e <br/>
 https://medium.com/@jonathan_hui/rl-policy-gradients-explained-9b13b688b146 <br/>
 http://karpathy.github.io/2016/05/31/rl/ <br/>
+http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching_files/pg.pdf <br/>
 
-
+[Beyesian locally weighted regression](https://www.cs.cmu.edu/~schneide/tut5/node37.html)
+https://pdfs.semanticscholar.org/c3ae/a964f75b04e2ee04082cbf94d034f3af1b4b.pdf
+[policy inference](https://www.youtube.com/watch?v=A6Ud6oUCRak)
+[PILCO](http://mlg.eng.cam.ac.uk/pub/pdf/DeiRas11.pdf)
 
 *Python*
 * Opencv, use line width of `-1` to fill the polygon shape

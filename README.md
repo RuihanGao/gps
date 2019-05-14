@@ -1670,10 +1670,15 @@ locate: libprotobuf9 in usr/lib/gnu and libprotobuf15 in anaconda
 * [overleaf-font size & style](https://www.overleaf.com/learn/latex/Font_sizes,_families,_and_styles#Font_styles)
 * [math letter](https://tex.stackexchange.com/questions/58098/what-are-all-the-font-styles-i-can-use-in-math-mode)
 * [norm and abs value symbol](https://tex.stackexchange.com/questions/43008/absolute-value-symbols) [resize it](https://tex.stackexchange.com/questions/107186/how-to-write-norm-which-adjusts-its-size)
+* [fraction and binomial](https://www.overleaf.com/learn/latex/Fractions_and_Binomials)
+* natural log [ln]()https://tex.stackexchange.com/questions/314609/no-natural-log-parentheses-when-typesetting use `()` instead of `{}` after `\ln`
+
+
 * [subscript and superscript](https://www.overleaf.com/learn/latex/Subscripts_and_superscripts)
 * [citation doc](http://texdoc.net/texmf-dist/doc/latex/cite/cite.pdf)
 * [overleaf-BibLatex](https://www.overleaf.com/learn/latex/Articles/Getting_started_with_BibLaTeX)
-* [video-insert an algorithm](https://www.youtube.com/watch?v=l7Z7tvCkQrg)
+* [video-insert an algorithm](https://www.youtube.com/watch?v=l7Z7tvCkQrg) <br/>
+Note:for `\State` in algorithm, use`$...$` for the whole line of math expression and it helps with line break and alignment
 * [for loop](https://tex.stackexchange.com/questions/56871/how-to-format-for-loop)
 * [symbol list](https://mirror.unpad.ac.id/ctan/info/symbols/comprehensive/symbols-a4.pdf)
 

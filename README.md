@@ -1675,3 +1675,5 @@ locate: libprotobuf9 in usr/lib/gnu and libprotobuf15 in anaconda
 * [overleaf-BibLatex](https://www.overleaf.com/learn/latex/Articles/Getting_started_with_BibLaTeX)
 * [video-insert an algorithm](https://www.youtube.com/watch?v=l7Z7tvCkQrg)
 * [for loop](https://tex.stackexchange.com/questions/56871/how-to-format-for-loop)
+* [symbol list](https://mirror.unpad.ac.id/ctan/info/symbols/comprehensive/symbols-a4.pdf)
+

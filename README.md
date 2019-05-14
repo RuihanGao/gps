@@ -1647,3 +1647,16 @@ https://pdfs.semanticscholar.org/c3ae/a964f75b04e2ee04082cbf94d034f3af1b4b.pdf
 * Opencv, use line width of `-1` to fill the polygon shape
 * [`pointPolygonTest`](https://docs.opencv.org/2.4/modules/imgproc/doc/structural_analysis_and_shape_descriptors.html?highlight=pointpolygontest#pointpolygontest) returns 1 if point is inside, 0 if on the edge of, -1 if outside the polygon shape.
 
+## 5.14
+1. Debug kitti `make_dataset.py` <br/>
+Use Rei's code for checking. The problem was I accidentally modified the velodyne data. It is already in 4D, so don't need to extend the dimension. what I though to be used to extend the dimension `+[1.0]` actually change the data, and results in offset for each individual point
+2. Clean up my code
+
+*Debug*
+* import pydrake <br/>
+	* `ImportError: libpng16.so.16: cannot open shared object file: No such file or directory`  <br/>
+Soln: copy libpng16.so.16 to /usr/lib/ may be ok `locate libpng16.so.16` then `cp <location> /usr/lib/`
+	* `ImportError: libprotobuf.so.10: cannot open shared object file: No such file or directory` <br/>
+locate: libprotobuf9 in usr/lib/gnu and libprotobuf15 in anaconda
+
+

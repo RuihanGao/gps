@@ -1649,7 +1649,9 @@ https://pdfs.semanticscholar.org/c3ae/a964f75b04e2ee04082cbf94d034f3af1b4b.pdf
 
 ## 5.14
 1. Debug kitti `make_dataset.py` <br/>
-Use Rei's code for checking. The problem was I accidentally modified the velodyne data. It is already in 4D, so don't need to extend the dimension. what I though to be used to extend the dimension `+[1.0]` actually change the data, and results in offset for each individual point
+Use Rei's code for checking. The problem was I accidentally modified the velodyne data. It is already in 4D, so don't need to extend the dimension. what I though to be used to extend the dimension `+[1.0]` actually change the data, and results in offset for each individual point <br/>
+To use velodyne depth information, find the polygons, within each surf cluster the points and choose closest cluster as selected points. 
+For clustering, first try 1D [Kernel Density Estimation](https://scikit-learn.org/stable/auto_examples/neighbors/plot_kde_1d.html) or [gaussian-kde](https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.gaussian_kde.html), but it outputs a score, not cluster number. Swich to 2D [DBSCAN](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.DBSCAN.html) and use the index as the other dimension. [example in documentation](https://scikit-learn.org/stable/auto_examples/cluster/plot_dbscan.html#sphx-glr-auto-examples-cluster-plot-dbscan-py)
 2. Clean up my code
 
 *Debug*
@@ -1681,4 +1683,48 @@ locate: libprotobuf9 in usr/lib/gnu and libprotobuf15 in anaconda
 Note:for `\State` in algorithm, use`$...$` for the whole line of math expression and it helps with line break and alignment
 * [for loop](https://tex.stackexchange.com/questions/56871/how-to-format-for-loop)
 * [symbol list](https://mirror.unpad.ac.id/ctan/info/symbols/comprehensive/symbols-a4.pdf)
+
+## 5.15
+1. Read [Semantic segmentation](https://medium.com/nanonets/how-to-do-image-segmentation-using-deep-learning-c673cc5862ef), which train 'encoder' and 'decoder' network
+2. Finish the masking. <br/>
+	* use [`KMeans`](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html) instead of 'DBScan' 
+
+*To follow up*
+* [inpainint in opencv](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_photo/py_inpainting/py_inpainting.html)
+* [fill holes in opencv](https://www.learnopencv.com/filling-holes-in-an-image-using-opencv-python-c/)
+*Python*
+* Inefficient way:
+```
+if pt_img [0]>0 and pt_img[0]<img_width and pt_img[1]<img_height:
+cv2.circle(img, (np.int32(pt_img[0]),np.int32(pt_img[1])), 2, (0, 0, 255), -1)
+```
+Efficient:
+min_max `pt_img[0] = min(img_width-1, max(0, pt_img[0]/pt_img[2]))`
+
+* ind = np.argsort()
+ind = -ind # to reverse
+* nonzero = np.nonzero\[x, y, :]
+* np.where
+* [delete array elelment](https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.delete.html), single element or by index array
+* delete dictionary elemeny `del dict[key]`
+* to test if each element in an numpy array lies between two values?
+```
+a = numpy.array([1,2,3,4,5])
+(a > 1).all() and (a < 5).all()
+if you want the acutal array of truth vaues, just use:
+(a > 1) & (a < 5)
+```
+
+
+
+*Debug*
+* `error: (-215) p.checkVector(2, CV_32S) >= 0 in function fillPoly` for `fillPoly` or `polyLines`<br/> 
+Soln: 
+	* check array datatype first <br/>
+	e.g. `cv2.polylines(img, [points], 1, (255,255,255))` change `[points]` to `np.array([points], dtype=np.int32)` or `np.int32([points])`
+	* check the length of `[point]`, single point will raise abovementioned error
+	
+## 5.16
+*To Do*
+1. Study and make masks for [`nuscenes` dataset](https://github.com/nutonomy/nuscenes-devkit)
 

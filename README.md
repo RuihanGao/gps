@@ -1730,4 +1730,4 @@ Soln:
 ## 5.16
 *To Do*
 1. Study and make masks for [`nuscenes` dataset](https://github.com/nutonomy/nuscenes-devkit)
-
+2. Follow up: use matplot and jupyter

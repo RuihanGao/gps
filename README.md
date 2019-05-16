@@ -1731,3 +1731,15 @@ Soln:
 *To Do*
 1. Study and make masks for [`nuscenes` dataset](https://github.com/nutonomy/nuscenes-devkit)
 2. Follow up: use matplot and jupyter
+
+1. Write code for using NuScenes data, create `myNuScenes` and `myNuScenesExplorer` classes in `mynuscenes.py` and process the data in `make_dataset_nu.py`
+
+*Debug*
+* `ImportError: with error 'is not a package'` <br/>
+possible reason: python file and floder have the same name. <br/>
+Soln: `import sys
+sys.path.insert(0,'/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/nuscenes/nuscenes-devkit/python-sdk')` add the parent folder of the package by `sys.path.insert`
+* `Import error: cannot import name` <br/>
+possible reason: mutual inmport or wrong spelling (lowercase or uppercase), pls check carefully
+
+

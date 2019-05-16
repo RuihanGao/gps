@@ -1687,8 +1687,11 @@ Note:for `\State` in algorithm, use`$...$` for the whole line of math expression
 ## 5.15
 1. Read [Semantic segmentation](https://medium.com/nanonets/how-to-do-image-segmentation-using-deep-learning-c673cc5862ef), which train 'encoder' and 'decoder' network
 2. Finish the masking. <br/>
-	* use [`KMeans`](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html) instead of 'DBScan' 
-
+	* use [`KMeans`](https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html) instead of 'DBScan'
+	* use `hull` and `fillpoly` instead of `approxPolyDP` that gives zig-zag shape lines for unordered velodyne points
+	* the overlapping between front car and back car will affect the choice in clustering <br/>
+	do clustering and rendering from front to back, remove selected points from `velo_img`
+	* use idx to trace `velo_img`, simplify the code
 *To follow up*
 * [inpainint in opencv](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_photo/py_inpainting/py_inpainting.html)
 * [fill holes in opencv](https://www.learnopencv.com/filling-holes-in-an-image-using-opencv-python-c/)

@@ -1717,9 +1717,6 @@ a = numpy.array([1,2,3,4,5])
 if you want the acutal array of truth vaues, just use:
 (a > 1) & (a < 5)
 ```
-
-
-
 *Debug*
 * `error: (-215) p.checkVector(2, CV_32S) >= 0 in function fillPoly` for `fillPoly` or `polyLines`<br/> 
 Soln: 
@@ -1733,6 +1730,12 @@ Soln:
 2. Follow up: use matplot and jupyter
 
 1. Write code for using NuScenes data, create `myNuScenes` and `myNuScenesExplorer` classes in `mynuscenes.py` and process the data in `make_dataset_nu.py`
+	* use 2D array to store data instead of parsing into a dictionary for each car
+	* simpler way to parse data into dictionary `car = dict(x.split(':') for x in str(box).split(','))`, but `,` in array affects splitting
+	
+
+*Python*
+* To convert PIL to opencv, `img = cv2.cvtColor(np.array(im), cv2.COLOR_RGB2BGR)`
 
 *Debug*
 * `ImportError: with error 'is not a package'` <br/>

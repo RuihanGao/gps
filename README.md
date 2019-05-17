@@ -1751,6 +1751,7 @@ possible reason: mutual inmport or wrong spelling (lowercase or uppercase), pls 
 Try `instance` first, but it is convenient for tracking, but does not contain instantaneous translation and rotation information. <br/>
 `selected_anntokens` in `get_sample` function helps to identify which car it is. <br/>
 Next step: find how to get all annotations within one sample
+2. TODO: need to append to velo_img the other dimension, height and sqrt(x^2 + y^2)
 
 *Note*
 * [Quaternion](https://www.youtube.com/watch?v=zjMuIxRvygQ) <br/>

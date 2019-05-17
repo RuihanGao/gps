@@ -1753,4 +1753,6 @@ Try `instance` first, but it is convenient for tracking, but does not contain in
 Next step: find how to get all annotations within one sample
 
 *Note*
-* [Quaternion](https://www.youtube.com/watch?v=zjMuIxRvygQ)
+* [Quaternion](https://www.youtube.com/watch?v=zjMuIxRvygQ) <br/>
+q = cos(theta/2) + sin(theta/2)(x\*i + y\*j + z\*k), where (x\*i + y\*j + z\*k) is unit vector of the rotation axis <br/>
+To rotate point P around specified axis by specified angle, P' = q \* P \* q_inv

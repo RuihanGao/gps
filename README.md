@@ -1746,3 +1746,8 @@ sys.path.insert(0,'/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/nu
 possible reason: mutual inmport or wrong spelling (lowercase or uppercase), pls check carefully
 
 
+## 5.17
+1. Read dataset ro find how group bounding boxes for one car together. <br/>
+Try `instance` first, but it is convenient for tracking, but does not contain instantaneous translation and rotation information. <br/>
+`selected_anntokens` in `get_sample` function helps to identify which car it is. <br/>
+Next step: find how to get all annotations within one sample

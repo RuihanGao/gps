@@ -1684,6 +1684,14 @@ Note:for `\State` in algorithm, use`$...$` for the whole line of math expression
 * [for loop](https://tex.stackexchange.com/questions/56871/how-to-format-for-loop)
 * [symbol list](https://mirror.unpad.ac.id/ctan/info/symbols/comprehensive/symbols-a4.pdf)
 
+
+
+
+
+* Debug: `erroneous nesting of equation structures` <br/>
+when use `\begin{align}` environment, use it separately, no need to put in `\equation` environment.
+
+
 ## 5.15
 1. Read [Semantic segmentation](https://medium.com/nanonets/how-to-do-image-segmentation-using-deep-learning-c673cc5862ef), which train 'encoder' and 'decoder' network
 2. Finish the masking. <br/>

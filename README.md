@@ -1674,6 +1674,7 @@ locate: libprotobuf9 in usr/lib/gnu and libprotobuf15 in anaconda
 * [norm and abs value symbol](https://tex.stackexchange.com/questions/43008/absolute-value-symbols) [resize it](https://tex.stackexchange.com/questions/107186/how-to-write-norm-which-adjusts-its-size)
 * [fraction and binomial](https://www.overleaf.com/learn/latex/Fractions_and_Binomials)
 * natural log [ln]()https://tex.stackexchange.com/questions/314609/no-natural-log-parentheses-when-typesetting use `()` instead of `{}` after `\ln`
+* [Matrix or column vector](): use `\begin{bmatrix}` for square brackets and `\begin{Bmatrix}` for curly brackets.
 
 
 * [subscript and superscript](https://www.overleaf.com/learn/latex/Subscripts_and_superscripts)

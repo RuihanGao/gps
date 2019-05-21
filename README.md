@@ -1766,3 +1766,7 @@ Next step: find how to get all annotations within one sample
 * [Quaternion](https://www.youtube.com/watch?v=zjMuIxRvygQ) <br/>
 q = cos(theta/2) + sin(theta/2)(x\*i + y\*j + z\*k), where (x\*i + y\*j + z\*k) is unit vector of the rotation axis <br/>
 To rotate point P around specified axis by specified angle, P' = q \* P \* q_inv
+
+## 5.21
+1. Make dataset for nuscenes, but the Lidar points are sparse to create poly. <br/>
+Rei suggests to use [segnet](https://github.com/alexgkendall/SegNet-Tutorial)

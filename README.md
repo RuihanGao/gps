@@ -1685,7 +1685,7 @@ Note:for `\State` in algorithm, use`$...$` for the whole line of math expression
 * [for loop](https://tex.stackexchange.com/questions/56871/how-to-format-for-loop)
 * [symbol list](https://mirror.unpad.ac.id/ctan/info/symbols/comprehensive/symbols-a4.pdf)
 
-
+* [subfigure placement](https://tex.stackexchange.com/questions/333249/controlling-subfigure-captions-and-subfigure-placement)
 
 
 
@@ -1770,3 +1770,5 @@ To rotate point P around specified axis by specified angle, P' = q \* P \* q_inv
 ## 5.21
 1. Make dataset for nuscenes, but the Lidar points are sparse to create poly. <br/>
 Rei suggests to use [segnet](https://github.com/alexgkendall/SegNet-Tutorial)
+2. Write final report
+

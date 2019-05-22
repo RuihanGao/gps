@@ -1781,12 +1781,13 @@ if isinstance(obj, MyClass):
 
 ## 5.22 
 1. Finish logbook
-2. Follow [Segnet Tutorial](http://mi.eng.cam.ac.uk/projects/segnet/tutorial.html)
+2. Follow [Segnet Tutorial](http://mi.eng.cam.ac.uk/projects/segnet/tutorial.html) <br/>
+[segnet-caffe](https://github.com/alexgkendall/SegNet-Tutorial)
 
 *Debug*
 * When install and compile [Caffe](http://caffe.berkeleyvision.org/installation.html#compilation), encounter `fatal error: hdf5.h: No such file or directory` <br/>
 Soln: [check the installation and export CPATH](https://ahmedibrahimvt.wordpress.com/2017/02/19/fatal-error-hdf5-h-no-such-file-or-directory/)
-* Cmpiling `Caffe`, encounter `nvcc fatal   : Unsupported gpu architecture 'compute_20'` <br/>
+* Compiling `Caffe`, encounter `nvcc fatal   : Unsupported gpu architecture 'compute_20'` <br/>
 Soln: Remove or comment the line `-gencode arch=compute_20,code=sm_20 and -gencode arch=compute_20,code=sm_21` in Makefile.config.
 * Compiling `Caffe`, encounter `.build_release/lib/libcaffe.so: undefined reference to "cv::imread(cv::String const&, int)"` <br/>
 Since I am using OpenCV3, set the `OPENCV_VERSION` variable in `Makefile.config`

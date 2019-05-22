@@ -1805,7 +1805,7 @@ finally can import caffe in python 2.7 successfully
 Soln: should install `segnet-caffe` instead of the "bare" `BVLC caffe`
 
 * `make all` for `segent-caffe` encounter `undefined reference to cv::imread(cv::String const&, int)' `
-Set `OPENCV_VERSION` to 3 and uncommenting `USE_PKG_CONFIG` in the `Makefile.config` followed by `make all`
+Set `OPENCV_VERSION := 3` and uncommenting `USE_PKG_CONFIG` in the `Makefile.config` followed by `make all`
 
 * `make test` encounter `src/caffe/layers/contrastive_loss_layer.cpp:56:30: error: no matching function for call to ‘max(float, double)’ Dtype dist = std::max(margin - sqrt(dist_sq_.cpu_data()[i]), 0.0); ` <br/>
 Soln: Modify Line 56 in `contrastive_loss_layer.cpp` to  `Dtype dist = std::max(margin - (float)sqrt(dist_sq_.cpu_data()[i]), Dtype(0.0));`

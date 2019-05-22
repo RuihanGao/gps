@@ -1772,3 +1772,9 @@ To rotate point P around specified axis by specified angle, P' = q \* P \* q_inv
 Rei suggests to use [segnet](https://github.com/alexgkendall/SegNet-Tutorial)
 2. Write final report
 
+*Python*
+* To check if an object is an instance of a given class or of a subclass of it: use the built-in function isinstance. <br/>
+```
+if isinstance(obj, MyClass):
+     print "obj is my object"
+```

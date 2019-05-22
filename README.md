@@ -1812,4 +1812,14 @@ Soln: Modify Line 56 in `contrastive_loss_layer.cpp` to  `Dtype dist = std::max(
 
 
 *Notes from Rei*
-* new
+* use [the website](https://arnon.dk/matching-sm-architectures-arch-and-gencode-for-various-nvidia-cards/) to check the version of the GPU card and specify corresponding version for `gencode sm-xx`
+* cudnn is a library to speed up cuda. [Installation instructions](https://askubuntu.com/questions/767269/how-can-i-install-cudnn-on-ubuntu-16-04)
+
+
+*Reminders*
+* git clone `caffe-segnet` to `SegNet` and rename it as `caffe` to keep consistent with `PYTHONPATH`
+
+*To do*
+* write 4\*4 `quat2rot_center` in `data_class` but not using it
+* Swop the left and right poly in `mynuscenes`
+* the shape does not look so nice, may need to add fornt and back ordering

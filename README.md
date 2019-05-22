@@ -1792,3 +1792,11 @@ Soln: Remove or comment the line `-gencode arch=compute_20,code=sm_20 and -genco
 Since I am using OpenCV3, set the `OPENCV_VERSION` variable in `Makefile.config`
 * Compiling `Caffe`, encounter `caffe with OPENCV 3.3.0: undefined reference to 'TIFFReadDirectory@LIBTIFF_4.0'` <br/>
 Soln: some say remake OpenCV with [`tiff = ON`](https://github.com/BVLC/caffe/issues/4436), but for me, I just uncomment the `OPENCV version` in `Makeconfig`, **delete the previous cmake folder**, and do `make all` again. Previous cmake files amy mess up so the error stays.
+* After successful compilation, do `make pycaffe` and `make distribute` no error. <br/>
+However, when `python >>import caffe`, encounter `ImportError: No module named caffe` <br/>
+Soln: only making and compiling the caffe is not enough, need to provide the caffe's path to Python, <br/>
+In `~/.bashrc` add `export PYTHONPATH=$PYTHONPATH:/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/SegNet/caffe/distribute/python` <br/>
+if encounter `ImportError: libcaffe.so.1.0.0: cannot open shared object file: No such file or directory`, <br/>
+in `~/.bashrc` add `export LD_LIBRARY_PATH=/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/SegNet/caffe/distribute/lib:$LD_LIBRARY_PATH` <br/>
+finally can import caffe in python 2.7 successfully
+

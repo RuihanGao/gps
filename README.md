@@ -1799,4 +1799,5 @@ In `~/.bashrc` add `export PYTHONPATH=$PYTHONPATH:/media/sunardi/5c4c121b-5f45-4
 if encounter `ImportError: libcaffe.so.1.0.0: cannot open shared object file: No such file or directory`, <br/>
 in `~/.bashrc` add `export LD_LIBRARY_PATH=/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/SegNet/caffe/distribute/lib:$LD_LIBRARY_PATH` <br/>
 finally can import caffe in python 2.7 successfully
+* Change default python path `alias python=/usr/bin/python2.7`, but maybe need to redo when opening a new terminal
 

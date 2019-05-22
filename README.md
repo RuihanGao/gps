@@ -1778,3 +1778,17 @@ Rei suggests to use [segnet](https://github.com/alexgkendall/SegNet-Tutorial)
 if isinstance(obj, MyClass):
      print "obj is my object"
 ```
+
+## 5.22 
+1. Finish logbook
+2. Follow [Segnet Tutorial](http://mi.eng.cam.ac.uk/projects/segnet/tutorial.html)
+
+*Debug*
+* When install and compile [Caffe](http://caffe.berkeleyvision.org/installation.html#compilation), encounter `fatal error: hdf5.h: No such file or directory` <br/>
+Soln: [check the installation and export CPATH](https://ahmedibrahimvt.wordpress.com/2017/02/19/fatal-error-hdf5-h-no-such-file-or-directory/)
+* Cmpiling `Caffe`, encounter `nvcc fatal   : Unsupported gpu architecture 'compute_20'` <br/>
+Soln: Remove or comment the line `-gencode arch=compute_20,code=sm_20 and -gencode arch=compute_20,code=sm_21` in Makefile.config.
+* Compiling `Caffe`, encounter `.build_release/lib/libcaffe.so: undefined reference to "cv::imread(cv::String const&, int)"` <br/>
+Since I am using OpenCV3, set the `OPENCV_VERSION` variable in `Makefile.config`
+* Compiling `Caffe`, encounter `caffe with OPENCV 3.3.0: undefined reference to 'TIFFReadDirectory@LIBTIFF_4.0'` <br/>
+Soln: some say remake OpenCV with [`tiff = ON`](https://github.com/BVLC/caffe/issues/4436), but for me, I just uncomment the `OPENCV version` in `Makeconfig`, **delete the previous cmake folder**, and do `make all` again. Previous cmake files amy mess up so the error stays.

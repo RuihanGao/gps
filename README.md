@@ -1829,3 +1829,4 @@ Soln: Modify Line 56 in `contrastive_loss_layer.cpp` to  `Dtype dist = std::max(
 
 *Python*
 * elementwise compare two array `(A==B).all()`
+* Opencv [morphology, e.g. dilation, erosion](https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_imgproc/py_morphological_ops/py_morphological_ops.html)

@@ -1824,3 +1824,8 @@ Soln: Modify Line 56 in `contrastive_loss_layer.cpp` to  `Dtype dist = std::max(
 * write 4\*4 `quat2rot_center` in `data_class` but not using it
 * Swop the left and right poly in `mynuscenes`
 * the shape does not look so nice, may need to add fornt and back ordering
+
+## 5.23
+
+*Python*
+* elementwise compare two array `(A==B).all()`

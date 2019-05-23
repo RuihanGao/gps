@@ -1831,3 +1831,5 @@ Soln: Modify Line 56 in `contrastive_loss_layer.cpp` to  `Dtype dist = std::max(
 * elementwise compare two array `(A==B).all()`
 * Opencv [morphology, e.g. dilation, erosion](https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_imgproc/py_morphological_ops/py_morphological_ops.html)
 * [http://kieranwynn.github.io/pyquaternion/](http://kieranwynn.github.io/pyquaternion/) [scipy transformation](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.transform.Rotation.html)
+* [quaterion in ROS](https://answers.ros.org/question/69754/quaternion-transformations-in-python/) [quaterion message](http://docs.ros.org/api/geometry_msgs/html/msg/Quaternion.html)
+* [rotation matrix to euler angle](https://www.learnopencv.com/rotation-matrix-to-euler-angles/)

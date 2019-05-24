@@ -1826,10 +1826,19 @@ Soln: Modify Line 56 in `contrastive_loss_layer.cpp` to  `Dtype dist = std::max(
 * the shape does not look so nice, may need to add fornt and back ordering
 
 ## 5.23
-
+1. Finish with generating data for CAM_FRONT. Problem solving for choosing "visible polys",. Read for quaterion, Rei recommends Ros `quat to euler` but I am using Python3. Find another rotation_matrix to euler angle function. <br/>
+Sorry to bother Rei too much by asking questions, but he is so helpful to save me from stucking there for another day. <br/>
+Finally solve the program by get yaw theta from `euler_angle[1]` and add `pi` to it for coordinate transformation. For cars in opposite direction,both front/back and left/right are reverted, but not affecting the rendering too much.
+2. Prepare slides for the presentation. Practice, practice.
 *Python*
 * elementwise compare two array `(A==B).all()`
 * Opencv [morphology, e.g. dilation, erosion](https://docs.opencv.org/3.0-beta/doc/py_tutorials/py_imgproc/py_morphological_ops/py_morphological_ops.html)
 * [http://kieranwynn.github.io/pyquaternion/](http://kieranwynn.github.io/pyquaternion/) [scipy transformation](https://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.transform.Rotation.html)
 * [quaterion in ROS](https://answers.ros.org/question/69754/quaternion-transformations-in-python/) [quaterion message](http://docs.ros.org/api/geometry_msgs/html/msg/Quaternion.html)
 * [rotation matrix to euler angle](https://www.learnopencv.com/rotation-matrix-to-euler-angles/)
+
+## 5.24 
+1. Try Carla
+2. Ask Ee Wei for starting points for C++: <br/>
+tutorial: cplusplus.com <br/>
+key points: class, stream, STL container(std::vector), way of defining `const`

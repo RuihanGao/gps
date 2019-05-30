@@ -1687,6 +1687,9 @@ Note:for `\State` in algorithm, use`$...$` for the whole line of math expression
 
 * [subfigure placement](https://tex.stackexchange.com/questions/333249/controlling-subfigure-captions-and-subfigure-placement)
 
+* [Page numbering](https://www.overleaf.com/learn/latex/Page_numbering)
+* customize the `\tableofcontents` by [`\addcontentsline`](http://www.emerson.emory.edu/services/latex/latex_162.html)
+
 
 
 * Debug: `erroneous nesting of equation structures` <br/>

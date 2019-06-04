@@ -1845,3 +1845,15 @@ Finally solve the program by get yaw theta from `euler_angle[1]` and add `pi` to
 2. Ask Ee Wei for starting points for C++: <br/>
 tutorial: cplusplus.com <br/>
 key points: class, stream, STL container(std::vector), way of defining `const`
+3. Presentation
+
+## 5.30 - 5.31
+1. Finish report
+2. Continue to generate the masks
+
+## 6.3 
+1. Sentosa with testing team <br/>
+Record the traffic, different types of vehicles and abonormal behaviour like road hogging
+
+
+

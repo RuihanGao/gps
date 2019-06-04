@@ -1786,6 +1786,7 @@ if isinstance(obj, MyClass):
 1. Finish logbook
 2. Follow [Segnet Tutorial](http://mi.eng.cam.ac.uk/projects/segnet/tutorial.html) <br/>
 [segnet-caffe](https://github.com/alexgkendall/SegNet-Tutorial)
+3. Write `nuscenes_dmo.py` to generate segmentation data for `CAM_FRONT` images. To run it, do `sunardi@sunardi:/media/sunardi/5c4c121b-5f45-4689-b8c3-f44b3e5ef4da/ruihan/SegNet$ python Scripts/nuscenes_demo.py`
 
 *Debug*
 * When install and compile [Caffe](http://caffe.berkeleyvision.org/installation.html#compilation), encounter `fatal error: hdf5.h: No such file or directory` <br/>
@@ -1832,6 +1833,7 @@ Soln: Modify Line 56 in `contrastive_loss_layer.cpp` to  `Dtype dist = std::max(
 1. Finish with generating data for CAM_FRONT. Problem solving for choosing "visible polys",. Read for quaterion, Rei recommends Ros `quat to euler` but I am using Python3. Find another rotation_matrix to euler angle function. <br/>
 Sorry to bother Rei too much by asking questions, but he is so helpful to save me from stucking there for another day. <br/>
 Finally solve the program by get yaw theta from `euler_angle[1]` and add `pi` to it for coordinate transformation. For cars in opposite direction,both front/back and left/right are reverted, but not affecting the rendering too much.
+
 2. Prepare slides for the presentation. Practice, practice.
 *Python*
 * elementwise compare two array `(A==B).all()`
